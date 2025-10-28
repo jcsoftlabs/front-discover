@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import Link from 'next/link';
 import { loginPartner } from '@/lib/auth';
 
 const loginSchema = z.object({
@@ -127,19 +128,19 @@ export default function PartnerLoginPage() {
         <div className="text-center space-y-2">
           <p className="text-sm text-gray-600">
             Pas encore partenaire ?{' '}
-            <a
+            <Link
               href="/partner/register"
               className="font-medium text-green-600 hover:text-green-500"
             >
               Inscrivez-vous
-            </a>
+            </Link>
           </p>
-          <a
+          <Link
             href="/"
             className="block font-medium text-green-600 hover:text-green-500"
           >
             ← Retour à l'accueil
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -68,11 +68,10 @@ apiClient.interceptors.response.use(
         const refreshToken = localStorage.getItem('refreshToken');
         
         if (!refreshToken) {
-          // Pas de refresh token, rediriger vers login
+          // Pas de refresh token, ne pas rediriger si on est sur une page publique
           isRefreshing = false;
-          const userType = localStorage.getItem('userType');
           localStorage.clear();
-          window.location.href = userType === 'partner' ? '/partner/login' : '/admin/login';
+          // Ne pas rediriger automatiquement, laisser l'app gérer
           return Promise.reject(error);
         }
 
@@ -101,9 +100,8 @@ apiClient.interceptors.response.use(
           // Échec du refresh, déconnecter l'utilisateur
           processQueue(refreshError as AxiosError, null);
           isRefreshing = false;
-          const userType = localStorage.getItem('userType');
           localStorage.clear();
-          window.location.href = userType === 'partner' ? '/partner/login' : '/admin/login';
+          // Ne pas rediriger automatiquement, laisser l'app gérer
           return Promise.reject(refreshError);
         }
       }

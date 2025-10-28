@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Discover Haiti',
-    default: 'Discover Haiti - Tourisme en Haïti',
+    template: '%s | Touris',
+    default: 'Touris - Tourisme en Haïti',
   },
   description: 'Découvrez les merveilles d\'Haïti : hôtels, restaurants, sites touristiques et bien plus encore.',
   keywords: ['Haïti', 'tourisme', 'voyage', 'hôtels', 'restaurants', 'sites touristiques'],

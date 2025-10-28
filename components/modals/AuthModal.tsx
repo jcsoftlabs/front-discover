@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
-import { X, Mail, Lock, User, LogIn, UserPlus } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { X, Mail, Lock, User, LogIn, UserPlus, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '@/lib/AuthContext';
+import { useFacebookAuth } from '@/lib/useFacebookAuth';
+import CountrySelect from '@/components/CountrySelect';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -28,6 +30,10 @@ const registerSchema = z.object({
       'Le mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre et un caractère spécial'),
   firstName: z.string().min(2, 'Le prénom doit contenir au moins 2 caractères'),
   lastName: z.string().min(2, 'Le nom doit contenir au moins 2 caractères'),
+  phone: z.string()
+    .min(8, 'Le numéro de téléphone doit contenir au moins 8 caractères')
+    .regex(/^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/, 'Numéro de téléphone invalide'),
+  country: z.string().min(2, 'Veuillez sélectionner un pays'),
   role: z.enum(['USER', 'PARTNER']),
 });
 
@@ -38,7 +44,16 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
   const [mode, setMode] = useState<'login' | 'register'>(defaultMode);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { login, register: registerUser, loginWithGoogle } = useAuth();
+  const { login, register: registerUser, loginWithGoogle, loginWithFacebook } = useAuth();
+  const { loginWithFacebook: fbLogin, isSDKLoaded } = useFacebookAuth();
+
+  // Synchroniser le mode avec defaultMode quand le modal s'ouvre
+  useEffect(() => {
+    if (isOpen) {
+      setMode(defaultMode);
+      setError(null);
+    }
+  }, [isOpen, defaultMode]);
 
   const {
     register: registerForm,
@@ -57,7 +72,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
     watch,
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
-    defaultValues: { role: 'USER' },
+    defaultValues: { role: 'USER', country: '' },
   });
 
   const selectedRole = watch('role');
@@ -105,6 +120,32 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
 
   const handleGoogleError = () => {
     setError('Erreur lors de la connexion avec Google');
+  };
+
+  const handleFacebookLogin = async () => {
+    setError(null);
+    setIsLoading(true);
+    try {
+      const result = await fbLogin();
+      if (result.success && result.user && result.accessToken) {
+        const { user, accessToken } = result;
+        await loginWithFacebook(
+          accessToken,
+          user.id,
+          user.email || '',
+          user.first_name || user.name.split(' ')[0],
+          user.last_name || user.name.split(' ').slice(1).join(' '),
+          user.picture?.data?.url
+        );
+        onClose();
+      } else {
+        setError(result.error || 'Erreur lors de la connexion avec Facebook');
+      }
+    } catch (err: any) {
+      setError(err.message || 'Erreur lors de la connexion avec Facebook');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const switchMode = () => {
@@ -208,7 +249,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                   disabled={isLoading}
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition disabled:opacity-50"
                 >
-                  {isLoading ? 'Connexion...' : 'Se connecter'}
+                  {isLoading ? 'Connexion...' : 'Connexion'}
                 </button>
               </form>
             ) : (
@@ -309,6 +350,37 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                   )}
                 </div>
 
+                {/* Phone */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Téléphone
+                  </label>
+                  <div className="relative">
+                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <input
+                      {...registerFormRegister('phone')}
+                      type="tel"
+                      placeholder="+509 1234 5678"
+                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  {registerErrors.phone && (
+                    <p className="mt-1 text-sm text-red-600">{registerErrors.phone.message}</p>
+                  )}
+                </div>
+
+                {/* Country */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Pays
+                  </label>
+                  <CountrySelect
+                    value={watch('country')}
+                    onChange={(value) => registerFormRegister('country').onChange({ target: { value } })}
+                    error={registerErrors.country?.message}
+                  />
+                </div>
+
                 {/* Password */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -333,7 +405,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                   disabled={isLoading}
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition disabled:opacity-50"
                 >
-                  {isLoading ? 'Inscription...' : 'S&apos;inscrire'}
+                  {isLoading ? 'Inscription...' : "S'inscrire"}
                 </button>
               </form>
             )}
@@ -348,14 +420,34 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
               </div>
             </div>
 
-            {/* Google Login */}
-            <div className="flex justify-center">
-              <GoogleLogin
-                onSuccess={handleGoogleSuccess}
-                onError={handleGoogleError}
-                useOneTap
-                text={mode === 'login' ? 'signin_with' : 'signup_with'}
-              />
+            {/* Social Login Buttons */}
+            <div className="space-y-3">
+              {/* Google Login */}
+              <div className="flex justify-center">
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={handleGoogleError}
+                  useOneTap
+                  text={mode === 'login' ? 'signin_with' : 'signup_with'}
+                />
+              </div>
+
+              {/* Facebook Login */}
+              <button
+                onClick={handleFacebookLogin}
+                disabled={isLoading || !isSDKLoaded}
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-[#1877F2] text-white rounded-lg font-semibold hover:bg-[#166FE5] transition disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+                <span>
+                  {isLoading ? 'Connexion...' : `Continuer avec Facebook`}
+                </span>
+              </button>
+              {!isSDKLoaded && (
+                <p className="text-xs text-gray-500 text-center">Chargement du SDK Facebook...</p>
+              )}
             </div>
 
             {/* Switch Mode */}
@@ -365,7 +457,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                 className="text-blue-600 hover:text-blue-700 font-medium"
               >
                 {mode === 'login'
-                  ? "Pas encore de compte ? S&apos;inscrire"
+                  ? "Pas encore de compte ? S'inscrire"
                   : 'Déjà un compte ? Se connecter'}
               </button>
             </div>

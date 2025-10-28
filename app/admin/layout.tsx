@@ -10,6 +10,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { user, loading, logout } = useAuth('ADMIN');
   
   // Pages publiques qui n'ont pas besoin d'authentification
   const publicPages = ['/admin/login'];
@@ -19,9 +20,6 @@ export default function AdminLayout({
   if (isPublicPage) {
     return <>{children}</>;
   }
-
-  // Pour les pages protégées, vérifier l'authentification
-  const { user, loading, logout } = useAuth('ADMIN');
 
   if (loading) {
     return (

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import Link from 'next/link';
 import { loginAdmin } from '@/lib/auth';
 
 const loginSchema = z.object({
@@ -119,12 +120,12 @@ export default function AdminLoginPage() {
         </form>
 
         <div className="text-center">
-          <a
+          <Link
             href="/"
             className="font-medium text-blue-600 hover:text-blue-500"
           >
             ← Retour à l'accueil
-          </a>
+          </Link>
         </div>
       </div>
     </div>

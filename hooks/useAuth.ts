@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { getCurrentUser, isAuthenticated, logout as authLogout, hasRole } from '@/lib/auth';
 import type { User, Partner } from '@/types';
@@ -17,11 +17,17 @@ export function useAuth(requiredRole?: UserRole): UseAuthReturn {
   const router = useRouter();
   const [user, setUser] = useState<User | Partner | null>(null);
   const [loading, setLoading] = useState(true);
+  const hasChecked = useRef(false);
 
   useEffect(() => {
+    // Éviter les vérifications multiples
+    if (hasChecked.current) return;
+    hasChecked.current = true;
+
     const checkAuth = () => {
       if (!isAuthenticated()) {
         const loginPath = requiredRole === 'PARTNER' ? '/partner/login' : '/admin/login';
+        setLoading(false);
         router.push(loginPath);
         return;
       }
@@ -30,6 +36,7 @@ export function useAuth(requiredRole?: UserRole): UseAuthReturn {
       
       if (!userData) {
         const loginPath = requiredRole === 'PARTNER' ? '/partner/login' : '/admin/login';
+        setLoading(false);
         router.push(loginPath);
         return;
       }
@@ -41,6 +48,7 @@ export function useAuth(requiredRole?: UserRole): UseAuthReturn {
         if (!roleCheck) {
           // Rediriger vers le bon portail
           const correctPath = userData.userType === 'partner' ? '/partner/dashboard' : '/admin';
+          setLoading(false);
           router.push(correctPath);
           return;
         }
@@ -53,13 +61,13 @@ export function useAuth(requiredRole?: UserRole): UseAuthReturn {
     };
 
     checkAuth();
-  }, [router, requiredRole]);
+  }, [requiredRole, router]);
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     await authLogout();
     const loginPath = requiredRole === 'PARTNER' ? '/partner/login' : '/admin/login';
     router.push(loginPath);
-  };
+  }, [requiredRole, router]);
 
   return {
     user,

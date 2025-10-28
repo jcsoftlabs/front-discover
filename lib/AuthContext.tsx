@@ -10,6 +10,7 @@ interface AuthContextType {
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
   loginWithGoogle: (idToken: string) => Promise<void>;
+  loginWithFacebook: (accessToken: string, facebookId: string, email: string, firstName: string, lastName: string, profilePicture?: string) => Promise<void>;
   register: (data: RegisterData) => Promise<void>;
   logout: () => void;
   refreshUser: () => Promise<void>;
@@ -111,6 +112,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const loginWithFacebook = async (
+    accessToken: string,
+    facebookId: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    profilePicture?: string
+  ) => {
+    try {
+      const response = await apiClient.post('/auth/facebook', {
+        accessToken,
+        facebookId,
+        email,
+        firstName,
+        lastName,
+        profilePicture,
+      });
+      
+      if (response.data.success) {
+        const { token, user: userData } = response.data;
+        localStorage.setItem('accessToken', token);
+        localStorage.setItem('user', JSON.stringify(userData));
+        setUser(userData);
+        setIsAuthenticated(true);
+      }
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { error?: string } } };
+      throw new Error(err.response?.data?.error || 'Erreur de connexion Facebook');
+    }
+  };
+
   const register = async (data: RegisterData) => {
     try {
       const response = await apiClient.post('/auth/register', data);
@@ -136,6 +168,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isLoading,
         login,
         loginWithGoogle,
+        loginWithFacebook,
         register,
         logout,
         refreshUser,

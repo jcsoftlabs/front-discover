@@ -61,6 +61,7 @@ export default function EditEstablishmentPage() {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [partners, setPartners] = useState<any[]>([]);
   const [establishment, setEstablishment] = useState<Establishment | null>(null);
+  const [imagesToDelete, setImagesToDelete] = useState<string[]>([]);
 
   const {
     register,
@@ -78,12 +79,19 @@ export default function EditEstablishmentPage() {
         setLoadingData(true);
         
         // Charger les partenaires
-        const partnersResponse = await apiClient.get('/partners');
+        const partnersResponse = await apiClient.get('/admin/partners');
         setPartners(partnersResponse.data.data || partnersResponse.data);
 
         // Charger l'établissement
         const establishmentResponse = await apiClient.get<ApiResponse<Establishment>>(`/establishments/${id}`);
         const data = establishmentResponse.data.data;
+        
+        if (!data) {
+          setError('Établissement introuvable');
+          setLoadingData(false);
+          return;
+        }
+        
         setEstablishment(data);
 
         // Pré-remplir le formulaire
@@ -139,6 +147,11 @@ export default function EditEstablishmentPage() {
         formData.append('images', file);
       });
 
+      // Ajouter les images à supprimer
+      if (imagesToDelete.length > 0) {
+        formData.append('imagesToDelete', JSON.stringify(imagesToDelete));
+      }
+
       const response = await apiClient.put<ApiResponse<any>>(
         `/establishments/${id}`,
         formData,
@@ -164,6 +177,12 @@ export default function EditEstablishmentPage() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setImageFiles(Array.from(e.target.files));
+    }
+  };
+
+  const handleDeleteImage = (imageUrl: string) => {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette image ?')) {
+      setImagesToDelete([...imagesToDelete, imageUrl]);
     }
   };
 
@@ -228,7 +247,7 @@ export default function EditEstablishmentPage() {
             <select
               id="partnerId"
               {...register('partnerId')}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-gray-900 px-3 py-2 border"
             >
               <option value="">Sélectionner un partenaire</option>
               {partners.map((partner) => (
@@ -251,7 +270,7 @@ export default function EditEstablishmentPage() {
               type="text"
               id="name"
               {...register('name')}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-gray-900 px-3 py-2 border"
             />
             {errors.name && (
               <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
@@ -266,7 +285,7 @@ export default function EditEstablishmentPage() {
             <select
               id="type"
               {...register('type')}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-gray-900 px-3 py-2 border"
             >
               <option value="">Sélectionner un type</option>
               {establishmentTypes.map((type) => (
@@ -289,7 +308,7 @@ export default function EditEstablishmentPage() {
               id="description"
               rows={4}
               {...register('description')}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-gray-900 px-3 py-2 border"
             />
             {errors.description && (
               <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
@@ -306,7 +325,7 @@ export default function EditEstablishmentPage() {
               id="price"
               step="0.01"
               {...register('price', { valueAsNumber: true })}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-gray-900 px-3 py-2 border"
             />
             {errors.price && (
               <p className="mt-1 text-sm text-red-600">{errors.price.message}</p>
@@ -322,7 +341,7 @@ export default function EditEstablishmentPage() {
               type="text"
               id="address"
               {...register('address')}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-gray-900 px-3 py-2 border"
             />
             {errors.address && (
               <p className="mt-1 text-sm text-red-600">{errors.address.message}</p>
@@ -342,7 +361,7 @@ export default function EditEstablishmentPage() {
                 {...register('latitude', { 
                   setValueAs: (v) => v === '' ? null : parseFloat(v) 
                 })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-gray-900 px-3 py-2 border"
               />
               {errors.latitude && (
                 <p className="mt-1 text-sm text-red-600">{errors.latitude.message}</p>
@@ -360,7 +379,7 @@ export default function EditEstablishmentPage() {
                 {...register('longitude', { 
                   setValueAs: (v) => v === '' ? null : parseFloat(v) 
                 })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-gray-900 px-3 py-2 border"
               />
               {errors.longitude && (
                 <p className="mt-1 text-sm text-red-600">{errors.longitude.message}</p>
@@ -375,15 +394,33 @@ export default function EditEstablishmentPage() {
                 Images actuelles
               </label>
               <div className="grid grid-cols-3 gap-4">
-                {establishment.images.map((image, index) => (
-                  <img
-                    key={index}
-                    src={image}
-                    alt={`${establishment.name} ${index + 1}`}
-                    className="w-full h-32 object-cover rounded"
-                  />
+                {establishment.images
+                  .filter(image => !imagesToDelete.includes(image))
+                  .map((image, index) => (
+                  <div key={index} className="relative group">
+                    <img
+                      src={image}
+                      alt={`${establishment.name} ${index + 1}`}
+                      className="w-full h-32 object-cover rounded"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteImage(image)}
+                      className="absolute top-2 right-2 bg-red-600 text-white p-2 rounded-full hover:bg-red-700 opacity-0 group-hover:opacity-100 transition-opacity"
+                      title="Supprimer cette image"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
                 ))}
               </div>
+              {imagesToDelete.length > 0 && (
+                <p className="mt-2 text-sm text-red-600">
+                  {imagesToDelete.length} image(s) sera supprimée(s) lors de la sauvegarde
+                </p>
+              )}
             </div>
           )}
 
