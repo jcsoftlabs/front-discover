@@ -4,6 +4,7 @@ const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
     'Content-Type': 'application/json',
+    'X-Client-Type': 'web',
   },
   withCredentials: true, // Pour envoyer les cookies
 });
@@ -43,6 +44,12 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
+    // Si pas de réponse du tout (erreur réseau)
+    if (!error.response) {
+      console.error('Network Error:', error.message);
+      return Promise.reject(new Error('Erreur réseau. Vérifiez votre connexion Internet.'));
+    }
+
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
     // Si erreur 401 et pas encore retry
