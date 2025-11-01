@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import apiClient from '@/lib/axios';
 import { Site } from '@/types';
+import { getAllImages } from '@/lib/utils';
 import GoogleMap from '@/components/ui/GoogleMap';
 import FavoriteButton from '@/components/ui/FavoriteButton';
 import AuthModal from '@/components/modals/AuthModal';
@@ -127,7 +128,7 @@ export default function SiteDetailPage() {
     );
   }
 
-  const images = site.images || [];
+  const images = getAllImages(site.images);
   const hasImages = images.length > 0;
 
   return (
@@ -166,38 +167,46 @@ export default function SiteDetailPage() {
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl mb-8"
+            className="relative h-64 sm:h-80 md:h-96 lg:h-[450px] rounded-2xl overflow-hidden shadow-2xl mb-8"
           >
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-black/20 z-10" />
             <img
               src={images[currentImageIndex]}
               alt={site.name}
               className="w-full h-full object-cover"
+              crossOrigin="anonymous"
             />
             
             {images.length > 1 && (
               <>
                 <button
                   onClick={prevImage}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/90 rounded-full hover:bg-white transition shadow-lg"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white hover:scale-110 transition-all shadow-lg z-20"
                 >
-                  <ChevronLeft className="w-6 h-6" />
+                  <ChevronLeft className="w-5 h-5 text-gray-800" />
                 </button>
                 <button
                   onClick={nextImage}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/90 rounded-full hover:bg-white transition shadow-lg"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white hover:scale-110 transition-all shadow-lg z-20"
                 >
-                  <ChevronRight className="w-6 h-6" />
+                  <ChevronRight className="w-5 h-5 text-gray-800" />
                 </button>
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
                   {images.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`w-2 h-2 rounded-full transition ${
-                        index === currentImageIndex ? 'bg-white w-8' : 'bg-white/50'
+                      className={`h-1.5 rounded-full transition-all ${
+                        index === currentImageIndex 
+                          ? 'bg-white w-8 shadow-lg' 
+                          : 'bg-white/60 w-1.5 hover:bg-white/80'
                       }`}
                     />
                   ))}
+                </div>
+                {/* Image counter */}
+                <div className="absolute top-4 right-4 px-3 py-1.5 bg-black/60 backdrop-blur-sm text-white text-sm font-medium rounded-full z-20">
+                  {currentImageIndex + 1} / {images.length}
                 </div>
               </>
             )}
