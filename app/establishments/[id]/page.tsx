@@ -5,10 +5,12 @@ import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { 
   MapPin, Phone, Mail, Clock, Star, MessageCircle, 
-  ArrowLeft, Share2, ExternalLink, ChevronLeft, ChevronRight 
+  ArrowLeft, Share2, ExternalLink, ChevronLeft, ChevronRight,
+  Wifi, Utensils, Car, Coffee, CreditCard, Sparkles, Award, Users, Heart
 } from 'lucide-react';
 import apiClient from '@/lib/axios';
 import { Establishment } from '@/types';
+import { getAllImages } from '@/lib/utils';
 import GoogleMap from '@/components/ui/GoogleMap';
 import FavoriteButton from '@/components/ui/FavoriteButton';
 import RatingStars from '@/components/ui/RatingStars';
@@ -23,6 +25,24 @@ const typeLabels: Record<string, string> = {
   ATTRACTION: 'Attraction',
   SHOP: 'Boutique',
   SERVICE: 'Service',
+};
+
+const amenitiesIcons: Record<string, any> = {
+  wifi: Wifi,
+  parking: Car,
+  restaurant: Utensils,
+  cafe: Coffee,
+  credit_card: CreditCard,
+};
+
+const typeDescriptions: Record<string, string> = {
+  HOTEL: 'Profitez d\'un séjour confortable dans un cadre authentiquement haïtien. Notre établissement offre une expérience inoubliable alliant confort moderne et hospitalité traditionnelle.',
+  RESTAURANT: 'Découvrez les saveurs authentiques de la cuisine haïtienne dans une ambiance chaleureuse et accueillante. Chaque plat raconte une histoire de tradition et de passion culinaire.',
+  BAR: 'Un lieu de rencontre convivial où déguster les meilleures boissons locales et internationales dans une atmosphère animée et authentique.',
+  CAFE: 'Un espace cosy pour savourer un excellent café haïtien, accompagné de pâtisseries fraîches, tout en profitant d\'une ambiance relaxante.',
+  ATTRACTION: 'Plongez dans l\'histoire et la culture d\'Haïti à travers cette expérience unique qui marquera votre voyage.',
+  SHOP: 'Découvrez l\'artisanat local et les produits authentiques qui font la richesse culturelle d\'Haïti.',
+  SERVICE: 'Un service de qualité pour enrichir votre expérience en Haïti et répondre à tous vos besoins.',
 };
 
 export default function EstablishmentDetailPage() {
@@ -146,7 +166,7 @@ export default function EstablishmentDetailPage() {
     );
   }
 
-  const images = establishment.images || [];
+  const images = getAllImages(establishment.images);
   const hasImages = images.length > 0;
 
   return (
@@ -191,6 +211,7 @@ export default function EstablishmentDetailPage() {
               src={images[currentImageIndex]}
               alt={establishment.name}
               className="w-full h-full object-cover"
+              crossOrigin="anonymous"
             />
             
             {images.length > 1 && (
@@ -255,7 +276,7 @@ export default function EstablishmentDetailPage() {
                     </div>
                   )}
                 </div>
-                {establishment.price > 0 && (
+                {establishment.type === 'HOTEL' && establishment.price > 0 && (
                   <div className="text-right">
                     <p className="text-sm text-gray-600">À partir de</p>
                     <p className="text-3xl font-bold text-gray-900">
@@ -287,6 +308,130 @@ export default function EstablishmentDetailPage() {
                   </p>
                 </div>
               )}
+
+              {/* Contextual Info */}
+              <div className="pt-6 border-t border-gray-200">
+                <div className="flex items-start gap-3 bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl">
+                  <Sparkles className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-2">Ce qui rend cet endroit spécial</h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      {typeDescriptions[establishment.type] || 'Un lieu unique qui contribue à faire d\'Haïti une destination inoubliable.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Why Visit Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 rounded-2xl shadow-lg p-8"
+            >
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <Award className="w-7 h-7 text-green-600" />
+                Pourquoi visiter {establishment.name} ?
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-white rounded-lg shadow-sm">
+                    <Users className="w-6 h-6 text-green-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-1">Expérience Authentique</h3>
+                    <p className="text-gray-700 text-sm">
+                      Vivez l’hospitalité haïtienne dans toute sa splendeur et découvrez la chaleur humaine qui fait la réputation de notre peuple.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-white rounded-lg shadow-sm">
+                    <Heart className="w-6 h-6 text-red-500" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-1">Culture Locale</h3>
+                    <p className="text-gray-700 text-sm">
+                      Immergez-vous dans la richesse culturelle d\'Haïti, entre traditions ancestrales et modernité créole.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-white rounded-lg shadow-sm">
+                    <Sparkles className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-1">Cadre Exceptionnel</h3>
+                    <p className="text-gray-700 text-sm">
+                      {establishment.departement ? `Situé dans le ${establishment.departement}, ` : ''}Un emplacement privilégié pour explorer les merveilles de la région.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-white rounded-lg shadow-sm">
+                    <Star className="w-6 h-6 text-yellow-500" fill="currentColor" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-1">Qualité Reconnue</h3>
+                    <p className="text-gray-700 text-sm">
+                      Noté {(establishment.averageRating || 0).toFixed(1)}/5 par {establishment.reviewCount || 0} visiteurs qui recommandent cette expérience.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Local Info Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="bg-white rounded-2xl shadow-lg p-8"
+            >
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">À savoir avant votre visite</h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-blue-50 p-5 rounded-xl">
+                  <h3 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                    <MapPin className="w-5 h-5 text-blue-600" />
+                    Accès & Transport
+                  </h3>
+                  <p className="text-gray-700 text-sm">
+                    {establishment.ville ? `Facilement accessible depuis ${establishment.ville}. ` : ''}
+                    Des taxis et transports en commun desservent régulièrement la zone. Prévoyez du cash pour les déplacements locaux.
+                  </p>
+                </div>
+                <div className="bg-amber-50 p-5 rounded-xl">
+                  <h3 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                    <Clock className="w-5 h-5 text-amber-600" />
+                    Meilleur Moment
+                  </h3>
+                  <p className="text-gray-700 text-sm">
+                    La haute saison s’étend de décembre à mars avec un climat idéal. La basse saison (mai-octobre) offre des tarifs plus avantageux.
+                  </p>
+                </div>
+                <div className="bg-green-50 p-5 rounded-xl">
+                  <h3 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                    <CreditCard className="w-5 h-5 text-green-600" />
+                    Moyens de Paiement
+                  </h3>
+                  <p className="text-gray-700 text-sm">
+                    {establishment.type === 'HOTEL' || establishment.type === 'RESTAURANT' 
+                      ? 'Cartes de crédit généralement acceptées. '
+                      : ''}
+                    Les gourdes (HTG) et dollars américains sont couramment utilisés.
+                  </p>
+                </div>
+                <div className="bg-purple-50 p-5 rounded-xl">
+                  <h3 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                    <Users className="w-5 h-5 text-purple-600" />
+                    Langue & Culture
+                  </h3>
+                  <p className="text-gray-700 text-sm">
+                    Le créole haïtien et le français sont parlés. Un français de base suffit pour communiquer. Les Haïtiens sont accueillants et serviables.
+                  </p>
+                </div>
+              </div>
             </motion.div>
 
             {/* Google Maps */}
@@ -294,7 +439,7 @@ export default function EstablishmentDetailPage() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
+                transition={{ delay: 0.25 }}
                 className="bg-white rounded-2xl shadow-lg p-8"
               >
                 <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
