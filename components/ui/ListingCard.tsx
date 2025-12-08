@@ -13,6 +13,7 @@ interface ListingCardProps {
   establishment: Establishment & {
     averageRating?: number;
     reviewCount?: number;
+    isSite?: boolean; // Flag to indicate if this is a tourist site
   };
   onAuthRequired?: () => void;
   onClick?: () => void;
@@ -128,8 +129,8 @@ export default function ListingCard({
           </div>
         </div>
 
-        {/* Price */}
-        {establishment.price > 0 && (
+        {/* Price - Only for hotels */}
+        {establishment.type === 'HOTEL' && establishment.price > 0 && (
           <div className="flex items-center justify-between pt-3 border-t border-gray-200">
             <span className="text-sm text-gray-600">À partir de</span>
             <span className="text-2xl font-bold text-gray-900">
@@ -144,8 +145,11 @@ export default function ListingCard({
 
   // Wrap with Link if no custom onClick is provided
   if (!onClick) {
+    const href = establishment.isSite 
+      ? `/sites/${establishment.id}` 
+      : `/establishments/${establishment.id}`;
     return (
-      <Link href={`/establishments/${establishment.id}`} className="block">
+      <Link href={href} className="block">
         {cardContent}
       </Link>
     );
