@@ -8,7 +8,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '@/lib/AuthContext';
-import { useFacebookAuth } from '@/lib/useFacebookAuth';
 import CountrySelect from '@/components/CountrySelect';
 
 interface AuthModalProps {
@@ -44,8 +43,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
   const [mode, setMode] = useState<'login' | 'register'>(defaultMode);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { login, register: registerUser, loginWithGoogle, loginWithFacebook } = useAuth();
-  const { loginWithFacebook: fbLogin, isSDKLoaded } = useFacebookAuth();
+  const { login, register: registerUser, loginWithGoogle } = useAuth();
 
   // Synchroniser le mode avec defaultMode quand le modal s'ouvre
   useEffect(() => {
@@ -122,32 +120,6 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
     setError('Erreur lors de la connexion avec Google');
   };
 
-  const handleFacebookLogin = async () => {
-    setError(null);
-    setIsLoading(true);
-    try {
-      const result = await fbLogin();
-      if (result.success && result.user && result.accessToken) {
-        const { user, accessToken } = result;
-        await loginWithFacebook(
-          accessToken,
-          user.id,
-          user.email || '',
-          user.first_name || user.name.split(' ')[0],
-          user.last_name || user.name.split(' ').slice(1).join(' '),
-          user.picture?.data?.url
-        );
-        onClose();
-      } else {
-        setError(result.error || 'Erreur lors de la connexion avec Facebook');
-      }
-    } catch (err: any) {
-      setError(err.message || 'Erreur lors de la connexion avec Facebook');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const switchMode = () => {
     setMode(mode === 'login' ? 'register' : 'login');
     setError(null);
@@ -159,12 +131,16 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+      <div 
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto"
+        onClick={onClose}
+      >
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden"
+          onClick={(e) => e.stopPropagation()}
+          className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden my-8"
         >
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white">
@@ -217,7 +193,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                       {...registerForm('email')}
                       type="email"
                       placeholder="votre@email.com"
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder:text-gray-400"
                     />
                   </div>
                   {loginErrors.email && (
@@ -236,7 +212,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                       {...registerForm('password')}
                       type="password"
                       placeholder="••••••••"
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder:text-gray-400"
                     />
                   </div>
                   {loginErrors.password && (
@@ -275,7 +251,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                         }`}
                       >
                         <User className="w-8 h-8 mx-auto mb-2 text-blue-600" />
-                        <span className="font-medium">Utilisateur</span>
+                        <span className="font-medium text-gray-900">Utilisateur</span>
                       </div>
                     </label>
                     <label className="cursor-pointer">
@@ -293,7 +269,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                         }`}
                       >
                         <UserPlus className="w-8 h-8 mx-auto mb-2 text-green-600" />
-                        <span className="font-medium">Partenaire</span>
+                        <span className="font-medium text-gray-900">Partenaire</span>
                       </div>
                     </label>
                   </div>
@@ -309,7 +285,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                       {...registerFormRegister('firstName')}
                       type="text"
                       placeholder="Jean"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder:text-gray-400"
                     />
                     {registerErrors.firstName && (
                       <p className="mt-1 text-sm text-red-600">{registerErrors.firstName.message}</p>
@@ -323,7 +299,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                       {...registerFormRegister('lastName')}
                       type="text"
                       placeholder="Dupont"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder:text-gray-400"
                     />
                     {registerErrors.lastName && (
                       <p className="mt-1 text-sm text-red-600">{registerErrors.lastName.message}</p>
@@ -342,7 +318,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                       {...registerFormRegister('email')}
                       type="email"
                       placeholder="votre@email.com"
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder:text-gray-400"
                     />
                   </div>
                   {registerErrors.email && (
@@ -361,7 +337,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                       {...registerFormRegister('phone')}
                       type="tel"
                       placeholder="+509 1234 5678"
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder:text-gray-400"
                     />
                   </div>
                   {registerErrors.phone && (
@@ -392,7 +368,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                       {...registerFormRegister('password')}
                       type="password"
                       placeholder="••••••••"
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder:text-gray-400"
                     />
                   </div>
                   {registerErrors.password && (
@@ -421,33 +397,13 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
             </div>
 
             {/* Social Login Buttons */}
-            <div className="space-y-3">
-              {/* Google Login */}
-              <div className="flex justify-center">
-                <GoogleLogin
-                  onSuccess={handleGoogleSuccess}
-                  onError={handleGoogleError}
-                  useOneTap
-                  text={mode === 'login' ? 'signin_with' : 'signup_with'}
-                />
-              </div>
-
-              {/* Facebook Login */}
-              <button
-                onClick={handleFacebookLogin}
-                disabled={isLoading || !isSDKLoaded}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-[#1877F2] text-white rounded-lg font-semibold hover:bg-[#166FE5] transition disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-                <span>
-                  {isLoading ? 'Connexion...' : `Continuer avec Facebook`}
-                </span>
-              </button>
-              {!isSDKLoaded && (
-                <p className="text-xs text-gray-500 text-center">Chargement du SDK Facebook...</p>
-              )}
+            <div className="flex justify-center">
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={handleGoogleError}
+                useOneTap
+                text={mode === 'login' ? 'signin_with' : 'signup_with'}
+              />
             </div>
 
             {/* Switch Mode */}
