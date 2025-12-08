@@ -29,8 +29,8 @@ const categories = [
 
 export default function Home() {
   const { user, isAuthenticated, logout } = useAuth();
-  const [establishments, setEstablishments] = useState<(Establishment & { averageRating?: number; reviewCount?: number })[]>([]);
-  const [filteredEstablishments, setFilteredEstablishments] = useState<(Establishment & { averageRating?: number; reviewCount?: number })[]>([]);
+  const [establishments, setEstablishments] = useState<(Establishment & { averageRating?: number; reviewCount?: number; isSite?: boolean })[]>([]);
+  const [filteredEstablishments, setFilteredEstablishments] = useState<(Establishment & { averageRating?: number; reviewCount?: number; isSite?: boolean })[]>([]);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>('login');
   const [isLoading, setIsLoading] = useState(true);
@@ -151,6 +151,7 @@ export default function Home() {
           images: site.images || [],
           averageRating: 0,
           reviewCount: 0,
+          isSite: true, // Flag to indicate this is a tourist site
         }));
         setFilteredEstablishments(sitesAsEstablishments);
       }
@@ -1091,8 +1092,14 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
-            <p>&copy; 2025 Discover Haiti. Tous droits réservés.</p>
+          {/* Logo Ministère du Tourisme */}
+          <div className="mt-8 pt-8 border-t border-gray-800 flex flex-col items-center">
+            <img 
+              src="/images-mt.png" 
+              alt="Ministère du Tourisme d'Haïti" 
+              className="h-24 w-auto mb-4"
+            />
+            <p className="text-gray-400">&copy; 2025 Discover Haiti. Tous droits réservés.</p>
           </div>
         </div>
       </footer>

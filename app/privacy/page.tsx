@@ -385,8 +385,14 @@ export default function PrivacyPage() {
             </div>
           </div>
 
-          <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
-            <p>&copy; 2025 Discover Haiti. Tous droits réservés.</p>
+          {/* Logo Ministère du Tourisme */}
+          <div className="mt-8 pt-8 border-t border-gray-800 flex flex-col items-center">
+            <img 
+              src="/images-mt.png" 
+              alt="Ministère du Tourisme d'Haïti" 
+              className="h-24 w-auto mb-4"
+            />
+            <p className="text-gray-400">&copy; 2025 Discover Haiti. Tous droits réservés.</p>
           </div>
         </div>
       </footer>
