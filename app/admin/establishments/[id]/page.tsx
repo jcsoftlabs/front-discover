@@ -44,7 +44,9 @@ const establishmentSchema = z.object({
     .nullable(),
   isActive: z.boolean(),
   partnerId: z.string()
-    .optional(),
+    .optional()
+    .nullable()
+    .transform(val => val === '' || val === null ? undefined : val),
 });
 
 type EstablishmentFormData = z.infer<typeof establishmentSchema>;
@@ -104,7 +106,7 @@ export default function EditEstablishmentPage() {
           latitude: data.latitude,
           longitude: data.longitude,
           isActive: data.isActive,
-          partnerId: data.partnerId,
+          partnerId: data.partnerId || '',
         });
       } catch (err: any) {
         setError(err.response?.data?.error || 'Erreur lors du chargement');

@@ -60,7 +60,9 @@ const establishmentSchema = z.object({
     .optional()
     .nullable(),
   partnerId: z.string()
-    .optional(),
+    .optional()
+    .nullable()
+    .transform(val => val === '' || val === null ? undefined : val),
 });
 
 type EstablishmentFormData = z.infer<typeof establishmentSchema>;
