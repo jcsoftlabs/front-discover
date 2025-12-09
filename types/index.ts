@@ -238,3 +238,31 @@ export interface Notification {
   // Relations (populated)
   user?: User;
 }
+
+export type EventCategory = 'CONCERT' | 'FESTIVAL' | 'CONFERENCE' | 'SPORT' | 'EXHIBITION' | 'CULTURAL' | 'RELIGIOUS' | 'CARNIVAL' | 'OTHER';
+
+export interface Event {
+  id: string;
+  title: string;
+  description?: string;
+  location?: string;
+  address?: string;
+  ville?: string;
+  departement?: string;
+  latitude?: number;
+  longitude?: number;
+  startDate: string;
+  endDate: string;
+  images?: string[];
+  price?: number;
+  category: EventCategory;
+  maxCapacity?: number;
+  currentRegistrations?: number;
+  isActive: boolean;
+  organizerId?: string;
+  createdAt: string;
+  updatedAt: string;
+  distance?: number; // Distance from user location in km
+  // Relations (populated)
+  organizer?: Partner;
+}
