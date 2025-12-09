@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Link from 'next/link';
-import { loginPartner } from '@/lib/auth';
+import apiClient from '@/lib/axios';
 
 const loginSchema = z.object({
   email: z
@@ -38,10 +38,31 @@ export default function PartnerLoginPage() {
     setError('');
 
     try {
-      await loginPartner(data.email, data.password);
-      router.push('/partner/dashboard');
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Erreur de connexion. Veuillez réessayer.';
+      // Utiliser l'endpoint login standard au lieu de login/partner
+      // car les partenaires sont créés dans la table User avec role PARTNER
+      const response = await apiClient.post('/auth/login', {
+        email: data.email,
+        password: data.password,
+      });
+
+      if (response.data.success) {
+        const { user, token } = response.data.data;
+        
+        // Vérifier que l'utilisateur a bien le rôle PARTNER
+        if (user.role !== 'PARTNER') {
+          setError('Cet email n\'est pas associé à un compte partenaire.');
+          return;
+        }
+        
+        // Stocker le token et les infos utilisateur
+        localStorage.setItem('accessToken', token);
+        localStorage.setItem('userData', JSON.stringify(user));
+        localStorage.setItem('userType', 'partner');
+        
+        router.push('/partner/dashboard');
+      }
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.error || err.message || 'Erreur de connexion. Veuillez réessayer.';
       
       // Gestion spécifique pour les partenaires en attente de validation
       if (errorMessage.includes('attente de validation')) {

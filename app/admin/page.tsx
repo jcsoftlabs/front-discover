@@ -12,10 +12,18 @@ export default function AdminDashboardPage() {
   const [dashboard, setDashboard] = useState<AdminDashboard | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Vérifier que le composant est bien monté côté client
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
+    // Ne charger les données qu'après le montage côté client
+    if (!isMounted) return;
     fetchDashboard();
-  }, []);
+  }, [isMounted]);
 
   const fetchDashboard = async () => {
     try {

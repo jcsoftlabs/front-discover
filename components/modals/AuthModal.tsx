@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { X, Mail, Lock, User, LogIn, UserPlus, Phone } from 'lucide-react';
+import { X, Mail, Lock, User, LogIn, UserPlus, Phone, Eye, EyeOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -27,6 +27,8 @@ const registerSchema = z.object({
     .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/, 
       'Le mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre et un caractère spécial'),
+  confirmPassword: z.string()
+    .min(8, 'Veuillez confirmer votre mot de passe'),
   firstName: z.string().min(2, 'Le prénom doit contenir au moins 2 caractères'),
   lastName: z.string().min(2, 'Le nom doit contenir au moins 2 caractères'),
   phone: z.string()
@@ -34,6 +36,9 @@ const registerSchema = z.object({
     .regex(/^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/, 'Numéro de téléphone invalide'),
   country: z.string().min(2, 'Veuillez sélectionner un pays'),
   role: z.enum(['USER', 'PARTNER']),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: 'Les mots de passe ne correspondent pas',
+  path: ['confirmPassword'],
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -43,6 +48,8 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
   const [mode, setMode] = useState<'login' | 'register'>(defaultMode);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { login, register: registerUser, loginWithGoogle } = useAuth();
 
   // Synchroniser le mode avec defaultMode quand le modal s'ouvre
@@ -68,6 +75,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
     formState: { errors: registerErrors },
     reset: resetRegister,
     watch,
+    setValue,
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     defaultValues: { role: 'USER', country: '' },
@@ -210,10 +218,17 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <input
                       {...registerForm('password')}
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       placeholder="••••••••"
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder:text-gray-400"
+                      className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder:text-gray-400"
                     />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
                   </div>
                   {loginErrors.password && (
                     <p className="mt-1 text-sm text-red-600">{loginErrors.password.message}</p>
@@ -352,7 +367,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                   </label>
                   <CountrySelect
                     value={watch('country')}
-                    onChange={(value) => registerFormRegister('country').onChange({ target: { value } })}
+                    onChange={(value) => setValue('country', value, { shouldValidate: true })}
                     error={registerErrors.country?.message}
                   />
                 </div>
@@ -366,13 +381,46 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'login' }: Au
                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <input
                       {...registerFormRegister('password')}
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       placeholder="••••••••"
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder:text-gray-400"
+                      className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder:text-gray-400"
                     />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
                   </div>
                   {registerErrors.password && (
                     <p className="mt-1 text-sm text-red-600">{registerErrors.password.message}</p>
+                  )}
+                </div>
+
+                {/* Confirm Password */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Confirmer le mot de passe
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <input
+                      {...registerFormRegister('confirmPassword')}
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      placeholder="••••••••"
+                      className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder:text-gray-400"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
+                  {registerErrors.confirmPassword && (
+                    <p className="mt-1 text-sm text-red-600">{registerErrors.confirmPassword.message}</p>
                   )}
                 </div>
 

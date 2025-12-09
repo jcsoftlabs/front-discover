@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, useParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import apiClient from '@/lib/axios';
-import type { ApiResponse } from '@/types';
+import type { ApiResponse, Establishment } from '@/types';
+import { ArrowLeft } from 'lucide-react';
 import AmenitiesInput from '@/components/forms/AmenitiesInput';
 import MenuInput from '@/components/forms/MenuInput';
 import AvailabilityInput from '@/components/forms/AvailabilityInput';
@@ -63,6 +64,7 @@ const establishmentSchema = z.object({
     .max(180, 'Longitude invalide')
     .optional()
     .nullable(),
+  isActive: z.boolean().optional(),
   amenities: z.array(z.string()).optional(),
   menu: z.record(z.string()).optional(),
   availability: z.record(z.string()).optional(),
@@ -70,11 +72,16 @@ const establishmentSchema = z.object({
 
 type EstablishmentFormData = z.infer<typeof establishmentSchema>;
 
-export default function NewEstablishmentPage() {
+export default function EditEstablishmentPage() {
   const router = useRouter();
+  const params = useParams();
+  const establishmentId = params.id as string;
+  
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [loadingData, setLoadingData] = useState(true);
   const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [existingImages, setExistingImages] = useState<string[]>([]);
   const [amenities, setAmenities] = useState<string[]>([]);
   const [menu, setMenu] = useState<Record<string, string>>({});
   const [availability, setAvailability] = useState<Record<string, string>>({});
@@ -83,66 +90,87 @@ export default function NewEstablishmentPage() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<EstablishmentFormData>({
     resolver: zodResolver(establishmentSchema),
   });
+
+  useEffect(() => {
+    if (establishmentId) {
+      fetchEstablishment();
+    }
+  }, [establishmentId]);
+
+  const fetchEstablishment = async () => {
+    try {
+      const response = await apiClient.get<ApiResponse<Establishment>>(
+        `/partner/establishments/${establishmentId}`
+      );
+      
+      if (response.data.success) {
+        const establishment = response.data.data;
+        
+        // Pré-remplir le formulaire
+        reset({
+          name: establishment.name,
+          description: establishment.description || '',
+          type: establishment.type as any,
+          price: establishment.price,
+          address: establishment.address || '',
+          ville: establishment.ville || '',
+          departement: establishment.departement || '',
+          phone: establishment.phone || '',
+          email: establishment.email || '',
+          website: establishment.website || '',
+          latitude: establishment.latitude || null,
+          longitude: establishment.longitude || null,
+          isActive: establishment.isActive,
+        });
+        
+        // Sauvegarder les images existantes
+        if (establishment.images && Array.isArray(establishment.images)) {
+          setExistingImages(establishment.images as string[]);
+        }
+
+        // Pré-remplir les champs JSON avancés
+        if (establishment.amenities && Array.isArray(establishment.amenities)) {
+          setAmenities(establishment.amenities as string[]);
+        }
+        if (establishment.menu && typeof establishment.menu === 'object') {
+          setMenu(establishment.menu as Record<string, string>);
+        }
+        if (establishment.availability && typeof establishment.availability === 'object') {
+          setAvailability(establishment.availability as Record<string, string>);
+        }
+      }
+    } catch (err: any) {
+      setError(err.response?.data?.error || 'Erreur lors du chargement');
+    } finally {
+      setLoadingData(false);
+    }
+  };
 
   const onSubmit = async (data: EstablishmentFormData) => {
     setError('');
     setLoading(true);
 
     try {
-      // Récupérer les infos du partenaire depuis localStorage
-      const userStr = localStorage.getItem('user');
-      if (!userStr) {
-        setError('Session expirée. Veuillez vous reconnecter.');
-        return;
-      }
-
-      const user = JSON.parse(userStr);
-      
-      // Récupérer le partnerId depuis le dashboard API
-      const dashboardResponse = await apiClient.get<ApiResponse<any>>('/partner/dashboard');
-      if (!dashboardResponse.data.success || !dashboardResponse.data.data?.partner?.id) {
-        setError('Impossible de récupérer les informations du partenaire.');
-        return;
-      }
-      
-      const partnerId = dashboardResponse.data.data.partner.id;
-      
       // Créer un FormData pour envoyer les fichiers
       const formData = new FormData();
       formData.append('name', data.name);
       formData.append('type', data.type);
       formData.append('price', data.price.toString());
       
-      if (data.description) {
-        formData.append('description', data.description);
-      }
-      if (data.address) {
-        formData.append('address', data.address);
-      }
-      if (data.ville) {
-        formData.append('ville', data.ville);
-      }
-      if (data.departement) {
-        formData.append('departement', data.departement);
-      }
-      if (data.phone) {
-        formData.append('phone', data.phone);
-      }
-      if (data.email) {
-        formData.append('email', data.email);
-      }
-      if (data.website) {
-        formData.append('website', data.website);
-      }
-      if (data.latitude) {
-        formData.append('latitude', data.latitude.toString());
-      }
-      if (data.longitude) {
-        formData.append('longitude', data.longitude.toString());
-      }
+      if (data.description) formData.append('description', data.description);
+      if (data.address) formData.append('address', data.address);
+      if (data.ville) formData.append('ville', data.ville);
+      if (data.departement) formData.append('departement', data.departement);
+      if (data.phone) formData.append('phone', data.phone);
+      if (data.email) formData.append('email', data.email);
+      if (data.website) formData.append('website', data.website);
+      if (data.latitude) formData.append('latitude', data.latitude.toString());
+      if (data.longitude) formData.append('longitude', data.longitude.toString());
+      if (data.isActive !== undefined) formData.append('isActive', data.isActive.toString());
 
       // Ajouter les champs JSON avancés
       if (amenities.length > 0) {
@@ -155,16 +183,13 @@ export default function NewEstablishmentPage() {
         formData.append('availability', JSON.stringify(availability));
       }
 
-      // Ajouter le partnerId récupéré depuis l'API
-      formData.append('partnerId', partnerId);
-
-      // Ajouter les images
+      // Ajouter les nouvelles images
       imageFiles.forEach((file) => {
         formData.append('images', file);
       });
 
-      const response = await apiClient.post<ApiResponse<any>>(
-        '/establishments',
+      const response = await apiClient.put<ApiResponse<any>>(
+        `/establishments/${establishmentId}`,
         formData,
         {
           headers: {
@@ -174,11 +199,11 @@ export default function NewEstablishmentPage() {
       );
 
       if (response.data.success) {
-        router.push('/partner/establishments');
+        router.push(`/partner/establishments/${establishmentId}`);
       }
     } catch (err: any) {
       setError(
-        err.response?.data?.error || 'Erreur lors de la création de l\'établissement'
+        err.response?.data?.error || 'Erreur lors de la modification'
       );
     } finally {
       setLoading(false);
@@ -191,14 +216,29 @@ export default function NewEstablishmentPage() {
     }
   };
 
+  if (loadingData) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="text-gray-600">Chargement...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-6">
+        <button
+          onClick={() => router.push(`/partner/establishments/${establishmentId}`)}
+          className="flex items-center text-gray-600 hover:text-gray-900 mb-4"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Retour aux détails
+        </button>
         <h1 className="text-3xl font-bold text-gray-900">
-          Nouvel Établissement
+          Modifier l'Établissement
         </h1>
         <p className="mt-2 text-gray-600">
-          Créez un nouvel établissement pour votre activité
+          Mettez à jour les informations de votre établissement
         </p>
       </div>
 
@@ -423,10 +463,29 @@ export default function NewEstablishmentPage() {
             </div>
           </div>
 
-          {/* Images */}
+          {/* Images existantes */}
+          {existingImages.length > 0 && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Images actuelles
+              </label>
+              <div className="grid grid-cols-3 gap-4">
+                {existingImages.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`Image ${index + 1}`}
+                    className="w-full h-32 object-cover rounded-lg"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Nouvelles images */}
           <div>
             <label htmlFor="images" className="block text-sm font-medium text-gray-700">
-              Images
+              Ajouter de nouvelles images
             </label>
             <input
               type="file"
@@ -434,10 +493,15 @@ export default function NewEstablishmentPage() {
               multiple
               accept="image/*"
               onChange={handleImageChange}
-              className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+              className="mt-1 block w-full text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-md file:border-0
+                file:text-sm file:font-semibold
+                file:bg-green-50 file:text-green-700
+                hover:file:bg-green-100"
             />
             {imageFiles.length > 0 && (
-              <p className="mt-2 text-sm text-gray-600">
+              <p className="mt-1 text-sm text-gray-600">
                 {imageFiles.length} fichier(s) sélectionné(s)
               </p>
             )}
@@ -463,21 +527,34 @@ export default function NewEstablishmentPage() {
             />
           </div>
 
+          {/* Status actif/inactif */}
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="isActive"
+              {...register('isActive')}
+              className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+            />
+            <label htmlFor="isActive" className="ml-2 block text-sm text-gray-900">
+              Établissement actif
+            </label>
+          </div>
+
           {/* Boutons */}
-          <div className="flex justify-end space-x-4">
+          <div className="flex justify-between items-center pt-6 border-t border-gray-200">
             <button
               type="button"
-              onClick={() => router.back()}
-              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+              onClick={() => router.push(`/partner/establishments/${establishmentId}`)}
+              className="text-gray-600 hover:text-gray-900"
             >
               Annuler
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'Création...' : 'Créer l\'établissement'}
+              {loading ? 'Enregistrement...' : 'Enregistrer les modifications'}
             </button>
           </div>
         </div>
