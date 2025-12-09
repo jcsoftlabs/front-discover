@@ -1,6 +1,7 @@
 import apiClient from '@/lib/axios';
 import { LocalCache } from '@/lib/cache';
 import { Site, ApiResponse, PaginatedResponse } from '@/types';
+import { calculateDistance, getUserLocation } from '@/lib/utils';
 
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
@@ -21,7 +22,7 @@ export const sitesService = {
   }): Promise<PaginatedResponse<Site>> {
     const cacheKey = `sites_${JSON.stringify(params || {})}`;
     
-    return LocalCache.getOrFetch(
+    const data = await LocalCache.getOrFetch(
       cacheKey,
       async () => {
         const response = await apiClient.get<PaginatedResponse<Site>>(
@@ -32,6 +33,33 @@ export const sitesService = {
       },
       CACHE_TTL
     );
+
+    // Calculate distances if user location is available
+    const userLocation = await getUserLocation();
+    if (userLocation && data.data) {
+      data.data = data.data.map(site => {
+        if (site.latitude && site.longitude) {
+          const distance = calculateDistance(
+            userLocation.latitude,
+            userLocation.longitude,
+            site.latitude,
+            site.longitude
+          );
+          return { ...site, distance };
+        }
+        return site;
+      });
+
+      // Sort by distance
+      data.data.sort((a, b) => {
+        if (a.distance === undefined && b.distance === undefined) return 0;
+        if (a.distance === undefined) return 1;
+        if (b.distance === undefined) return -1;
+        return a.distance - b.distance;
+      });
+    }
+
+    return data;
   },
 
   /**
@@ -40,7 +68,7 @@ export const sitesService = {
   async getById(id: string): Promise<ApiResponse<Site>> {
     const cacheKey = `site_${id}`;
     
-    return LocalCache.getOrFetch(
+    const data = await LocalCache.getOrFetch(
       cacheKey,
       async () => {
         const response = await apiClient.get<ApiResponse<Site>>(
@@ -50,6 +78,20 @@ export const sitesService = {
       },
       CACHE_TTL
     );
+
+    // Calculate distance if user location is available
+    const userLocation = await getUserLocation();
+    if (userLocation && data.data?.latitude && data.data?.longitude) {
+      const distance = calculateDistance(
+        userLocation.latitude,
+        userLocation.longitude,
+        data.data.latitude,
+        data.data.longitude
+      );
+      data.data = { ...data.data, distance };
+    }
+
+    return data;
   },
 
   /**
@@ -62,7 +104,7 @@ export const sitesService = {
   }): Promise<ApiResponse<Site[]>> {
     const cacheKey = `sites_search_${query}_${JSON.stringify(filters || {})}`;
     
-    return LocalCache.getOrFetch(
+    const data = await LocalCache.getOrFetch(
       cacheKey,
       async () => {
         const response = await apiClient.get<ApiResponse<Site[]>>(
@@ -73,6 +115,33 @@ export const sitesService = {
       },
       CACHE_TTL
     );
+
+    // Calculate distances if user location is available
+    const userLocation = await getUserLocation();
+    if (userLocation && data.data) {
+      data.data = data.data.map(site => {
+        if (site.latitude && site.longitude) {
+          const distance = calculateDistance(
+            userLocation.latitude,
+            userLocation.longitude,
+            site.latitude,
+            site.longitude
+          );
+          return { ...site, distance };
+        }
+        return site;
+      });
+
+      // Sort by distance
+      data.data.sort((a, b) => {
+        if (a.distance === undefined && b.distance === undefined) return 0;
+        if (a.distance === undefined) return 1;
+        if (b.distance === undefined) return -1;
+        return a.distance - b.distance;
+      });
+    }
+
+    return data;
   },
 
   /**
@@ -81,7 +150,7 @@ export const sitesService = {
   async getByCategory(category: string): Promise<ApiResponse<Site[]>> {
     const cacheKey = `sites_category_${category}`;
     
-    return LocalCache.getOrFetch(
+    const data = await LocalCache.getOrFetch(
       cacheKey,
       async () => {
         const response = await apiClient.get<ApiResponse<Site[]>>(
@@ -91,6 +160,33 @@ export const sitesService = {
       },
       CACHE_TTL
     );
+
+    // Calculate distances if user location is available
+    const userLocation = await getUserLocation();
+    if (userLocation && data.data) {
+      data.data = data.data.map(site => {
+        if (site.latitude && site.longitude) {
+          const distance = calculateDistance(
+            userLocation.latitude,
+            userLocation.longitude,
+            site.latitude,
+            site.longitude
+          );
+          return { ...site, distance };
+        }
+        return site;
+      });
+
+      // Sort by distance
+      data.data.sort((a, b) => {
+        if (a.distance === undefined && b.distance === undefined) return 0;
+        if (a.distance === undefined) return 1;
+        if (b.distance === undefined) return -1;
+        return a.distance - b.distance;
+      });
+    }
+
+    return data;
   },
 
   /**

@@ -56,6 +56,7 @@ export interface Establishment {
   partnerId?: string;
   createdAt: string;
   updatedAt: string;
+  distance?: number; // Distance from user location in km
   // Relations (populated)
   partner?: Partner;
   reviews?: Review[];
@@ -175,6 +176,7 @@ export interface Site {
   createdBy?: string;
   createdAt: string;
   updatedAt: string;
+  distance?: number; // Distance from user location in km
   // Relations (populated)
   creator?: User;
 }
