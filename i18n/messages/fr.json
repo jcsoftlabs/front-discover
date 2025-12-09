@@ -1,0 +1,259 @@
+{
+  "nav": {
+    "favorites": "Favoris",
+    "hello": "Bonjour",
+    "mySpace": "Mon espace",
+    "administration": "Administration",
+    "logout": "Déconnexion",
+    "login": "Connexion",
+    "register": "Inscription"
+  },
+  "hero": {
+    "welcome": "Bienvenue en Haïti",
+    "title": "Découvrez la Perle des",
+    "titleHighlight": "Antilles",
+    "subtitle": "Explorez les plus beaux hôtels, restaurants, sites touristiques et attractions d'Haïti",
+    "searchPlaceholder": "Hôtel, restaurant, attraction...",
+    "locationPlaceholder": "Port-au-Prince, Cap-Haïtien...",
+    "category": "Catégorie",
+    "allCategories": "Toutes catégories",
+    "search": "Rechercher"
+  },
+  "categories": {
+    "all": "Tous",
+    "hotels": "Hôtels",
+    "restaurants": "Restaurants",
+    "bars": "Bars",
+    "cafes": "Cafés",
+    "attractions": "Attractions",
+    "shops": "Boutiques",
+    "sites": "Sites Touristiques"
+  },
+  "why": {
+    "title": "Pourquoi découvrir",
+    "titleHighlight": "Haïti",
+    "subtitle": "La Perle des Antilles vous réserve des expériences uniques, entre histoire fascinante, paysages à couper le souffle et une culture vibrante.",
+    "history": {
+      "title": "Histoire Vivante",
+      "description": "Première république noire indépendante au monde, Haïti possède un patrimoine historique exceptionnel avec ses forts, cathédrales et musées."
+    },
+    "landscapes": {
+      "title": "Paysages Spectaculaires",
+      "description": "Des plages paradisiaques aux montagnes verdoyantes, en passant par les cascades et grottes, Haïti offre une diversité naturelle extraordinaire."
+    },
+    "gastronomy": {
+      "title": "Gastronomie Créole",
+      "description": "Savourez les délices de la cuisine haïtienne : griot, diri kole ak pwa, tasso, lambi... Une explosion de saveurs à découvrir."
+    },
+    "hospitality": {
+      "title": "Hospitalité Légendaire",
+      "description": "Les Haïtiens sont reconnus pour leur chaleur et leur générosité. Vous serez accueillis comme un membre de la famille."
+    }
+  },
+  "destinations": {
+    "title": "Destinations Incontournables",
+    "subtitle": "Explorez les lieux emblématiques qui font la renommée d'Haïti",
+    "capHaitien": {
+      "title": "Cap-Haïtien",
+      "description": "La capitale du Nord, riche en histoire coloniale avec la Citadelle Laferrière et le Palais Sans-Souci."
+    },
+    "ileAVache": {
+      "title": "Île-à-Vache",
+      "description": "Un paradis insulaire aux plages de sable blanc et eaux turquoise, idéal pour la détente et la plongée."
+    },
+    "jacmel": {
+      "title": "Jacmel",
+      "description": "Ville d'art et de culture célèbre pour son carnaval coloré, son artisanat et son architecture victorienne."
+    }
+  },
+  "stats": {
+    "title": "Haïti en chiffres",
+    "subtitle": "Découvrez la richesse de notre destination touristique",
+    "establishments": "Établissements",
+    "departments": "Départements",
+    "unesco": "Sites classés",
+    "independence": "Indépendance"
+  },
+  "listings": {
+    "title": "Tous les établissements",
+    "results": "résultat",
+    "results_plural": "résultats",
+    "page": "Page",
+    "of": "sur",
+    "noResults": "Aucun établissement trouvé",
+    "resetFilters": "Réinitialiser les filtres"
+  },
+  "faq": {
+    "title": "Foire aux questions sur Haïti",
+    "subtitle": "Quel est le moment le moins cher pour voyager ? Ai-je besoin d'un visa ? Combien dois-je donner de pourboire ? Voici les réponses à vos questions les plus fréquentes sur Haïti.",
+    "q1": {
+      "question": "Quel est le moment le moins cher pour voyager en Haïti ?",
+      "answer1": "Le moment le plus économique pour voyager en Haïti se situe généralement entre mai et octobre, pendant la basse saison touristique. Durant cette période, les tarifs des vols et des hébergements sont souvent plus abordables, et les sites touristiques sont moins fréquentés, ce qui permet de profiter d'une expérience plus paisible et authentique.",
+      "answer2": "Cependant, si vous préférez un climat plus sec et animé, la haute saison (de décembre à mars) offre un ensoleillement idéal, des festivals culturels comme le Carnaval de Jacmel, et une ambiance particulièrement festive — mais à des prix un peu plus élevés."
+    },
+    "q2": {
+      "question": "Où se trouvent les meilleurs endroits où séjourner en Haïti ?",
+      "answer1": "Vous cherchez une véritable immersion dans la cuisine haïtienne ? Port-au-Prince abrite certains des meilleurs établissements du pays : La Coquille, La Réserve, Presse Café à Pétion-Ville, Gingerbread à Pacot, ou encore Le Plaza au centre-ville. Ces restaurants sont parfaits pour découvrir les saveurs typiques d'Haïti.",
+      "answer2": "Pour une expérience encore plus spéciale, Le Florville à Kenscoff propose un brunch dominical très prisé — une excellente façon de savourer la gastronomie haïtienne dans une ambiance détendue et authentique."
+    },
+    "q3": {
+      "question": "Ai-je besoin d'un visa pour voyager en Haïti ?",
+      "answer1": "La plupart des visiteurs n'ont pas besoin de visa pour entrer en Haïti pour un séjour touristique de moins de 90 jours. Les citoyens de nombreux pays, dont les États-Unis, le Canada, la France, la Belgique, la Suisse et la majorité des pays de la Caraïbe, peuvent entrer simplement avec un passeport valide et un billet de retour.",
+      "answer2": "À l'arrivée, une petite taxe touristique peut être demandée (souvent incluse dans le prix du billet d'avion).",
+      "answer3": "Pour les séjours plus longs ou les voyages d'affaires, il est recommandé de contacter l'ambassade ou le consulat d'Haïti le plus proche afin d'obtenir les informations les plus récentes sur les exigences de visa."
+    },
+    "q4": {
+      "question": "Est-il sûr de voyager en Haïti ?",
+      "answer1": "Comme dans tout pays, il est important de rester attentif à son environnement, mais Haïti offre une expérience unique et chaleureuse à ceux qui prennent le temps de la découvrir. Les visiteurs trouvent souvent que les Haïtiens sont parmi les peuples les plus accueillants des Caraïbes, toujours prêts à partager leur culture, leur musique et leur art.",
+      "answer2": "Les zones touristiques comme Jacmel, Cap-Haïtien, Kenscoff ou Île-à-Vache sont particulièrement appréciées pour leur tranquillité, leurs plages magnifiques et leur atmosphère conviviale. Avec un peu de préparation et en suivant les conseils locaux, votre séjour en Haïti sera à la fois sûr, enrichissant et inoubliable."
+    }
+  },
+  "footer": {
+    "about": "Discover Haiti",
+    "description": "Plateforme de tourisme dédiée à la promotion des merveilles d'Haïti.",
+    "quickLinks": "Liens rapides",
+    "administration": "Administration",
+    "partnerSpace": "Espace Partenaire",
+    "privacy": "Politique de confidentialité",
+    "contact": "Contact",
+    "copyright": "Tous droits réservés."
+  },
+  "suggestText": "Vous cherchez simplement à vous promener ? Laissez-nous vous suggérer quelque chose de chaud et d'amusant !",
+  "login": {
+    "title": "Connexion à Touris App",
+    "email": "Adresse email",
+    "password": "Mot de passe",
+    "submit": "Se connecter",
+    "submitting": "Connexion...",
+    "or": "Ou",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "createAccount": "Créer un compte",
+    "professional": "Vous êtes un professionnel du tourisme ?",
+    "partnerSpace": "Espace partenaire",
+    "error": "Erreur lors de la connexion"
+  },
+  "register": {
+    "title": "Créer un compte",
+    "subtitle": "Rejoignez Touris App pour découvrir Haïti",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "submit": "S'inscrire",
+    "submitting": "Inscription...",
+    "or": "Ou créer un compte avec email",
+    "hasAccount": "Vous avez déjà un compte ?",
+    "loginLink": "Se connecter",
+    "professional": "Vous êtes un professionnel du tourisme ?",
+    "partnerAccount": "Créer un compte partenaire",
+    "required": "*",
+    "errors": {
+      "firstNameMin": "Le prénom doit contenir au moins 2 caractères",
+      "firstNameMax": "Le prénom ne peut pas dépasser 50 caractères",
+      "firstNameInvalid": "Le prénom ne peut contenir que des lettres, espaces et tirets",
+      "lastNameMin": "Le nom doit contenir au moins 2 caractères",
+      "lastNameMax": "Le nom ne peut pas dépasser 50 caractères",
+      "lastNameInvalid": "Le nom ne peut contenir que des lettres, espaces et tirets",
+      "emailInvalid": "Email invalide",
+      "passwordMin": "Le mot de passe doit contenir au moins 8 caractères",
+      "passwordWeak": "Le mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre et un caractère spécial",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "registrationError": "Erreur lors de l'inscription"
+    }
+  },
+  "establishment": {
+    "loading": "Chargement...",
+    "notFound": "Établissement non trouvé",
+    "backHome": "Retour à l'accueil",
+    "back": "Retour",
+    "description": "Description",
+    "special": "Ce qui rend cet endroit spécial",
+    "whyVisit": "Pourquoi visiter",
+    "authentic": "Expérience Authentique",
+    "authenticDesc": "Vivez l'hospitalité haïtienne dans toute sa splendeur et découvrez la chaleur humaine qui fait la réputation de notre peuple.",
+    "culture": "Culture Locale",
+    "cultureDesc": "Immergez-vous dans la richesse culturelle d'Haïti, entre traditions ancestrales et modernité créole.",
+    "setting": "Cadre Exceptionnel",
+    "settingDesc": "Un emplacement privilégié pour explorer les merveilles de la région.",
+    "quality": "Qualité Reconnue",
+    "qualityDesc": "visiteurs qui recommandent cette expérience.",
+    "beforeVisit": "À savoir avant votre visite",
+    "access": "Accès & Transport",
+    "accessDesc": "Des taxis et transports en commun desservent régulièrement la zone. Prévoyez du cash pour les déplacements locaux.",
+    "bestTime": "Meilleur Moment",
+    "bestTimeDesc": "La haute saison s'étend de décembre à mars avec un climat idéal. La basse saison (mai-octobre) offre des tarifs plus avantageux.",
+    "payment": "Moyens de Paiement",
+    "paymentDesc": "Les gourdes (HTG) et dollars américains sont couramment utilisés.",
+    "language": "Langue & Culture",
+    "languageDesc": "Le créole haïtien et le français sont parlés. Un français de base suffit pour communiquer. Les Haïtiens sont accueillants et serviables.",
+    "location": "Localisation",
+    "openInMaps": "Ouvrir dans Google Maps",
+    "reviews": "Avis des visiteurs",
+    "giveReview": "Donnez votre avis",
+    "rating": "Note",
+    "comment": "Commentaire",
+    "commentPlaceholder": "Partagez votre expérience...",
+    "publishReview": "Publier l'avis",
+    "publishing": "Envoi...",
+    "noReviews": "Aucun avis pour le moment",
+    "contactInfo": "Informations de contact",
+    "website": "Site web",
+    "hours": "Horaires d'ouverture",
+    "fromPrice": "À partir de",
+    "perNight": "/nuit",
+    "avis": "avis"
+  },
+  "site": {
+    "loading": "Chargement...",
+    "notFound": "Site touristique non trouvé",
+    "backHome": "Retour à l'accueil",
+    "back": "Retour",
+    "about": "À propos",
+    "location": "Localisation",
+    "openInMaps": "Ouvrir dans Google Maps",
+    "practicalInfo": "Informations pratiques",
+    "website": "Site web",
+    "hours": "Horaires d'ouverture",
+    "entryFee": "Prix d'entrée"
+  },
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "subtitle": "Votre vie privée est importante pour nous",
+    "backHome": "Retour à l'accueil",
+    "lastUpdated": "Dernière mise à jour : Décembre 2025"
+  },
+  "types": {
+    "HOTEL": "Hôtel",
+    "RESTAURANT": "Restaurant",
+    "BAR": "Bar",
+    "CAFE": "Café",
+    "ATTRACTION": "Attraction",
+    "SHOP": "Boutique",
+    "SERVICE": "Service"
+  },
+  "siteCategories": {
+    "MONUMENT": "Monument",
+    "MUSEUM": "Musée",
+    "PARK": "Parc",
+    "BEACH": "Plage",
+    "MOUNTAIN": "Montagne",
+    "CULTURAL": "Culturel",
+    "RELIGIOUS": "Religieux",
+    "NATURAL": "Naturel",
+    "HISTORICAL": "Historique",
+    "ENTERTAINMENT": "Divertissement"
+  },
+  "locationModal": {
+    "title": "Partagez votre position",
+    "description": "Pour vous offrir une meilleure expérience, nous aimerions accéder à votre position afin de vous suggérer des établissements et sites touristiques près de chez vous.",
+    "privacy": "Confidentialité",
+    "privacyText": "Vos données de localisation ne sont stockées que localement sur votre appareil et ne sont jamais partagées avec des tiers.",
+    "accept": "Autoriser",
+    "decline": "Non merci"
+  },
+  "searchBar": {
+    "whatLookingFor": "Que cherchez-vous ?",
+    "where": "Où ?"
+  }
+}

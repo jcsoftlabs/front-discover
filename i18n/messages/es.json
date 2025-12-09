@@ -1,0 +1,259 @@
+{
+  "nav": {
+    "favorites": "Favoritos",
+    "hello": "Hola",
+    "mySpace": "Mi Espacio",
+    "administration": "Administración",
+    "logout": "Cerrar sesión",
+    "login": "Iniciar sesión",
+    "register": "Registrarse"
+  },
+  "hero": {
+    "welcome": "Bienvenido a Haití",
+    "title": "Descubre la Perla del",
+    "titleHighlight": "Caribe",
+    "subtitle": "Explora los más hermosos hoteles, restaurantes, sitios turísticos y atracciones de Haití",
+    "searchPlaceholder": "Hotel, restaurante, atracción...",
+    "locationPlaceholder": "Puerto Príncipe, Cabo Haitiano...",
+    "category": "Categoría",
+    "allCategories": "Todas las categorías",
+    "search": "Buscar"
+  },
+  "categories": {
+    "all": "Todos",
+    "hotels": "Hoteles",
+    "restaurants": "Restaurantes",
+    "bars": "Bares",
+    "cafes": "Cafés",
+    "attractions": "Atracciones",
+    "shops": "Tiendas",
+    "sites": "Sitios Turísticos"
+  },
+  "why": {
+    "title": "Por qué descubrir",
+    "titleHighlight": "Haití",
+    "subtitle": "La Perla del Caribe le ofrece experiencias únicas, entre historia fascinante, paisajes impresionantes y una cultura vibrante.",
+    "history": {
+      "title": "Historia Viva",
+      "description": "Primera república negra independiente del mundo, Haití tiene un patrimonio histórico excepcional con sus fortalezas, catedrales y museos."
+    },
+    "landscapes": {
+      "title": "Paisajes Espectaculares",
+      "description": "Desde playas paradisíacas hasta montañas verdes, pasando por cascadas y cuevas, Haití ofrece una diversidad natural extraordinaria."
+    },
+    "gastronomy": {
+      "title": "Gastronomía Criolla",
+      "description": "Saborea las delicias de la cocina haitiana: griot, diri kole ak pwa, tasso, lambi... Una explosión de sabores por descubrir."
+    },
+    "hospitality": {
+      "title": "Hospitalidad Legendaria",
+      "description": "Los haitianos son conocidos por su calidez y generosidad. Serás recibido como un miembro de la familia."
+    }
+  },
+  "destinations": {
+    "title": "Destinos Imperdibles",
+    "subtitle": "Explora los lugares emblemáticos que hacen famoso a Haití",
+    "capHaitien": {
+      "title": "Cabo Haitiano",
+      "description": "La capital del Norte, rica en historia colonial con la Ciudadela Laferrière y el Palacio Sans-Souci."
+    },
+    "ileAVache": {
+      "title": "Isla-a-Vaca",
+      "description": "Un paraíso insular con playas de arena blanca y aguas turquesas, ideal para la relajación y el buceo."
+    },
+    "jacmel": {
+      "title": "Jacmel",
+      "description": "Ciudad de arte y cultura famosa por su carnaval colorido, artesanías y arquitectura victoriana."
+    }
+  },
+  "stats": {
+    "title": "Haití en cifras",
+    "subtitle": "Descubre la riqueza de nuestro destino turístico",
+    "establishments": "Establecimientos",
+    "departments": "Departamentos",
+    "unesco": "Sitios UNESCO",
+    "independence": "Independencia"
+  },
+  "listings": {
+    "title": "Todos los establecimientos",
+    "results": "resultado",
+    "results_plural": "resultados",
+    "page": "Página",
+    "of": "de",
+    "noResults": "No se encontraron establecimientos",
+    "resetFilters": "Restablecer filtros"
+  },
+  "faq": {
+    "title": "Preguntas frecuentes sobre Haití",
+    "subtitle": "¿Cuál es el momento más barato para viajar? ¿Necesito una visa? ¿Cuánto debo dar de propina? Aquí están las respuestas a sus preguntas más frecuentes sobre Haití.",
+    "q1": {
+      "question": "¿Cuál es el momento más barato para viajar a Haití?",
+      "answer1": "El momento más económico para viajar a Haití es generalmente entre mayo y octubre, durante la temporada baja turística. Durante este período, las tarifas de vuelos y alojamiento son a menudo más asequibles, y los sitios turísticos están menos concurridos, lo que permite una experiencia más tranquila y auténtica.",
+      "answer2": "Sin embargo, si prefiere un clima más seco y animado, la temporada alta (de diciembre a marzo) ofrece un sol ideal, festivales culturales como el Carnaval de Jacmel, y un ambiente particularmente festivo, pero a precios ligeramente más altos."
+    },
+    "q2": {
+      "question": "¿Dónde están los mejores lugares para alojarse en Haití?",
+      "answer1": "¿Busca una verdadera inmersión en la cocina haitiana? Puerto Príncipe alberga algunos de los mejores establecimientos del país: La Coquille, La Réserve, Presse Café en Pétion-Ville, Gingerbread en Pacot, o Le Plaza en el centro. Estos restaurantes son perfectos para descubrir los sabores típicos de Haití.",
+      "answer2": "Para una experiencia aún más especial, Le Florville en Kenscoff ofrece un brunch dominical muy popular, una excelente manera de saborear la gastronomía haitiana en un ambiente relajado y auténtico."
+    },
+    "q3": {
+      "question": "¿Necesito una visa para viajar a Haití?",
+      "answer1": "La mayoría de los visitantes no necesitan visa para entrar a Haití para una estadía turística de menos de 90 días. Los ciudadanos de muchos países, incluidos Estados Unidos, Canadá, Francia, Bélgica, Suiza y la mayoría de los países del Caribe, pueden entrar simplemente con un pasaporte válido y un boleto de regreso.",
+      "answer2": "A la llegada, se puede solicitar un pequeño impuesto turístico (a menudo incluido en el precio del boleto de avión).",
+      "answer3": "Para estadías más largas o viajes de negocios, se recomienda contactar a la embajada o consulado haitiano más cercano para obtener la información más reciente sobre los requisitos de visa."
+    },
+    "q4": {
+      "question": "¿Es seguro viajar a Haití?",
+      "answer1": "Como en cualquier país, es importante estar atento a su entorno, pero Haití ofrece una experiencia única y cálida a quienes se toman el tiempo de descubrirlo. Los visitantes a menudo encuentran que los haitianos son de las personas más acogedoras del Caribe, siempre listos para compartir su cultura, música y arte.",
+      "answer2": "Las áreas turísticas como Jacmel, Cabo Haitiano, Kenscoff o Isla-a-Vaca son particularmente apreciadas por su tranquilidad, magníficas playas y ambiente amigable. Con un poco de preparación y siguiendo los consejos locales, su estadía en Haití será segura, enriquecedora e inolvidable."
+    }
+  },
+  "footer": {
+    "about": "Descubre Haití",
+    "description": "Plataforma de turismo dedicada a promover las maravillas de Haití.",
+    "quickLinks": "Enlaces rápidos",
+    "administration": "Administración",
+    "partnerSpace": "Espacio del Socio",
+    "privacy": "Política de privacidad",
+    "contact": "Contacto",
+    "copyright": "Todos los derechos reservados."
+  },
+  "suggestText": "¿Solo buscas explorar? ¡Déjanos sugerirte algo caliente y divertido!",
+  "login": {
+    "title": "Iniciar sesión en Touris App",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "submit": "Iniciar sesión",
+    "submitting": "Iniciando sesión...",
+    "or": "O",
+    "noAccount": "¿No tienes una cuenta?",
+    "createAccount": "Crear una cuenta",
+    "professional": "¿Eres un profesional del turismo?",
+    "partnerSpace": "Espacio de socio",
+    "error": "Error al iniciar sesión"
+  },
+  "register": {
+    "title": "Crear una cuenta",
+    "subtitle": "Únete a Touris App para descubrir Haítí",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "submit": "Registrarse",
+    "submitting": "Registrando...",
+    "or": "O crear una cuenta con correo electrónico",
+    "hasAccount": "¿Ya tienes una cuenta?",
+    "loginLink": "Iniciar sesión",
+    "professional": "¿Eres un profesional del turismo?",
+    "partnerAccount": "Crear una cuenta de socio",
+    "required": "*",
+    "errors": {
+      "firstNameMin": "El nombre debe tener al menos 2 caracteres",
+      "firstNameMax": "El nombre no puede exceder 50 caracteres",
+      "firstNameInvalid": "El nombre solo puede contener letras, espacios y guiones",
+      "lastNameMin": "El apellido debe tener al menos 2 caracteres",
+      "lastNameMax": "El apellido no puede exceder 50 caracteres",
+      "lastNameInvalid": "El apellido solo puede contener letras, espacios y guiones",
+      "emailInvalid": "Correo electrónico inválido",
+      "passwordMin": "La contraseña debe tener al menos 8 caracteres",
+      "passwordWeak": "La contraseña debe contener al menos una minúscula, una mayúscula, un número y un carácter especial",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "registrationError": "Error al registrarse"
+    }
+  },
+  "establishment": {
+    "loading": "Cargando...",
+    "notFound": "Establecimiento no encontrado",
+    "backHome": "Volver al inicio",
+    "back": "Volver",
+    "description": "Descripción",
+    "special": "Lo que hace especial este lugar",
+    "whyVisit": "Por qué visitar",
+    "authentic": "Experiencia Auténtica",
+    "authenticDesc": "Viva la hospitalidad haitiana en todo su esplendor y descubra la calidez humana que hace la reputación de nuestro pueblo.",
+    "culture": "Cultura Local",
+    "cultureDesc": "Sumérjase en la riqueza cultural de Haítí, entre tradiciones ancestrales y modernidad criolla.",
+    "setting": "Entorno Excepcional",
+    "settingDesc": "Una ubicación privilegiada para explorar las maravillas de la región.",
+    "quality": "Calidad Reconocida",
+    "qualityDesc": "visitantes que recomiendan esta experiencia.",
+    "beforeVisit": "Antes de tu visita",
+    "access": "Acceso y Transporte",
+    "accessDesc": "Los taxis y el transporte público sirven regularmente la zona. Prevé efectivo para los desplazamientos locales.",
+    "bestTime": "Mejor Momento",
+    "bestTimeDesc": "La temporada alta va de diciembre a marzo con clima ideal. La temporada baja (mayo-octubre) ofrece tarifas más ventajosas.",
+    "payment": "Métodos de Pago",
+    "paymentDesc": "Los gourdes (HTG) y dólares estadounidenses se usan comúnmente.",
+    "language": "Idioma y Cultura",
+    "languageDesc": "Se habla criollo haitiano y francés. Un francés básico es suficiente para comunicarse. Los haitianos son acogedores y serviciales.",
+    "location": "Ubicación",
+    "openInMaps": "Abrir en Google Maps",
+    "reviews": "Reseñas de visitantes",
+    "giveReview": "Deja tu reseña",
+    "rating": "Calificación",
+    "comment": "Comentario",
+    "commentPlaceholder": "Comparte tu experiencia...",
+    "publishReview": "Publicar reseña",
+    "publishing": "Enviando...",
+    "noReviews": "Aún no hay reseñas",
+    "contactInfo": "Información de contacto",
+    "website": "Sitio web",
+    "hours": "Horario de apertura",
+    "fromPrice": "Desde",
+    "perNight": "/noche",
+    "avis": "reseñas"
+  },
+  "site": {
+    "loading": "Cargando...",
+    "notFound": "Sitio turístico no encontrado",
+    "backHome": "Volver al inicio",
+    "back": "Volver",
+    "about": "Acerca de",
+    "location": "Ubicación",
+    "openInMaps": "Abrir en Google Maps",
+    "practicalInfo": "Información práctica",
+    "website": "Sitio web",
+    "hours": "Horario de apertura",
+    "entryFee": "Precio de entrada"
+  },
+  "privacy": {
+    "title": "Política de privacidad",
+    "subtitle": "Tu privacidad es importante para nosotros",
+    "backHome": "Volver al inicio",
+    "lastUpdated": "Última actualización: Diciembre 2025"
+  },
+  "types": {
+    "HOTEL": "Hotel",
+    "RESTAURANT": "Restaurante",
+    "BAR": "Bar",
+    "CAFE": "Café",
+    "ATTRACTION": "Atracción",
+    "SHOP": "Tienda",
+    "SERVICE": "Servicio"
+  },
+  "siteCategories": {
+    "MONUMENT": "Monumento",
+    "MUSEUM": "Museo",
+    "PARK": "Parque",
+    "BEACH": "Playa",
+    "MOUNTAIN": "Montaña",
+    "CULTURAL": "Cultural",
+    "RELIGIOUS": "Religioso",
+    "NATURAL": "Natural",
+    "HISTORICAL": "Histórico",
+    "ENTERTAINMENT": "Entretenimiento"
+  },
+  "locationModal": {
+    "title": "Comparte tu ubicación",
+    "description": "Para ofrecerte una mejor experiencia, nos gustaría acceder a tu ubicación para sugerirte establecimientos y sitios turísticos cerca de ti.",
+    "privacy": "Privacidad",
+    "privacyText": "Tus datos de ubicación solo se almacenan localmente en tu dispositivo y nunca se comparten con terceros.",
+    "accept": "Permitir",
+    "decline": "No gracias"
+  },
+  "searchBar": {
+    "whatLookingFor": "¿Qué estás buscando?",
+    "where": "¿Dónde?"
+  }
+}

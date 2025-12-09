@@ -78,7 +78,7 @@ export default function NewSitePage() {
         formData.append('images', file);
       });
 
-      const response = await apiClient.post<ApiResponse<any>>('/sites', formData, {
+      const response = await apiClient.post<ApiResponse<any>>('/admin/sites', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 

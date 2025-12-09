@@ -1,0 +1,259 @@
+{
+  "nav": {
+    "favorites": "Favorites",
+    "hello": "Hello",
+    "mySpace": "My Space",
+    "administration": "Administration",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register"
+  },
+  "hero": {
+    "welcome": "Welcome to Haiti",
+    "title": "Discover the Pearl of the",
+    "titleHighlight": "Caribbean",
+    "subtitle": "Explore the most beautiful hotels, restaurants, tourist sites and attractions in Haiti",
+    "searchPlaceholder": "Hotel, restaurant, attraction...",
+    "locationPlaceholder": "Port-au-Prince, Cap-Haïtien...",
+    "category": "Category",
+    "allCategories": "All categories",
+    "search": "Search"
+  },
+  "categories": {
+    "all": "All",
+    "hotels": "Hotels",
+    "restaurants": "Restaurants",
+    "bars": "Bars",
+    "cafes": "Cafés",
+    "attractions": "Attractions",
+    "shops": "Shops",
+    "sites": "Tourist Sites"
+  },
+  "why": {
+    "title": "Why discover",
+    "titleHighlight": "Haiti",
+    "subtitle": "The Pearl of the Caribbean offers you unique experiences, between fascinating history, breathtaking landscapes and a vibrant culture.",
+    "history": {
+      "title": "Living History",
+      "description": "First independent black republic in the world, Haiti has an exceptional historical heritage with its forts, cathedrals and museums."
+    },
+    "landscapes": {
+      "title": "Spectacular Landscapes",
+      "description": "From paradise beaches to green mountains, through waterfalls and caves, Haiti offers extraordinary natural diversity."
+    },
+    "gastronomy": {
+      "title": "Creole Gastronomy",
+      "description": "Savor the delights of Haitian cuisine: griot, diri kole ak pwa, tasso, lambi... An explosion of flavors to discover."
+    },
+    "hospitality": {
+      "title": "Legendary Hospitality",
+      "description": "Haitians are known for their warmth and generosity. You will be welcomed as a family member."
+    }
+  },
+  "destinations": {
+    "title": "Must-See Destinations",
+    "subtitle": "Explore the iconic places that make Haiti famous",
+    "capHaitien": {
+      "title": "Cap-Haïtien",
+      "description": "The capital of the North, rich in colonial history with the Citadelle Laferrière and the Sans-Souci Palace."
+    },
+    "ileAVache": {
+      "title": "Île-à-Vache",
+      "description": "An island paradise with white sandy beaches and turquoise waters, ideal for relaxation and diving."
+    },
+    "jacmel": {
+      "title": "Jacmel",
+      "description": "City of art and culture famous for its colorful carnival, crafts and Victorian architecture."
+    }
+  },
+  "stats": {
+    "title": "Haiti in numbers",
+    "subtitle": "Discover the richness of our tourist destination",
+    "establishments": "Establishments",
+    "departments": "Departments",
+    "unesco": "UNESCO Sites",
+    "independence": "Independence"
+  },
+  "listings": {
+    "title": "All establishments",
+    "results": "result",
+    "results_plural": "results",
+    "page": "Page",
+    "of": "of",
+    "noResults": "No establishments found",
+    "resetFilters": "Reset filters"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions about Haiti",
+    "subtitle": "What is the cheapest time to travel? Do I need a visa? How much should I tip? Here are the answers to your most frequently asked questions about Haiti.",
+    "q1": {
+      "question": "What is the cheapest time to travel to Haiti?",
+      "answer1": "The most economical time to travel to Haiti is generally between May and October, during the low tourist season. During this period, flight and accommodation rates are often more affordable, and tourist sites are less crowded, allowing for a more peaceful and authentic experience.",
+      "answer2": "However, if you prefer a drier and livelier climate, the high season (from December to March) offers ideal sunshine, cultural festivals like the Jacmel Carnival, and a particularly festive atmosphere — but at slightly higher prices."
+    },
+    "q2": {
+      "question": "Where are the best places to stay in Haiti?",
+      "answer1": "Looking for a real immersion in Haitian cuisine? Port-au-Prince is home to some of the country's best establishments: La Coquille, La Réserve, Presse Café in Pétion-Ville, Gingerbread in Pacot, or Le Plaza downtown. These restaurants are perfect for discovering the typical flavors of Haiti.",
+      "answer2": "For an even more special experience, Le Florville in Kenscoff offers a highly popular Sunday brunch — an excellent way to savor Haitian gastronomy in a relaxed and authentic atmosphere."
+    },
+    "q3": {
+      "question": "Do I need a visa to travel to Haiti?",
+      "answer1": "Most visitors do not need a visa to enter Haiti for a tourist stay of less than 90 days. Citizens of many countries, including the United States, Canada, France, Belgium, Switzerland and the majority of Caribbean countries, can enter simply with a valid passport and return ticket.",
+      "answer2": "Upon arrival, a small tourist tax may be requested (often included in the plane ticket price).",
+      "answer3": "For longer stays or business trips, it is recommended to contact the nearest Haitian embassy or consulate for the most recent information on visa requirements."
+    },
+    "q4": {
+      "question": "Is it safe to travel to Haiti?",
+      "answer1": "As in any country, it is important to remain attentive to your surroundings, but Haiti offers a unique and warm experience to those who take the time to discover it. Visitors often find that Haitians are among the most welcoming people in the Caribbean, always ready to share their culture, music and art.",
+      "answer2": "Tourist areas like Jacmel, Cap-Haïtien, Kenscoff or Île-à-Vache are particularly appreciated for their tranquility, magnificent beaches and friendly atmosphere. With a little preparation and following local advice, your stay in Haiti will be safe, enriching and unforgettable."
+    }
+  },
+  "footer": {
+    "about": "Discover Haiti",
+    "description": "Tourism platform dedicated to promoting the wonders of Haiti.",
+    "quickLinks": "Quick Links",
+    "administration": "Administration",
+    "partnerSpace": "Partner Space",
+    "privacy": "Privacy Policy",
+    "contact": "Contact",
+    "copyright": "All rights reserved."
+  },
+  "suggestText": "Just looking to explore? Let us suggest something hot and fun for you!",
+  "login": {
+    "title": "Login to Touris App",
+    "email": "Email address",
+    "password": "Password",
+    "submit": "Sign in",
+    "submitting": "Signing in...",
+    "or": "Or",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create an account",
+    "professional": "Are you a tourism professional?",
+    "partnerSpace": "Partner space",
+    "error": "Login error"
+  },
+  "register": {
+    "title": "Create an account",
+    "subtitle": "Join Touris App to discover Haiti",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "submit": "Sign up",
+    "submitting": "Signing up...",
+    "or": "Or create an account with email",
+    "hasAccount": "Already have an account?",
+    "loginLink": "Sign in",
+    "professional": "Are you a tourism professional?",
+    "partnerAccount": "Create a partner account",
+    "required": "*",
+    "errors": {
+      "firstNameMin": "First name must be at least 2 characters",
+      "firstNameMax": "First name cannot exceed 50 characters",
+      "firstNameInvalid": "First name can only contain letters, spaces and hyphens",
+      "lastNameMin": "Last name must be at least 2 characters",
+      "lastNameMax": "Last name cannot exceed 50 characters",
+      "lastNameInvalid": "Last name can only contain letters, spaces and hyphens",
+      "emailInvalid": "Invalid email",
+      "passwordMin": "Password must be at least 8 characters",
+      "passwordWeak": "Password must contain at least one lowercase, one uppercase, one number and one special character",
+      "passwordMismatch": "Passwords do not match",
+      "registrationError": "Registration error"
+    }
+  },
+  "establishment": {
+    "loading": "Loading...",
+    "notFound": "Establishment not found",
+    "backHome": "Back to home",
+    "back": "Back",
+    "description": "Description",
+    "special": "What makes this place special",
+    "whyVisit": "Why visit",
+    "authentic": "Authentic Experience",
+    "authenticDesc": "Experience Haitian hospitality in all its splendor and discover the human warmth that makes our people's reputation.",
+    "culture": "Local Culture",
+    "cultureDesc": "Immerse yourself in the cultural richness of Haiti, between ancestral traditions and Creole modernity.",
+    "setting": "Exceptional Setting",
+    "settingDesc": "A privileged location to explore the wonders of the region.",
+    "quality": "Recognized Quality",
+    "qualityDesc": "visitors who recommend this experience.",
+    "beforeVisit": "Before your visit",
+    "access": "Access & Transport",
+    "accessDesc": "Taxis and public transport regularly serve the area. Plan for cash for local travel.",
+    "bestTime": "Best Time",
+    "bestTimeDesc": "The high season runs from December to March with ideal weather. The low season (May-October) offers better rates.",
+    "payment": "Payment Methods",
+    "paymentDesc": "Gourdes (HTG) and US dollars are commonly used.",
+    "language": "Language & Culture",
+    "languageDesc": "Haitian Creole and French are spoken. Basic French is enough to communicate. Haitians are welcoming and helpful.",
+    "location": "Location",
+    "openInMaps": "Open in Google Maps",
+    "reviews": "Visitor reviews",
+    "giveReview": "Leave a review",
+    "rating": "Rating",
+    "comment": "Comment",
+    "commentPlaceholder": "Share your experience...",
+    "publishReview": "Publish review",
+    "publishing": "Sending...",
+    "noReviews": "No reviews yet",
+    "contactInfo": "Contact information",
+    "website": "Website",
+    "hours": "Opening hours",
+    "fromPrice": "From",
+    "perNight": "/night",
+    "avis": "reviews"
+  },
+  "site": {
+    "loading": "Loading...",
+    "notFound": "Tourist site not found",
+    "backHome": "Back to home",
+    "back": "Back",
+    "about": "About",
+    "location": "Location",
+    "openInMaps": "Open in Google Maps",
+    "practicalInfo": "Practical information",
+    "website": "Website",
+    "hours": "Opening hours",
+    "entryFee": "Entry fee"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "subtitle": "Your privacy is important to us",
+    "backHome": "Back to home",
+    "lastUpdated": "Last updated: December 2025"
+  },
+  "types": {
+    "HOTEL": "Hotel",
+    "RESTAURANT": "Restaurant",
+    "BAR": "Bar",
+    "CAFE": "Café",
+    "ATTRACTION": "Attraction",
+    "SHOP": "Shop",
+    "SERVICE": "Service"
+  },
+  "siteCategories": {
+    "MONUMENT": "Monument",
+    "MUSEUM": "Museum",
+    "PARK": "Park",
+    "BEACH": "Beach",
+    "MOUNTAIN": "Mountain",
+    "CULTURAL": "Cultural",
+    "RELIGIOUS": "Religious",
+    "NATURAL": "Natural",
+    "HISTORICAL": "Historical",
+    "ENTERTAINMENT": "Entertainment"
+  },
+  "locationModal": {
+    "title": "Share your location",
+    "description": "To offer you a better experience, we would like to access your location to suggest establishments and tourist sites near you.",
+    "privacy": "Privacy",
+    "privacyText": "Your location data is only stored locally on your device and is never shared with third parties.",
+    "accept": "Allow",
+    "decline": "No thanks"
+  },
+  "searchBar": {
+    "whatLookingFor": "What are you looking for?",
+    "where": "Where?"
+  }
+}

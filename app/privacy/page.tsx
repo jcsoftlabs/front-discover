@@ -3,8 +3,10 @@
 import Link from 'next/link';
 import { ArrowLeft, Shield, Lock, Eye, Database, Users, Globe, FileText, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 export default function PrivacyPage() {
+  const t = useTranslations();
   const sections = [
     {
       id: 1,
@@ -258,7 +260,7 @@ export default function PrivacyPage() {
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-2 text-gray-900 hover:text-blue-600 transition">
               <ArrowLeft className="w-5 h-5" />
-              <span className="font-semibold">Retour à l'accueil</span>
+              <span className="font-semibold">{t('privacy.backHome')}</span>
             </Link>
             <Link href="/" className="flex items-center gap-2">
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
@@ -291,7 +293,7 @@ export default function PrivacyPage() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl md:text-5xl font-bold mb-4"
           >
-            Politique de confidentialité
+            {t('privacy.title')}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -299,7 +301,7 @@ export default function PrivacyPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl text-blue-100"
           >
-            Votre vie privée est importante pour nous
+            {t('privacy.subtitle')}
           </motion.p>
         </div>
       </section>
@@ -340,7 +342,7 @@ export default function PrivacyPage() {
             transition={{ duration: 0.6 }}
             className="mt-12 text-center text-gray-500 text-sm"
           >
-            Dernière mise à jour : Décembre 2025
+            {t('privacy.lastUpdated')}
           </motion.div>
         </div>
       </section>
@@ -351,30 +353,30 @@ export default function PrivacyPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* About */}
             <div>
-              <h3 className="text-xl font-bold mb-4">Discover Haiti</h3>
+              <h3 className="text-xl font-bold mb-4">{t('footer.about')}</h3>
               <p className="text-gray-400">
-                Plateforme de tourisme dédiée à la promotion des merveilles d&apos;Haïti.
+                {t('footer.description')}
               </p>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h3 className="text-xl font-bold mb-4">Liens rapides</h3>
+              <h3 className="text-xl font-bold mb-4">{t('footer.quickLinks')}</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/admin" className="hover:text-white transition">Administration</Link></li>
-                <li><Link href="/partner/dashboard" className="hover:text-white transition">Espace Partenaire</Link></li>
-                <li><Link href="/privacy" className="hover:text-white transition">Politique de confidentialité</Link></li>
+                <li><Link href="/admin" className="hover:text-white transition">{t('footer.administration')}</Link></li>
+                <li><Link href="/partner/dashboard" className="hover:text-white transition">{t('footer.partnerSpace')}</Link></li>
+                <li><Link href="/privacy" className="hover:text-white transition">{t('footer.privacy')}</Link></li>
               </ul>
             </div>
 
             {/* Contact */}
             <div>
-              <h3 className="text-xl font-bold mb-4">Contact</h3>
+              <h3 className="text-xl font-bold mb-4">{t('footer.contact')}</h3>
               <ul className="space-y-2 text-gray-400">
                 <li className="flex items-center gap-2">
                   <Mail className="w-5 h-5" />
                   <a href="mailto:mdtt@tourisme.gov.ht" className="hover:text-white transition">
-                    mdtt@tourisme.gov.ht
+                    mdt@tourisme.gov.ht
                   </a>
                 </li>
                 <li className="flex items-center gap-2">
@@ -392,7 +394,7 @@ export default function PrivacyPage() {
               alt="Ministère du Tourisme d'Haïti" 
               className="h-24 w-auto mb-4"
             />
-            <p className="text-gray-400">&copy; 2025 Discover Haiti. Tous droits réservés.</p>
+            <p className="text-gray-400">&copy; 2025 Discover Haiti. {t('footer.copyright')}</p>
           </div>
         </div>
       </footer>

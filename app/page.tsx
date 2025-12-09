@@ -10,6 +10,9 @@ import { Establishment } from '@/types';
 import SearchBar from '@/components/ui/SearchBar';
 import ListingCard from '@/components/ui/ListingCard';
 import AuthModal from '@/components/modals/AuthModal';
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
+import LocationPermissionModal from '@/components/modals/LocationPermissionModal';
+import { useTranslations } from 'next-intl';
 
 const heroImages = [
   'https://visithaiti.com/wp-content/uploads/2023/03/beach-Ile-a-Rat-Amiga-Island-cap-haitien-jean-oscar-augustin_hero.jpg',
@@ -29,6 +32,7 @@ const categories = [
 
 export default function Home() {
   const { user, isAuthenticated, logout } = useAuth();
+  const t = useTranslations();
   const [establishments, setEstablishments] = useState<(Establishment & { averageRating?: number; reviewCount?: number; isSite?: boolean })[]>([]);
   const [filteredEstablishments, setFilteredEstablishments] = useState<(Establishment & { averageRating?: number; reviewCount?: number; isSite?: boolean })[]>([]);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -201,16 +205,17 @@ export default function Home() {
               </Link>
 
               {/* Desktop Navigation */}
-              <nav className="hidden md:flex items-center gap-6">
+              <nav className="hidden md:flex items-center gap-4">
+                <LanguageSwitcher />
                 {isAuthenticated && user ? (
                   <>
                     <Link href="/favorites" className="flex items-center gap-2 text-white hover:text-blue-300 transition">
                       <Heart className="w-5 h-5" />
-                      Favoris
+                      {t('nav.favorites')}
                     </Link>
                     <div className="h-6 w-px bg-white/30"></div>
                     <span className="text-white">
-                      Bonjour, {user.firstName || 'Utilisateur'}
+                      {t('nav.hello')}, {user.firstName || 'Utilisateur'}
                     </span>
                     {user.role === 'PARTNER' && (
                       <Link
@@ -218,7 +223,7 @@ export default function Home() {
                         className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
                       >
                         <Briefcase className="w-5 h-5" />
-                        Mon espace
+                        {t('nav.mySpace')}
                       </Link>
                     )}
                     {user.role === 'ADMIN' && (
@@ -227,14 +232,14 @@ export default function Home() {
                         className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md text-white rounded-lg hover:bg-white/20 border border-white/20 transition"
                       >
                         <Briefcase className="w-5 h-5" />
-                        Administration
+                        {t('nav.administration')}
                       </Link>
                     )}
                     <button
                       onClick={logout}
                       className="px-4 py-2 text-white hover:text-red-300 transition"
                     >
-                      Déconnexion
+                      {t('nav.logout')}
                     </button>
                   </>
                 ) : (
@@ -244,14 +249,14 @@ export default function Home() {
                       className="flex items-center gap-2 text-white hover:text-blue-300 transition"
                     >
                       <LogIn className="w-5 h-5" />
-                      Connexion
+                      {t('nav.login')}
                     </button>
                     <button
                       onClick={() => openAuthModal('register')}
                       className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md text-white rounded-lg hover:bg-white/20 border border-white/20 transition"
                     >
                       <UserIcon className="w-5 h-5" />
-                      Inscription
+                      {t('nav.register')}
                     </button>
                   </>
                 )}
@@ -275,14 +280,17 @@ export default function Home() {
                 className="md:hidden py-4 border-t border-white/20 bg-black/50 backdrop-blur-md"
               >
                 <nav className="flex flex-col gap-3">
+                  <div className="px-4 pb-3 border-b border-white/20">
+                    <LanguageSwitcher />
+                  </div>
                   {isAuthenticated && user ? (
                     <>
                       <Link href="/favorites" className="flex items-center gap-2 px-4 py-2 text-white hover:bg-white/10 rounded-lg transition">
                         <Heart className="w-5 h-5" />
-                        Favoris
+                        {t('nav.favorites')}
                       </Link>
                       <span className="px-4 py-2 text-white">
-                        Bonjour, {user.firstName || 'Utilisateur'}
+                        {t('nav.hello')}, {user.firstName || 'Utilisateur'}
                       </span>
                       {user.role === 'PARTNER' && (
                         <Link
@@ -290,7 +298,7 @@ export default function Home() {
                           className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
                         >
                           <Briefcase className="w-5 h-5" />
-                          Mon espace
+                          {t('nav.mySpace')}
                         </Link>
                       )}
                       {user.role === 'ADMIN' && (
@@ -299,14 +307,14 @@ export default function Home() {
                           className="flex items-center gap-2 px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 border border-white/20 transition"
                         >
                           <Briefcase className="w-5 h-5" />
-                          Administration
+                          {t('nav.administration')}
                         </Link>
                       )}
                       <button
                         onClick={logout}
                         className="px-4 py-2 text-left text-white hover:bg-white/10 rounded-lg transition"
                       >
-                        Déconnexion
+                        {t('nav.logout')}
                       </button>
                     </>
                   ) : (
@@ -319,7 +327,7 @@ export default function Home() {
                         className="flex items-center gap-2 px-4 py-2 text-white hover:bg-white/10 rounded-lg transition"
                       >
                         <LogIn className="w-5 h-5" />
-                        Connexion
+                        {t('nav.login')}
                       </button>
                       <button
                         onClick={() => {
@@ -329,7 +337,7 @@ export default function Home() {
                         className="flex items-center gap-2 px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 border border-white/20 transition"
                       >
                         <UserIcon className="w-5 h-5" />
-                        Inscription
+                        {t('nav.register')}
                       </button>
                     </>
                   )}
@@ -341,7 +349,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section with Slider */}
-      <section className="relative py-0 px-0 overflow-hidden min-h-[750px] flex items-center">
+      <section className="relative py-0 px-0 overflow-hidden min-h-[750px] flex items-center pt-24 sm:pt-0">
         {/* Background Image Slider */}
         <div className="absolute inset-0 z-0">
           {heroImages.map((image, index) => (
@@ -378,32 +386,32 @@ export default function Home() {
           ))}
         </div>
         
-        <div className="relative max-w-7xl mx-auto text-center z-20 px-4 sm:px-6 lg:px-8">
+        <div className="relative max-w-7xl mx-auto text-center z-20 px-4 sm:px-6 lg:px-8 mt-8 sm:mt-0">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="mb-6"
+            className="mb-4 sm:mb-6"
           >
-            <div className="inline-block px-6 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-6">
-              <span className="text-white font-semibold text-sm tracking-wide">🌴 Bienvenue en Haïti</span>
+            <div className="inline-block px-3 sm:px-6 py-1.5 sm:py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-4 sm:mb-6">
+              <span className="text-white font-semibold text-xs sm:text-sm tracking-wide">🌴 {t('hero.welcome')}</span>
             </div>
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-2xl leading-tight"
+            className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-2xl leading-tight"
           >
-            Découvrez la Perle des <span className="bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">Antilles</span>
+            {t('hero.title')} <span className="bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">{t('hero.titleHighlight')}</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl md:text-2xl text-white/95 mb-12 max-w-3xl mx-auto drop-shadow-lg font-medium"
+            className="text-lg sm:text-xl md:text-2xl text-white/95 mb-12 max-w-3xl mx-auto drop-shadow-lg font-medium px-4"
           >
-            Explorez les plus beaux hôtels, restaurants, sites touristiques et attractions d&apos;Haïti
+            {t('hero.subtitle')}
           </motion.p>
 
           {/* Search Bar */}
@@ -424,11 +432,11 @@ export default function Home() {
             className="flex flex-wrap justify-center gap-4 mb-8"
           >
             {[
-              { value: 'RESTAURANT', label: 'Restaurant', icon: UtensilsCrossed, type: 'category' },
-              { value: 'HOTEL', label: 'Hôtels', icon: Hotel, type: 'category' },
-              { value: 'CAFE', label: 'Cafés', icon: Coffee, type: 'category' },
-              { value: 'SITES', label: 'Sites Touristiques', icon: MapPinned, type: 'sites' },
-              { value: 'SHOP', label: 'Boutiques', icon: ShoppingBag, type: 'category' },
+              { value: 'RESTAURANT', key: 'restaurants', icon: UtensilsCrossed, type: 'category' },
+              { value: 'HOTEL', key: 'hotels', icon: Hotel, type: 'category' },
+              { value: 'CAFE', key: 'cafes', icon: Coffee, type: 'category' },
+              { value: 'SITES', key: 'sites', icon: MapPinned, type: 'sites' },
+              { value: 'SHOP', key: 'shops', icon: ShoppingBag, type: 'category' },
             ].map((cat) => {
               const Icon = cat.icon;
               return (
@@ -440,7 +448,7 @@ export default function Home() {
                   className="flex flex-col items-center justify-center w-28 h-28 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg transition-all duration-300"
                 >
                   <Icon className="w-10 h-10 mb-2" />
-                  <span className="text-sm font-semibold text-center">{cat.label}</span>
+                  <span className="text-sm font-semibold text-center">{t(`categories.${cat.key}`)}</span>
                 </motion.button>
               );
             })}
@@ -450,14 +458,14 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-white/90 text-sm max-w-lg mx-auto pb-20"
+            className="text-white/90 text-xs sm:text-sm max-w-lg mx-auto pb-20 px-4 text-center"
           >
-            Vous cherchez simplement à vous promener ? <button onClick={() => {
+            <button onClick={() => {
               setSelectedCategory('');
               setShowSites(false);
               setFilteredEstablishments(establishments);
               setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
-            }} className="underline hover:text-white transition">Laissez-nous vous suggérer quelque chose de chaud et d&apos;amusant !</button>
+            }} className="underline hover:text-white transition">{t('suggestText')}</button>
           </motion.p>
         </div>
       </section>
@@ -1056,25 +1064,25 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* About */}
             <div>
-              <h3 className="text-xl font-bold mb-4">Discover Haiti</h3>
+              <h3 className="text-xl font-bold mb-4">{t('footer.about')}</h3>
               <p className="text-gray-400">
-                Plateforme de tourisme dédiée à la promotion des merveilles d&apos;Haïti.
+                {t('footer.description')}
               </p>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h3 className="text-xl font-bold mb-4">Liens rapides</h3>
+              <h3 className="text-xl font-bold mb-4">{t('footer.quickLinks')}</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/admin" className="hover:text-white transition">Administration</Link></li>
-                <li><Link href="/partner/dashboard" className="hover:text-white transition">Espace Partenaire</Link></li>
-                <li><Link href="/privacy" className="hover:text-white transition">Politique de confidentialité</Link></li>
+                <li><Link href="/admin" className="hover:text-white transition">{t('footer.administration')}</Link></li>
+                <li><Link href="/partner/dashboard" className="hover:text-white transition">{t('footer.partnerSpace')}</Link></li>
+                <li><Link href="/privacy" className="hover:text-white transition">{t('footer.privacy')}</Link></li>
               </ul>
             </div>
 
             {/* Contact */}
             <div>
-              <h3 className="text-xl font-bold mb-4">Contact</h3>
+              <h3 className="text-xl font-bold mb-4">{t('footer.contact')}</h3>
               <ul className="space-y-2 text-gray-400">
                 <li className="flex items-center gap-2">
                   <MapPin className="w-5 h-5" />
@@ -1082,11 +1090,11 @@ export default function Home() {
                 </li>
                 <li className="flex items-center gap-2">
                   <Phone className="w-5 h-5" />
-                  +509 XXXX XXXX
+                  +509 3816 0006
                 </li>
                 <li className="flex items-center gap-2">
                   <Mail className="w-5 h-5" />
-                  contact@discoverhaiti.ht
+                  mdt@tourisme.gov.ht
                 </li>
               </ul>
             </div>
@@ -1099,7 +1107,7 @@ export default function Home() {
               alt="Ministère du Tourisme d'Haïti" 
               className="h-24 w-auto mb-4"
             />
-            <p className="text-gray-400">&copy; 2025 Discover Haiti. Tous droits réservés.</p>
+            <p className="text-gray-400">&copy; 2025 Discover Haiti. {t('footer.copyright')}</p>
           </div>
         </div>
       </footer>
@@ -1110,6 +1118,9 @@ export default function Home() {
         onClose={() => setIsAuthModalOpen(false)}
         defaultMode={authModalMode}
       />
+
+      {/* Location Permission Modal */}
+      <LocationPermissionModal />
     </div>
   );
 }

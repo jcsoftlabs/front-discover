@@ -78,11 +78,14 @@ export default function EstablishmentDetailPage() {
           ? reviews.reduce((sum: number, r: any) => sum + r.rating, 0) / reviews.length
           : 0;
         
+        // Convert latitude/longitude to numbers, handling Decimal objects from Prisma
+        const lat = data.latitude ? parseFloat(data.latitude.toString()) : undefined;
+        const lng = data.longitude ? parseFloat(data.longitude.toString()) : undefined;
+        
         setEstablishment({
           ...data,
-          // Convert latitude/longitude strings to numbers
-          latitude: data.latitude ? parseFloat(data.latitude) : undefined,
-          longitude: data.longitude ? parseFloat(data.longitude) : undefined,
+          latitude: lat,
+          longitude: lng,
           reviews,
           averageRating,
           reviewCount: reviews.length,

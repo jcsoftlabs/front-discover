@@ -63,11 +63,14 @@ export default function SiteDetailPage() {
       const response = await apiClient.get(`/sites/${params.id}`);
       if (response.data.success) {
         const data = response.data.data;
+        // Convert latitude/longitude to numbers, handling Decimal objects from Prisma
+        const lat = data.latitude ? parseFloat(data.latitude.toString()) : undefined;
+        const lng = data.longitude ? parseFloat(data.longitude.toString()) : undefined;
+        
         setSite({
           ...data,
-          // Convert latitude/longitude strings to numbers
-          latitude: data.latitude ? parseFloat(data.latitude) : 0,
-          longitude: data.longitude ? parseFloat(data.longitude) : 0,
+          latitude: lat,
+          longitude: lng,
         });
       }
     } catch (error) {

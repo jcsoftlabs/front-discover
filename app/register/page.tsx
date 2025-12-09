@@ -8,7 +8,11 @@ import { z } from 'zod';
 import apiClient from '@/lib/axios';
 import type { ApiResponse, User } from '@/types';
 import GoogleSignInButton from '@/components/GoogleSignInButton';
+import { useTranslations } from 'next-intl';
 
+// Note: Les messages de validation Zod sont toujours en français car ils sont définis avant le rendu.
+// Pour une vraie internationalisation des messages de validation, il faudrait utiliser
+// une librairie comme zod-i18n ou implémenter une validation manuelle.
 const registerSchema = z.object({
   firstName: z.string()
     .min(2, 'Le prénom doit contenir au moins 2 caractères')
@@ -34,6 +38,7 @@ const registerSchema = z.object({
 type RegisterFormData = z.infer<typeof registerSchema>;
 
 export default function RegisterPage() {
+  const t = useTranslations();
   const router = useRouter();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -72,7 +77,7 @@ export default function RegisterPage() {
       }
     } catch (err: any) {
       setError(
-        err.response?.data?.error || 'Erreur lors de l\'inscription'
+        err.response?.data?.error || t('register.errors.registrationError')
       );
     } finally {
       setLoading(false);
@@ -84,10 +89,10 @@ export default function RegisterPage() {
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">
-            Créer un compte
+            {t('register.title')}
           </h1>
           <p className="text-gray-600 mt-2">
-            Rejoignez Touris App pour découvrir Haïti
+            {t('register.subtitle')}
           </p>
         </div>
 
@@ -108,7 +113,7 @@ export default function RegisterPage() {
             <div className="w-full border-t border-gray-300"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-gray-50 text-gray-500">Ou créer un compte avec email</span>
+            <span className="px-2 bg-gray-50 text-gray-500">{t('register.or')}</span>
           </div>
         </div>
 
@@ -117,7 +122,7 @@ export default function RegisterPage() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-                  Prénom <span className="text-red-500">*</span>
+                  {t('register.firstName')} <span className="text-red-500">{t('register.required')}</span>
                 </label>
                 <input
                   type="text"
@@ -132,7 +137,7 @@ export default function RegisterPage() {
 
               <div>
                 <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
-                  Nom <span className="text-red-500">*</span>
+                  {t('register.lastName')} <span className="text-red-500">{t('register.required')}</span>
                 </label>
                 <input
                   type="text"
@@ -148,7 +153,7 @@ export default function RegisterPage() {
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email <span className="text-red-500">*</span>
+                {t('register.email')} <span className="text-red-500">{t('register.required')}</span>
               </label>
               <input
                 type="email"
@@ -163,7 +168,7 @@ export default function RegisterPage() {
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Mot de passe <span className="text-red-500">*</span>
+                {t('register.password')} <span className="text-red-500">{t('register.required')}</span>
               </label>
               <input
                 type="password"
@@ -178,7 +183,7 @@ export default function RegisterPage() {
 
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                Confirmer le mot de passe <span className="text-red-500">*</span>
+                {t('register.confirmPassword')} <span className="text-red-500">{t('register.required')}</span>
               </label>
               <input
                 type="password"
@@ -196,31 +201,31 @@ export default function RegisterPage() {
               disabled={loading}
               className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {loading ? 'Inscription...' : "S'inscrire"}
+              {loading ? t('register.submitting') : t('register.submit')}
             </button>
           </div>
         </form>
 
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
-            Vous avez déjà un compte ?{' '}
+            {t('register.hasAccount')}{' '}
             <button
               onClick={() => router.push('/login')}
               className="text-blue-600 hover:text-blue-700 font-medium"
             >
-              Se connecter
+              {t('register.loginLink')}
             </button>
           </p>
           
           <div className="mt-4 pt-4 border-t border-gray-200">
             <p className="text-sm text-gray-600 mb-2">
-              Vous êtes un professionnel du tourisme ?
+              {t('register.professional')}
             </p>
             <button
               onClick={() => router.push('/partner/register')}
               className="text-green-600 hover:text-green-700 font-medium text-sm"
             >
-              Créer un compte partenaire
+              {t('register.partnerAccount')}
             </button>
           </div>
         </div>

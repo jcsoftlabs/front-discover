@@ -163,8 +163,8 @@ export interface Site {
   address: string;
   ville?: string; // City
   departement?: string; // Department
-  latitude: number;
-  longitude: number;
+  latitude?: number;
+  longitude?: number;
   images?: string[];
   category: 'MONUMENT' | 'MUSEUM' | 'PARK' | 'BEACH' | 'MOUNTAIN' | 'CULTURAL' | 'RELIGIOUS' | 'NATURAL' | 'HISTORICAL' | 'ENTERTAINMENT';
   openingHours?: any;

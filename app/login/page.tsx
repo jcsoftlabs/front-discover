@@ -6,9 +6,11 @@ import apiClient from '@/lib/axios';
 import type { ApiResponse, User } from '@/types';
 import GoogleSignInButton from '@/components/GoogleSignInButton';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { useTranslations } from 'next-intl';
 
 export default function LoginPage() {
-  usePageTitle('Connexion');
+  const t = useTranslations();
+  usePageTitle(t('login.title'));
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,7 +46,7 @@ export default function LoginPage() {
       }
     } catch (err: any) {
       setError(
-        err.response?.data?.error || 'Erreur lors de la connexion'
+        err.response?.data?.error || t('login.error')
       );
     } finally {
       setLoading(false);
@@ -56,7 +58,7 @@ export default function LoginPage() {
       <div className="max-w-md w-full space-y-8 p-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Connexion à Touris App
+            {t('login.title')}
           </h2>
         </div>
         
@@ -77,7 +79,7 @@ export default function LoginPage() {
             <div className="w-full border-t border-gray-300"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-gray-50 text-gray-500">Ou</span>
+            <span className="px-2 bg-gray-50 text-gray-500">{t('login.or')}</span>
           </div>
         </div>
 
@@ -85,7 +87,7 @@ export default function LoginPage() {
           <div className="rounded-md shadow-sm space-y-4">
             <div>
               <label htmlFor="email" className="sr-only">
-                Adresse email
+                {t('login.email')}
               </label>
               <input
                 id="email"
@@ -95,12 +97,12 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Adresse email"
+                placeholder={t('login.email')}
               />
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
-                Mot de passe
+                {t('login.password')}
               </label>
               <input
                 id="password"
@@ -110,7 +112,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Mot de passe"
+                placeholder={t('login.password')}
               />
             </div>
           </div>
@@ -121,31 +123,31 @@ export default function LoginPage() {
               disabled={loading}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'Connexion...' : 'Se connecter'}
+              {loading ? t('login.submitting') : t('login.submit')}
             </button>
           </div>
         </form>
 
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
-            Vous n'avez pas de compte ?{' '}
+            {t('login.noAccount')}{' '}
             <button
               onClick={() => router.push('/register')}
               className="text-blue-600 hover:text-blue-700 font-medium"
             >
-              Créer un compte
+              {t('login.createAccount')}
             </button>
           </p>
           
           <div className="mt-4 pt-4 border-t border-gray-200">
             <p className="text-sm text-gray-600 mb-2">
-              Vous êtes un professionnel du tourisme ?
+              {t('login.professional')}
             </p>
             <button
               onClick={() => router.push('/partner/login')}
               className="text-green-600 hover:text-green-700 font-medium text-sm"
             >
-              Espace partenaire
+              {t('login.partnerSpace')}
             </button>
           </div>
         </div>
