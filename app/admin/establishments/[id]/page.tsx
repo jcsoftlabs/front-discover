@@ -44,7 +44,7 @@ const establishmentSchema = z.object({
     .nullable(),
   isActive: z.boolean(),
   partnerId: z.string()
-    .min(1, 'Le partenaire est requis'),
+    .optional(),
 });
 
 type EstablishmentFormData = z.infer<typeof establishmentSchema>;
@@ -126,7 +126,9 @@ export default function EditEstablishmentPage() {
       formData.append('name', data.name);
       formData.append('type', data.type);
       formData.append('price', data.price.toString());
-      formData.append('partnerId', data.partnerId);
+      if (data.partnerId) {
+        formData.append('partnerId', data.partnerId);
+      }
       formData.append('isActive', data.isActive.toString());
       
       if (data.description) {
@@ -242,7 +244,7 @@ export default function EditEstablishmentPage() {
           {/* Partenaire */}
           <div>
             <label htmlFor="partnerId" className="block text-sm font-medium text-gray-700">
-              Partenaire <span className="text-red-500">*</span>
+              Partenaire <span className="text-gray-400">(optionnel)</span>
             </label>
             <select
               id="partnerId"
