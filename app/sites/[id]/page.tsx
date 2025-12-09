@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import apiClient from '@/lib/axios';
 import { Site } from '@/types';
-import { getAllImages } from '@/lib/utils';
+import { getAllImages, decodeHtmlEntities } from '@/lib/utils';
 import GoogleMap from '@/components/ui/GoogleMap';
 import FavoriteButton from '@/components/ui/FavoriteButton';
 import AuthModal from '@/components/modals/AuthModal';
@@ -273,7 +273,7 @@ export default function SiteDetailPage() {
                 <div className="pt-6 border-t border-gray-200">
                   <h2 className="text-2xl font-bold text-gray-900 mb-4">À propos</h2>
                   <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                    {site.description}
+                    {decodeHtmlEntities(site.description)}
                   </p>
                 </div>
               )}

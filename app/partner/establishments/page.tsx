@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import apiClient from '@/lib/axios';
-import { getFirstImage } from '@/lib/utils';
-import type { ApiResponse, Listing } from '@/types';
-
+import type { ApiResponse, Establishment } from '@/types';
+import { getFirstImage, decodeHtmlEntities } from '@/lib/utils';
+import { usePageTitle } from '@/hooks/usePageTitle';
 export default function EstablishmentsPage() {
   const router = useRouter();
   const [establishments, setEstablishments] = useState<Listing[]>([]);
@@ -156,7 +156,7 @@ export default function EstablishmentsPage() {
                 
                 {establishment.description && (
                   <p className="text-sm text-gray-700 mb-3 line-clamp-2">
-                    {establishment.description}
+                    {decodeHtmlEntities(establishment.description)}
                   </p>
                 )}
                 

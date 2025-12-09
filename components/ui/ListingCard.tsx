@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { Establishment } from '@/types';
 import RatingStars from './RatingStars';
 import FavoriteButton from './FavoriteButton';
+import { decodeHtmlEntities } from '@/lib/utils';
 
 interface ListingCardProps {
   establishment: Establishment & {
@@ -105,7 +106,7 @@ export default function ListingCard({
         {/* Description */}
         {establishment.description && (
           <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-            {establishment.description}
+            {decodeHtmlEntities(establishment.description)}
           </p>
         )}
 

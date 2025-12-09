@@ -241,3 +241,51 @@ export async function getUserLocation(): Promise<{
   // But don't prompt the user, just return null
   return null;
 }
+
+/**
+ * Decode HTML entities in a string
+ * @param text - String with HTML entities
+ * @returns Decoded string
+ */
+export function decodeHtmlEntities(text: string | null | undefined): string {
+  if (!text) return '';
+  
+  // Use browser's built-in HTML decoder
+  if (typeof window !== 'undefined') {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = text;
+    return textarea.value;
+  }
+  
+  // Fallback for server-side rendering - decode common entities
+  return text
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#x27;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&eacute;/g, 'é')
+    .replace(/&egrave;/g, 'è')
+    .replace(/&ecirc;/g, 'ê')
+    .replace(/&agrave;/g, 'à')
+    .replace(/&acirc;/g, 'â')
+    .replace(/&icirc;/g, 'î')
+    .replace(/&ocirc;/g, 'ô')
+    .replace(/&ugrave;/g, 'ù')
+    .replace(/&ucirc;/g, 'û')
+    .replace(/&ccedil;/g, 'ç')
+    .replace(/&Eacute;/g, 'É')
+    .replace(/&Egrave;/g, 'È')
+    .replace(/&Ecirc;/g, 'Ê')
+    .replace(/&Agrave;/g, 'À')
+    .replace(/&Acirc;/g, 'Â')
+    .replace(/&Icirc;/g, 'Î')
+    .replace(/&Ocirc;/g, 'Ô')
+    .replace(/&Ugrave;/g, 'Ù')
+    .replace(/&Ucirc;/g, 'Û')
+    .replace(/&Ccedil;/g, 'Ç')
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCharCode(dec));
+}

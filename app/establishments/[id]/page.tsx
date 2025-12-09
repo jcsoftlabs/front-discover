@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import apiClient from '@/lib/axios';
 import { Establishment } from '@/types';
-import { getAllImages } from '@/lib/utils';
+import { getAllImages, decodeHtmlEntities } from '@/lib/utils';
 import GoogleMap from '@/components/ui/GoogleMap';
 import FavoriteButton from '@/components/ui/FavoriteButton';
 import RatingStars from '@/components/ui/RatingStars';
@@ -314,7 +314,7 @@ export default function EstablishmentDetailPage() {
                 <div className="pt-6">
                   <h2 className="text-2xl font-bold text-gray-900 mb-4">Description</h2>
                   <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                    {establishment.description}
+                    {decodeHtmlEntities(establishment.description)}
                   </p>
                 </div>
               )}

@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import apiClient from '@/lib/axios';
-import { Establishment } from '@/types';
-import EstablishmentImage from '@/components/EstablishmentImage';
+import type { Establishment } from '@/types';
+import EstablishmentImage from '@/components/ui/EstablishmentImage';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { decodeHtmlEntities } from '@/lib/utils';
 
 export default function EstablishmentsPage() {
   usePageTitle('Gestion des Établissements');
@@ -158,7 +159,7 @@ export default function EstablishmentsPage() {
                 </p>
                 {establishment.description && (
                   <p className="text-sm text-gray-500 line-clamp-2 mb-3">
-                    {establishment.description}
+                    {decodeHtmlEntities(establishment.description)}
                   </p>
                 )}
                 {establishment.address && (
