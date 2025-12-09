@@ -22,6 +22,7 @@ export default function PartnerSidebar({ user, onLogout }: PartnerSidebarProps) 
   const menuItems: MenuItem[] = [
     { icon: '📊', label: 'Dashboard', href: '/partner/dashboard' },
     { icon: '🏨', label: 'Mes Établissements', href: '/partner/establishments' },
+    { icon: '🎉', label: 'Mes Événements', href: '/partner/events' },
     { icon: '🎁', label: 'Promotions', href: '/partner/promotions' },
     { icon: '⭐', label: 'Avis Reçus', href: '/partner/reviews' },
     { icon: '📈', label: 'Statistiques', href: '/partner/statistics' },
@@ -73,7 +74,7 @@ export default function PartnerSidebar({ user, onLogout }: PartnerSidebarProps) 
         </div>
 
         {/* Quick Actions */}
-        <div className="mt-6 px-4">
+        <div className="mt-6 px-4 space-y-2">
           <p className="text-xs text-green-300 font-semibold mb-2 uppercase">Actions Rapides</p>
           <Link
             href="/partner/establishments/new"
@@ -81,6 +82,13 @@ export default function PartnerSidebar({ user, onLogout }: PartnerSidebarProps) 
           >
             <span>➕</span>
             <span>Nouvel Établissement</span>
+          </Link>
+          <Link
+            href="/partner/events/new"
+            className="flex items-center gap-2 px-3 py-2 bg-green-700 hover:bg-green-600 rounded-lg text-sm transition-colors"
+          >
+            <span>🎉</span>
+            <span>Nouvel Événement</span>
           </Link>
         </div>
       </nav>

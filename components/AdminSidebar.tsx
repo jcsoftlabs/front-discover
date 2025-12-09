@@ -25,6 +25,7 @@ export default function AdminSidebar({ user, onLogout }: AdminSidebarProps) {
     { icon: '🏢', label: 'Partenaires', href: '/admin/partners' },
     { icon: '🏨', label: 'Établissements', href: '/admin/establishments' },
     { icon: '🏛️', label: 'Sites Touristiques', href: '/admin/sites' },
+    { icon: '🎉', label: 'Événements', href: '/admin/events' },
     { icon: '⭐', label: 'Avis', href: '/admin/reviews' },
     { icon: '🎁', label: 'Promotions', href: '/admin/promotions' },
     { icon: '🔐', label: 'Administrateurs', href: '/admin/administrators' },

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Phone, Mail, Briefcase, LogIn, User as UserIcon, Heart, Menu, X, ChevronLeft, ChevronRight, Hotel, UtensilsCrossed, Coffee, MapPinned, ShoppingBag, Sparkles, ChevronDown, Award, Globe, Mountain, Palmtree, Users, TrendingUp } from 'lucide-react';
+import { MapPin, Phone, Mail, Briefcase, LogIn, User as UserIcon, Heart, Menu, X, ChevronLeft, ChevronRight, Hotel, UtensilsCrossed, Coffee, MapPinned, ShoppingBag, Sparkles, ChevronDown, Award, Globe, Mountain, Palmtree, Users, TrendingUp, Calendar } from 'lucide-react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/AuthContext';
 import apiClient from '@/lib/axios';
@@ -477,6 +477,7 @@ export default function Home() {
               { value: 'HOTEL', key: 'hotels', icon: Hotel, type: 'category' },
               { value: 'CAFE', key: 'cafes', icon: Coffee, type: 'category' },
               { value: 'SITES', key: 'sites', icon: MapPinned, type: 'sites' },
+              { value: 'EVENTS', key: 'events', icon: Calendar, type: 'events' },
               { value: 'SHOP', key: 'shops', icon: ShoppingBag, type: 'category' },
             ].map((cat) => {
               const Icon = cat.icon;
@@ -485,7 +486,15 @@ export default function Home() {
                   key={cat.value}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => cat.type === 'sites' ? handleShowSites() : handleCategoryChange(cat.value)}
+                  onClick={() => {
+                    if (cat.type === 'sites') {
+                      handleShowSites();
+                    } else if (cat.type === 'events') {
+                      window.location.href = '/events';
+                    } else {
+                      handleCategoryChange(cat.value);
+                    }
+                  }}
                   className="flex flex-col items-center justify-center w-28 h-28 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg transition-all duration-300"
                 >
                   <Icon className="w-10 h-10 mb-2" />
