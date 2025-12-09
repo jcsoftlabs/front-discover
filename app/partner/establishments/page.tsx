@@ -8,7 +8,7 @@ import { getFirstImage, decodeHtmlEntities } from '@/lib/utils';
 import { usePageTitle } from '@/hooks/usePageTitle';
 export default function EstablishmentsPage() {
   const router = useRouter();
-  const [establishments, setEstablishments] = useState<Listing[]>([]);
+  const [establishments, setEstablishments] = useState<Establishment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -18,7 +18,7 @@ export default function EstablishmentsPage() {
 
   const fetchEstablishments = async () => {
     try {
-      const response = await apiClient.get<ApiResponse<Listing[]>>('/partner/establishments');
+      const response = await apiClient.get<ApiResponse<Establishment[]>>('/partner/establishments');
       if (response.data.success) {
         setEstablishments(response.data.data || []);
       }

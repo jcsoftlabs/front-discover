@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import apiClient from '@/lib/axios';
 import type { Establishment } from '@/types';
-import EstablishmentImage from '@/components/ui/EstablishmentImage';
+import EstablishmentImage from '@/components/EstablishmentImage';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { decodeHtmlEntities } from '@/lib/utils';
 

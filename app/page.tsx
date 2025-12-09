@@ -48,7 +48,7 @@ export default function Home() {
   const resultsRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    fetchEstablishments();
+    loadAllData();
   }, []);
 
   // Auto-advance slider every 5 seconds
@@ -61,7 +61,6 @@ export default function Home() {
   }, []);
 
   const fetchEstablishments = async () => {
-    setIsLoading(true);
     try {
       const response = await apiClient.get('/establishments');
       if (response.data.success) {
@@ -76,13 +75,55 @@ export default function Home() {
             ...est,
             averageRating,
             reviewCount: reviews.length,
+            isSite: false,
           };
         });
-        setEstablishments(data);
-        setFilteredEstablishments(data);
+        return data;
       }
     } catch (error) {
       console.error('Erreur lors du chargement des établissements:', error);
+    }
+    return [];
+  };
+
+  const fetchSites = async () => {
+    try {
+      const response = await apiClient.get('/sites');
+      if (response.data.success) {
+        const sitesAsEstablishments = response.data.data.map((site: any) => ({
+          id: site.id,
+          name: site.name,
+          description: site.description,
+          type: 'ATTRACTION' as const,
+          address: site.address,
+          ville: site.ville,
+          departement: site.departement,
+          latitude: site.latitude,
+          longitude: site.longitude,
+          images: site.images || [],
+          price: 0,
+          averageRating: 0,
+          reviewCount: 0,
+          isSite: true,
+        }));
+        return sitesAsEstablishments;
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement des sites:', error);
+    }
+    return [];
+  };
+
+  const loadAllData = async () => {
+    setIsLoading(true);
+    try {
+      const [establishmentsData, sitesData] = await Promise.all([
+        fetchEstablishments(),
+        fetchSites(),
+      ]);
+      const allData = [...establishmentsData, ...sitesData];
+      setEstablishments(allData);
+      setFilteredEstablishments(allData);
     } finally {
       setIsLoading(false);
     }
@@ -729,7 +770,7 @@ export default function Home() {
           <div className="flex items-center justify-between mb-8">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                {showSites ? 'Sites Touristiques' : selectedCategory ? categories.find(c => c.value === selectedCategory)?.label : 'Tous les établissements'}
+                {showSites ? 'Sites Touristiques' : selectedCategory ? categories.find(c => c.value === selectedCategory)?.label : 'Découvertes d\'Haïti'}
               </h2>
               <p className="text-gray-600">
                 {filteredEstablishments.length} résultat{filteredEstablishments.length > 1 ? 's' : ''}

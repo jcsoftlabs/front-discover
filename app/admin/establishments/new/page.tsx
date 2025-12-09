@@ -59,10 +59,7 @@ const establishmentSchema = z.object({
     .max(180, 'Longitude invalide')
     .optional()
     .nullable(),
-  partnerId: z.string()
-    .optional()
-    .nullable()
-    .transform(val => val === '' || val === null ? undefined : val),
+  partnerId: z.string().transform(val => val === '' ? undefined : val).optional(),
 });
 
 type EstablishmentFormData = z.infer<typeof establishmentSchema>;
