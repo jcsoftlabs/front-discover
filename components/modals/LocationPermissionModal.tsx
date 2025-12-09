@@ -69,79 +69,61 @@ export default function LocationPermissionModal() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100]"
-            onClick={handleDecline}
-          />
-
-          {/* Modal */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: 'spring', duration: 0.5 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[101] w-full max-w-md mx-4"
-          >
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-              {/* Header */}
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white relative">
-                <button
-                  onClick={handleDecline}
-                  className="absolute top-4 right-4 p-1 hover:bg-white/20 rounded-lg transition"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-                <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
-                    <MapPin className="w-8 h-8" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold">
-                      {t('locationModal.title') || 'Partagez votre position'}
-                    </h2>
-                  </div>
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 100 }}
+          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+          className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:max-w-md z-[100]"
+        >
+          <div className="bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
+            <div className="p-4 sm:p-5">
+              <div className="flex items-start gap-3">
+                {/* Icon */}
+                <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-white" />
                 </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <p className="text-gray-700 mb-4 leading-relaxed">
-                  {t('locationModal.description') || 
-                    'Pour vous offrir une meilleure expérience, nous aimerions accéder à votre position afin de vous suggérer des établissements et sites touristiques près de chez vous.'}
-                </p>
                 
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                  <p className="text-sm text-blue-900">
-                    <span className="font-semibold">🔒 {t('locationModal.privacy') || 'Confidentialité'} :</span>{' '}
-                    {t('locationModal.privacyText') || 
-                      'Vos données de localisation ne sont stockées que localement sur votre appareil et ne sont jamais partagées avec des tiers.'}
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <h3 className="font-semibold text-gray-900 text-sm sm:text-base">
+                      {t('locationModal.title') || 'Partagez votre position'}
+                    </h3>
+                    <button
+                      onClick={handleDecline}
+                      className="flex-shrink-0 p-1 hover:bg-gray-100 rounded-lg transition"
+                      aria-label="Fermer"
+                    >
+                      <X className="w-4 h-4 text-gray-500" />
+                    </button>
+                  </div>
+                  
+                  <p className="text-gray-600 text-xs sm:text-sm mb-3 leading-relaxed">
+                    {t('locationModal.description') || 
+                      'Pour vous offrir une meilleure expérience, nous aimerions accéder à votre position afin de vous suggérer des établissements et sites touristiques près de chez vous.'}
                   </p>
-                </div>
-
-                {/* Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <button
-                    onClick={handleAccept}
-                    className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:shadow-lg transition font-semibold"
-                  >
-                    {t('locationModal.accept') || 'Autoriser'}
-                  </button>
-                  <button
-                    onClick={handleDecline}
-                    className="flex-1 bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition font-semibold"
-                  >
-                    {t('locationModal.decline') || 'Non merci'}
-                  </button>
+                  
+                  {/* Buttons */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={handleAccept}
+                      className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:shadow-md transition text-sm font-medium"
+                    >
+                      {t('locationModal.accept') || 'Autoriser'}
+                    </button>
+                    <button
+                      onClick={handleDecline}
+                      className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition text-sm font-medium"
+                    >
+                      {t('locationModal.decline') || 'Non merci'}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </motion.div>
-        </>
+          </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );
