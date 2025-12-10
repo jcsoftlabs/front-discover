@@ -174,7 +174,6 @@ export default function FavoritesPage() {
                   <ListingCard
                     establishment={establishment}
                     onAuthRequired={() => setIsAuthModalOpen(true)}
-                    onFavoriteChange={fetchFavorites}
                   />
                 </motion.div>
               ))}
