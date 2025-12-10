@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/lib/AuthContext';
@@ -25,6 +25,33 @@ export default function FavoriteButton({
   const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Vérifier si l'établissement/site est déjà en favoris au chargement
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      checkIfFavorite();
+    }
+  }, [isAuthenticated, user, establishmentId, siteId]);
+
+  const checkIfFavorite = async () => {
+    try {
+      const response = await apiClient.get('/favorites');
+      if (response.data.success) {
+        const favorites = response.data.data;
+        const isFav = favorites.some((fav: any) => {
+          if (establishmentId) {
+            return fav.establishmentId === establishmentId;
+          } else if (siteId) {
+            return fav.siteId === siteId;
+          }
+          return false;
+        });
+        setIsFavorite(isFav);
+      }
+    } catch (error) {
+      console.error('Erreur lors de la vérification du favori:', error);
+    }
+  };
+
   const sizeClasses = {
     sm: 'w-8 h-8',
     md: 'w-10 h-10',
@@ -37,7 +64,10 @@ export default function FavoriteButton({
     lg: 'w-6 h-6',
   };
 
-  const handleToggleFavorite = async () => {
+  const handleToggleFavorite = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
     if (!isAuthenticated || !user) {
       onAuthRequired?.();
       return;
