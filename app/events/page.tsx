@@ -61,14 +61,29 @@ export default function PublicEventsPage() {
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 text-white py-16"
+        className="relative overflow-hidden text-white py-16"
       >
-        <div className="max-w-7xl mx-auto px-4 text-center">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: 'url("https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=2070&auto=format&fit=crop")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+        
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/90 via-indigo-900/85 to-pink-900/90 z-[1]" />
+        
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <div className="inline-block px-6 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-6">
             <span className="font-semibold text-sm tracking-wide">🎭 ÉVÉNEMENTS & FESTIVITÉS</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">Événements en Haïti</h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto">
+          <h1 className="text-5xl md:text-6xl font-bold mb-4 drop-shadow-lg">Événements en Haïti</h1>
+          <p className="text-xl text-white/95 max-w-2xl mx-auto drop-shadow-md">
             Découvrez les concerts, festivals, conférences et plus encore qui font vibrer la Perle des Antilles
           </p>
         </div>
