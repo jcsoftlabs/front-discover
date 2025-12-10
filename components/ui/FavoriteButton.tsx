@@ -27,25 +27,25 @@ export default function FavoriteButton({
 
   // Vérifier si l'établissement/site est déjà en favoris au chargement
   useEffect(() => {
-    if (isAuthenticated && user) {
+    if (isAuthenticated && user && (establishmentId || siteId)) {
       checkIfFavorite();
     }
   }, [isAuthenticated, user, establishmentId, siteId]);
 
   const checkIfFavorite = async () => {
+    if (!user) return;
+    
     try {
-      const response = await apiClient.get('/favorites');
+      const params = new URLSearchParams({ userId: user.id });
+      if (establishmentId) {
+        params.append('establishmentId', establishmentId);
+      } else if (siteId) {
+        params.append('siteId', siteId);
+      }
+      
+      const response = await apiClient.get(`/favorites/check?${params.toString()}`);
       if (response.data.success) {
-        const favorites = response.data.data;
-        const isFav = favorites.some((fav: any) => {
-          if (establishmentId) {
-            return fav.establishmentId === establishmentId;
-          } else if (siteId) {
-            return fav.siteId === siteId;
-          }
-          return false;
-        });
-        setIsFavorite(isFav);
+        setIsFavorite(response.data.data.isFavorite);
       }
     } catch (error) {
       console.error('Erreur lors de la vérification du favori:', error);
@@ -69,18 +69,28 @@ export default function FavoriteButton({
     e.stopPropagation();
     
     if (!isAuthenticated || !user) {
+      console.log('🔒 Utilisateur non authentifié, ouverture du modal');
       onAuthRequired?.();
       return;
     }
+
+    console.log('❤️ Action favori:', { 
+      action: isFavorite ? 'retirer' : 'ajouter',
+      userId: user.id,
+      establishmentId,
+      siteId 
+    });
 
     setIsLoading(true);
     try {
       if (isFavorite) {
         // Retirer des favoris
         if (establishmentId) {
-          await apiClient.delete(`/favorites/user/${user.id}/establishment/${establishmentId}`);
+          const response = await apiClient.delete(`/favorites/user/${user.id}/establishment/${establishmentId}`);
+          console.log('✅ Favori retiré:', response.data);
         } else if (siteId) {
-          await apiClient.delete(`/favorites/user/${user.id}/site/${siteId}`);
+          const response = await apiClient.delete(`/favorites/user/${user.id}/site/${siteId}`);
+          console.log('✅ Favori retiré:', response.data);
         }
         setIsFavorite(false);
       } else {
@@ -91,11 +101,13 @@ export default function FavoriteButton({
         } else if (siteId) {
           payload.siteId = siteId;
         }
-        await apiClient.post('/favorites', payload);
+        console.log('📤 Payload favori:', payload);
+        const response = await apiClient.post('/favorites', payload);
+        console.log('✅ Favori ajouté:', response.data);
         setIsFavorite(true);
       }
-    } catch (error) {
-      console.error('Erreur lors de la gestion du favori:', error);
+    } catch (error: any) {
+      console.error('❌ Erreur lors de la gestion du favori:', error.response?.data || error.message);
     } finally {
       setIsLoading(false);
     }

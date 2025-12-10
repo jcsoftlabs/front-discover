@@ -28,24 +28,28 @@ export default function FavoritesPage() {
   }, [isAuthenticated]);
 
   const fetchFavorites = async () => {
+    if (!user) return;
+    
     try {
       setIsLoading(true);
-      const response = await apiClient.get('/favorites');
+      const response = await apiClient.get(`/favorites/user/${user.id}`);
       if (response.data.success) {
         // Map favorites to establishments with ratings
-        const favoritesData = response.data.data.map((fav: any) => {
-          const establishment = fav.establishment;
-          const reviews = establishment.reviews || [];
-          const averageRating = reviews.length > 0
-            ? reviews.reduce((sum: number, r: any) => sum + r.rating, 0) / reviews.length
-            : 0;
-          
-          return {
-            ...establishment,
-            averageRating,
-            reviewCount: reviews.length,
-          };
-        });
+        const favoritesData = response.data.data
+          .filter((fav: any) => fav.establishment) // Ne garder que les favoris avec establishment
+          .map((fav: any) => {
+            const establishment = fav.establishment;
+            const reviews = establishment.reviews || [];
+            const averageRating = reviews.length > 0
+              ? reviews.reduce((sum: number, r: any) => sum + r.rating, 0) / reviews.length
+              : 0;
+            
+            return {
+              ...establishment,
+              averageRating,
+              reviewCount: reviews.length,
+            };
+          });
         setFavorites(favoritesData);
       }
     } catch (error) {
