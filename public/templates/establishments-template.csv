@@ -1,4 +1,6 @@
-name,description,type,price,images,address,ville,departement,latitude,longitude,partnerId
-Hotel Luxe Paris,Un hôtel 5 étoiles au cœur de Paris,HOTEL,250.00,https://example.com/img1.jpg|https://example.com/img2.jpg,123 Rue de Rivoli,Paris,Paris,48.8566,2.3522,
-Restaurant Le Gourmet,Restaurant gastronomique avec vue sur la Seine,RESTAURANT,75.50,,45 Quai de la Seine,Paris,Paris,48.8584,2.3488,
-Musée d'Art Moderne,Découvrez l'art contemporain,ATTRACTION,15.00,https://example.com/museum.jpg,11 Avenue du Président Wilson,Paris,Paris,48.8648,2.2970,
+name,type,price,address,latitude,longitude
+Hotel Montana,HOTEL,8500.00,Rue Cardozo - Pétionville,18.5461,-72.2887
+Restaurant Quartier Latin,RESTAURANT,1500.00,18 Rue Pinchinat - Pétionville,18.5125,-72.2854
+Musée du Panthéon National,ATTRACTION,250.00,Champ de Mars - Port-au-Prince,18.5392,-72.3378
+Café 36,CAFE,400.00,Route de Bourdon,18.5235,-72.2978
+Bar Le Refuge,BAR,600.00,Rue Grégoire - Pétion-Ville,18.5140,-72.2860

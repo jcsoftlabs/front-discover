@@ -33,49 +33,91 @@ La fonctionnalité d'import CSV permet aux administrateurs et partenaires d'impo
 
 ### Établissements
 
-**Champs obligatoires:**
+**Champs obligatoires (template minimal):**
 - `name` - Nom de l'établissement
 - `type` - Type (HOTEL, RESTAURANT, BAR, CAFE, ATTRACTION, SHOP, SERVICE)
 - `price` - Prix (nombre décimal)
+- `address` - Adresse
+- `latitude` - Coordonnée GPS (nombre décimal)
+- `longitude` - Coordonnée GPS (nombre décimal)
 
-**Champs optionnels:**
+**Champs optionnels (peuvent être ajoutés au template):**
 - `description` - Description
 - `images` - URLs des images (séparées par `|`)
 - `address` - Adresse
 - `ville` - Ville
-- `departement` - Département
+- `departement` - Département (ex: Ouest, Nord, Sud-Est, Artibonite, etc.)
+- `phone` - Numéro de téléphone (format: +509 XXXX XXXX)
+- `email` - Adresse email
+- `website` - Site web
 - `latitude` - Coordonnée GPS (nombre décimal)
 - `longitude` - Coordonnée GPS (nombre décimal)
-- `partnerId` - ID du partenaire (CUID) - **Optionnel: laissez vide si l'établissement n'est pas lié à un partenaire**
+- `amenities` - Équipements/Services (séparés par `|`, entre guillemets si multiples)
+- `partnerId` - ID du partenaire (CUID)
 
-**Exemple:**
+**Exemple (template minimal):**
 ```csv
-name,description,type,price,images,address,ville,departement,latitude,longitude,partnerId
-Hotel Luxe Paris,Un hôtel 5 étoiles,HOTEL,250.00,https://example.com/img1.jpg|https://example.com/img2.jpg,123 Rue de Rivoli,Paris,Paris,48.8566,2.3522,
-Restaurant Le Gourmet,Restaurant gastronomique,RESTAURANT,75.50,,45 Quai de la Seine,Paris,Paris,48.8584,2.3488,
+name,type,price,address,latitude,longitude
+Hotel Montana,HOTEL,8500.00,Rue Cardozo - Pétionville,18.5461,-72.2887
+Restaurant Quartier Latin,RESTAURANT,1500.00,18 Rue Pinchinat - Pétionville,18.5125,-72.2854
+Musée du Panthéon National,ATTRACTION,250.00,Champ de Mars - Port-au-Prince,18.5392,-72.3378
 ```
 
 **Note:** Le `partnerId` doit être laissé vide (dernière colonne vide) si l'établissement n'est pas lié à un partenaire spécifique. Si fourni, le système vérifiera que le partenaire existe dans la base de données.
 
 ### Sites Touristiques
 
-**Champs obligatoires:**
+**Champs obligatoires (template minimal):**
 - `name` - Nom du site
 - `address` - Adresse complète
 - `latitude` - Coordonnée GPS (-90 à 90)
 - `longitude` - Coordonnée GPS (-180 à 180)
+- `category` - Catégorie (MONUMENT, MUSEUM, PARK, BEACH, MOUNTAIN, CULTURAL, RELIGIOUS, NATURAL, HISTORICAL, ENTERTAINMENT)
 
-**Champs optionnels:**
+**Champs optionnels (peuvent être ajoutés au template):**
 - `description` - Description
 - `ville` - Ville
-- `departement` - Département
+- `departement` - Département (ex: Ouest, Nord, Sud-Est, Artibonite, etc.)
+- `entryFee` - Prix d'entrée en HTG (nombre décimal, 0 si gratuit)
+- `phone` - Numéro de téléphone (format: +509 XXXX XXXX)
+- `website` - Site web
 - `images` - URLs des images (séparées par `|`)
 
-**Exemple:**
+**Exemple (template minimal):**
 ```csv
-name,description,address,ville,departement,latitude,longitude,images
-Tour Eiffel,Monument emblématique de Paris,Champ de Mars,Paris,Paris,48.8584,2.2945,https://example.com/eiffel.jpg
-Sacré-Cœur,Basilique au sommet de Montmartre,35 Rue du Chevalier de la Barre,Paris,Paris,48.8867,2.3431,https://example.com/sacre-coeur.jpg|https://example.com/sacre-coeur2.jpg
+name,address,latitude,longitude,category
+Citadelle Laferrière,Milot,19.5708,-72.2406,HISTORICAL
+Bassin Bleu,Jacmel,18.2333,-72.5333,NATURAL
+Musée d'Art Haïtien,Rue Légitime Aimé - Pétionville,18.5125,-72.2854,MUSEUM
+```
+
+### Événements
+
+**Champs obligatoires (template minimal):**
+- `title` - Titre de l'événement
+- `startDate` - Date de début (format: YYYY-MM-DD)
+- `endDate` - Date de fin (format: YYYY-MM-DD)
+- `category` - Catégorie (CONCERT, FESTIVAL, CONFERENCE, SPORT, EXHIBITION, CULTURAL, RELIGIOUS, CARNIVAL, OTHER)
+
+**Champs optionnels (peuvent être ajoutés au template):**
+- `description` - Description
+- `location` - Lieu (nom du lieu)
+- `address` - Adresse
+- `ville` - Ville
+- `departement` - Département (ex: Ouest, Nord, Sud-Est, Artibonite, etc.)
+- `latitude` - Coordonnée GPS (nombre décimal)
+- `longitude` - Coordonnée GPS (nombre décimal)
+- `price` - Prix en HTG (nombre décimal, 0 si gratuit)
+- `maxCapacity` - Capacité maximale (nombre entier)
+- `images` - URLs des images (séparées par `|`)
+- `organizerId` - ID du partenaire organisateur (CUID)
+
+**Exemple (template minimal):**
+```csv
+title,startDate,endDate,category
+Festival Jazz de Port-au-Prince,2025-02-15,2025-02-17,CONCERT
+Carnaval de Jacmel,2025-02-23,2025-02-25,CARNIVAL
+Conférence Tech Haiti 2025,2025-03-10,2025-03-12,CONFERENCE
 ```
 
 ## Modèles CSV
@@ -83,6 +125,7 @@ Sacré-Cœur,Basilique au sommet de Montmartre,35 Rue du Chevalier de la Barre,P
 Les modèles CSV sont disponibles en téléchargement sur les pages d'import:
 - `/templates/establishments-template.csv`
 - `/templates/sites-template.csv`
+- `/templates/events-template.csv`
 
 ## Utilisation
 
