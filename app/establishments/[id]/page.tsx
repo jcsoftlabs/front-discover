@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { 
-  MapPin, Phone, Mail, Clock, Star, MessageCircle, 
+import {
+  MapPin, Phone, Mail, Clock, Star, MessageCircle,
   ArrowLeft, Share2, ExternalLink, ChevronLeft, ChevronRight,
   Wifi, Utensils, Car, Coffee, CreditCard, Sparkles, Award, Users, Heart
 } from 'lucide-react';
@@ -49,8 +49,8 @@ export default function EstablishmentDetailPage() {
   const params = useParams();
   const router = useRouter();
   const { isAuthenticated } = useAuth();
-  const [establishment, setEstablishment] = useState<Establishment & { 
-    averageRating?: number; 
+  const [establishment, setEstablishment] = useState<Establishment & {
+    averageRating?: number;
     reviewCount?: number;
     reviews?: any[];
   } | null>(null);
@@ -77,11 +77,11 @@ export default function EstablishmentDetailPage() {
         const averageRating = reviews.length > 0
           ? reviews.reduce((sum: number, r: any) => sum + r.rating, 0) / reviews.length
           : 0;
-        
+
         // Convert latitude/longitude to numbers, handling Decimal objects from Prisma
         const lat = data.latitude ? parseFloat(data.latitude.toString()) : undefined;
         const lng = data.longitude ? parseFloat(data.longitude.toString()) : undefined;
-        
+
         setEstablishment({
           ...data,
           latitude: lat,
@@ -89,6 +89,16 @@ export default function EstablishmentDetailPage() {
           reviews,
           averageRating,
           reviewCount: reviews.length,
+        });
+
+        // 📊 Track establishment view
+        const { default: telemetryService } = await import('@/lib/services/telemetry');
+        telemetryService.trackEstablishmentView(data.id, {
+          name: data.name,
+          type: data.type,
+          category: data.type,
+          ville: data.ville,
+          departement: data.departement
         });
       }
     } catch (error) {
@@ -100,7 +110,7 @@ export default function EstablishmentDetailPage() {
 
   const handleSubmitReview = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!isAuthenticated) {
       setIsAuthModalOpen(true);
       return;
@@ -126,14 +136,18 @@ export default function EstablishmentDetailPage() {
 
   const prevImage = () => {
     if (establishment?.images && establishment.images.length > 0) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex((prev) =>
         prev === 0 ? establishment.images!.length - 1 : prev - 1
       );
     }
   };
 
-  const handleShare = () => {
+  const handleShare = async () => {
     if (navigator.share && establishment) {
+      // 📊 Track share action
+      const { default: telemetryService } = await import('@/lib/services/telemetry');
+      telemetryService.trackShare('establishment', establishment.id, 'native_share');
+
       navigator.share({
         title: establishment.name,
         text: establishment.description || '',
@@ -192,8 +206,8 @@ export default function EstablishmentDetailPage() {
               >
                 <Share2 className="w-5 h-5" />
               </button>
-              <FavoriteButton 
-                establishmentId={establishment.id} 
+              <FavoriteButton
+                establishmentId={establishment.id}
                 size="lg"
                 onAuthRequired={() => setIsAuthModalOpen(true)}
               />
@@ -205,7 +219,7 @@ export default function EstablishmentDetailPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Image Gallery */}
         {hasImages && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="relative h-64 sm:h-80 md:h-96 lg:h-[450px] rounded-2xl overflow-hidden shadow-2xl mb-8"
@@ -217,7 +231,7 @@ export default function EstablishmentDetailPage() {
               className="w-full h-full object-cover"
               crossOrigin="anonymous"
             />
-            
+
             {images.length > 1 && (
               <>
                 <button
@@ -237,11 +251,10 @@ export default function EstablishmentDetailPage() {
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`h-1.5 rounded-full transition-all ${
-                        index === currentImageIndex 
-                          ? 'bg-white w-8 shadow-lg' 
-                          : 'bg-white/60 w-1.5 hover:bg-white/80'
-                      }`}
+                      className={`h-1.5 rounded-full transition-all ${index === currentImageIndex
+                        ? 'bg-white w-8 shadow-lg'
+                        : 'bg-white/60 w-1.5 hover:bg-white/80'
+                        }`}
                     />
                   ))}
                 </div>
@@ -426,7 +439,7 @@ export default function EstablishmentDetailPage() {
                     Moyens de Paiement
                   </h3>
                   <p className="text-gray-700 text-sm">
-                    {establishment.type === 'HOTEL' || establishment.type === 'RESTAURANT' 
+                    {establishment.type === 'HOTEL' || establishment.type === 'RESTAURANT'
                       ? 'Cartes de crédit généralement acceptées. '
                       : ''}
                     Les gourdes (HTG) et dollars américains sont couramment utilisés.
@@ -496,11 +509,10 @@ export default function EstablishmentDetailPage() {
                         key={rating}
                         type="button"
                         onClick={() => setNewReview({ ...newReview, rating })}
-                        className={`p-2 rounded-lg transition ${
-                          newReview.rating >= rating
-                            ? 'text-yellow-500'
-                            : 'text-gray-300'
-                        }`}
+                        className={`p-2 rounded-lg transition ${newReview.rating >= rating
+                          ? 'text-yellow-500'
+                          : 'text-gray-300'
+                          }`}
                       >
                         <Star className="w-8 h-8" fill={newReview.rating >= rating ? 'currentColor' : 'none'} />
                       </button>

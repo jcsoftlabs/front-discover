@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { 
-  MapPin, Phone, Globe, Clock, Tag, 
-  ArrowLeft, Share2, ExternalLink, ChevronLeft, ChevronRight, DollarSign 
+import {
+  MapPin, Phone, Globe, Clock, Tag,
+  ArrowLeft, Share2, ExternalLink, ChevronLeft, ChevronRight, DollarSign
 } from 'lucide-react';
 import apiClient from '@/lib/axios';
 import { Site } from '@/types';
@@ -66,7 +66,7 @@ export default function SiteDetailPage() {
         // Convert latitude/longitude to numbers, handling Decimal objects from Prisma
         const lat = data.latitude ? parseFloat(data.latitude.toString()) : undefined;
         const lng = data.longitude ? parseFloat(data.longitude.toString()) : undefined;
-        
+
         setSite({
           ...data,
           latitude: lat,
@@ -88,14 +88,18 @@ export default function SiteDetailPage() {
 
   const prevImage = () => {
     if (site?.images && site.images.length > 0) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex((prev) =>
         prev === 0 ? site.images!.length - 1 : prev - 1
       );
     }
   };
 
-  const handleShare = () => {
+  const handleShare = async () => {
     if (navigator.share && site) {
+      // 📊 Track share action  
+      const { default: telemetryService } = await import('@/lib/services/telemetry');
+      telemetryService.trackShare('site', site.id, 'native_share');
+
       navigator.share({
         title: site.name,
         text: site.description || '',
@@ -154,8 +158,8 @@ export default function SiteDetailPage() {
               >
                 <Share2 className="w-5 h-5" />
               </button>
-              <FavoriteButton 
-                siteId={site.id} 
+              <FavoriteButton
+                siteId={site.id}
                 size="lg"
                 onAuthRequired={() => setIsAuthModalOpen(true)}
               />
@@ -167,7 +171,7 @@ export default function SiteDetailPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Image Gallery */}
         {hasImages && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="relative h-64 sm:h-80 md:h-96 lg:h-[450px] rounded-2xl overflow-hidden shadow-2xl mb-8"
@@ -179,7 +183,7 @@ export default function SiteDetailPage() {
               className="w-full h-full object-cover"
               crossOrigin="anonymous"
             />
-            
+
             {images.length > 1 && (
               <>
                 <button
@@ -199,11 +203,10 @@ export default function SiteDetailPage() {
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`h-1.5 rounded-full transition-all ${
-                        index === currentImageIndex 
-                          ? 'bg-white w-8 shadow-lg' 
+                      className={`h-1.5 rounded-full transition-all ${index === currentImageIndex
+                          ? 'bg-white w-8 shadow-lg'
                           : 'bg-white/60 w-1.5 hover:bg-white/80'
-                      }`}
+                        }`}
                     />
                   ))}
                 </div>

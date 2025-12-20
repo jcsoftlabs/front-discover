@@ -152,15 +152,29 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setShowSuggestions(false);
     setShowLocationSuggestions(false);
+
+    // 📊 Track search
+    const { default: telemetryService } = await import('@/lib/services/telemetry');
+    telemetryService.trackSearch(query, suggestions.length);
+
     onSearch(query, location, category);
   };
 
-  const selectSuggestion = (item: (Establishment | Site) & { resultType: 'establishment' | 'site' }) => {
+  const selectSuggestion = async (item: (Establishment | Site) & { resultType: 'establishment' | 'site' }) => {
     setShowSuggestions(false);
+
+    // 📊 Track suggestion click
+    const { default: telemetryService } = await import('@/lib/services/telemetry');
+    telemetryService.trackClick('search_suggestion', {
+      itemId: item.id,
+      itemType: item.resultType,
+      itemName: item.name
+    });
+
     // Navigate directly to the establishment or site detail page
     if (item.resultType === 'establishment') {
       router.push(`/establishments/${item.id}`);
@@ -199,7 +213,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
                 onFocus={() => query.length >= 2 && suggestions.length > 0 && setShowSuggestions(true)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-gray-900 placeholder:text-gray-500"
               />
-              
+
               {/* Suggestions Dropdown */}
               <AnimatePresence>
                 {showSuggestions && (
@@ -236,12 +250,11 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
                           <div className="flex-1 min-w-0">
                             <p className="font-medium text-gray-900 truncate">{item.name}</p>
                             <p className="text-sm text-gray-500 truncate">{item.address}</p>
-                            <span className={`inline-block mt-1 text-xs px-2 py-1 rounded ${
-                              item.resultType === 'site' 
-                                ? 'bg-green-100 text-green-700' 
+                            <span className={`inline-block mt-1 text-xs px-2 py-1 rounded ${item.resultType === 'site'
+                                ? 'bg-green-100 text-green-700'
                                 : 'bg-blue-100 text-blue-700'
-                            }`}>
-                              {item.resultType === 'site' 
+                              }`}>
+                              {item.resultType === 'site'
                                 ? t(`siteCategories.${(item as Site).category}`)
                                 : categories.find(c => c.value === (item as Establishment).type)?.label || (item as Establishment).type
                               }
@@ -271,7 +284,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
                 onFocus={() => location.length >= 2 && locationSuggestions.length > 0 && setShowLocationSuggestions(true)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-gray-900 placeholder:text-gray-500"
               />
-              
+
               {/* Location Suggestions Dropdown */}
               <AnimatePresence>
                 {showLocationSuggestions && (

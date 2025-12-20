@@ -34,7 +34,7 @@ export default function FavoriteButton({
 
   const checkIfFavorite = async () => {
     if (!user) return;
-    
+
     try {
       const params = new URLSearchParams({ userId: user.id });
       if (establishmentId) {
@@ -42,7 +42,7 @@ export default function FavoriteButton({
       } else if (siteId) {
         params.append('siteId', siteId);
       }
-      
+
       const response = await apiClient.get(`/favorites/check?${params.toString()}`);
       if (response.data.success) {
         setIsFavorite(response.data.data.isFavorite);
@@ -67,22 +67,26 @@ export default function FavoriteButton({
   const handleToggleFavorite = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (!isAuthenticated || !user) {
       console.log('🔒 Utilisateur non authentifié, ouverture du modal');
       onAuthRequired?.();
       return;
     }
 
-    console.log('❤️ Action favori:', { 
+    console.log('❤️ Action favori:', {
       action: isFavorite ? 'retirer' : 'ajouter',
       userId: user.id,
       establishmentId,
-      siteId 
+      siteId
     });
 
     setIsLoading(true);
     try {
+      // Déterminer le type et l'ID
+      const itemType = establishmentId ? 'establishment' : 'site';
+      const itemId = establishmentId || siteId || '';
+
       if (isFavorite) {
         // Retirer des favoris
         if (establishmentId) {
@@ -93,6 +97,10 @@ export default function FavoriteButton({
           console.log('✅ Favori retiré:', response.data);
         }
         setIsFavorite(false);
+
+        // 📊 Track remove favorite
+        const { default: telemetryService } = await import('@/lib/services/telemetry');
+        telemetryService.trackFavorite(itemType, itemId, 'remove');
       } else {
         // Ajouter aux favoris
         const payload: any = { userId: user.id };
@@ -105,6 +113,10 @@ export default function FavoriteButton({
         const response = await apiClient.post('/favorites', payload);
         console.log('✅ Favori ajouté:', response.data);
         setIsFavorite(true);
+
+        // 📊 Track add favorite
+        const { default: telemetryService } = await import('@/lib/services/telemetry');
+        telemetryService.trackFavorite(itemType, itemId, 'add');
       }
     } catch (error: any) {
       console.error('❌ Erreur lors de la gestion du favori:', error.response?.data || error.message);
@@ -119,18 +131,15 @@ export default function FavoriteButton({
       whileTap={{ scale: 0.9 }}
       onClick={handleToggleFavorite}
       disabled={isLoading}
-      className={`${sizeClasses[size]} ${
-        isFavorite
+      className={`${sizeClasses[size]} ${isFavorite
           ? 'bg-red-500 hover:bg-red-600'
           : 'bg-white hover:bg-gray-50'
-      } rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${
-        isLoading ? 'opacity-50 cursor-not-allowed' : ''
-      }`}
+        } rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''
+        }`}
     >
       <Heart
-        className={`${iconSizes[size]} ${
-          isFavorite ? 'text-white' : 'text-gray-600'
-        }`}
+        className={`${iconSizes[size]} ${isFavorite ? 'text-white' : 'text-gray-600'
+          }`}
         fill={isFavorite ? 'currentColor' : 'none'}
       />
     </motion.button>

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from '@/lib/AuthContext';
 import { GoogleMapsProvider } from '@/lib/GoogleMapsProvider';
+import { TelemetryProvider } from '@/lib/components/TelemetryProvider';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import "./globals.css";
@@ -45,7 +46,9 @@ export default async function RootLayout({
           <GoogleOAuthProvider clientId="955108400371-uik3onuhrlibvaik5l6j0a28t8ajg0sd.apps.googleusercontent.com">
             <AuthProvider>
               <GoogleMapsProvider>
-                {children}
+                <TelemetryProvider>
+                  {children}
+                </TelemetryProvider>
               </GoogleMapsProvider>
             </AuthProvider>
           </GoogleOAuthProvider>
