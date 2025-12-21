@@ -39,7 +39,7 @@ export default function CSVImporter({ type, apiEndpoint, token, onImportComplete
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const templateUrl = type === 'establishments' 
+  const templateUrl = type === 'establishments'
     ? '/templates/establishments-template.csv'
     : '/templates/sites-template.csv';
 
@@ -47,13 +47,62 @@ export default function CSVImporter({ type, apiEndpoint, token, onImportComplete
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       if (selectedFile.type === 'text/csv' || selectedFile.name.endsWith('.csv')) {
-        setFile(selectedFile);
-        setError(null);
-        setResult(null);
+        // Validate encoding before accepting the file
+        validateEncoding(selectedFile);
       } else {
         setError('Veuillez sélectionner un fichier CSV valide');
         setFile(null);
       }
+    }
+  };
+
+  const validateEncoding = async (selectedFile: File) => {
+    try {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const text = e.target?.result as string;
+
+        // Check for common encoding issues
+        const hasBadChars = /[├â┬®©°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏ]/g.test(text);
+        const hasValidFrenchChars = /[éèêëàâäôöùûüïîç]/i.test(text);
+
+        if (hasBadChars && !hasValidFrenchChars) {
+          setError(
+            '⚠️ Attention: Votre fichier semble mal encodé. ' +
+            'Les caractères français ne s\'afficheront pas correctement. ' +
+            'Veuillez réenregistrer votre fichier en UTF-8 (voir instructions ci-dessus).'
+          );
+          setFile(null);
+          if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+          }
+        } else {
+          // File seems OK
+          setFile(selectedFile);
+          setError(null);
+          setResult(null);
+
+          // Show success message if French chars detected
+          if (hasValidFrenchChars) {
+            console.log('✅ Encodage UTF-8 détecté - caractères français présents');
+          }
+        }
+      };
+
+      reader.onerror = () => {
+        setError('Erreur lors de la lecture du fichier');
+        setFile(null);
+      };
+
+      // Read as UTF-8
+      reader.readAsText(selectedFile, 'UTF-8');
+    } catch (err) {
+      console.error('Encoding validation error:', err);
+      // If validation fails, still accept the file but warn
+      setFile(selectedFile);
+      setError(null);
+      setResult(null);
     }
   };
 
@@ -267,7 +316,7 @@ export default function CSVImporter({ type, apiEndpoint, token, onImportComplete
             {/* Progress Bar */}
             <div>
               <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-                <div 
+                <div
                   className="bg-green-600 h-2 rounded-full transition-all duration-300"
                   style={{ width: `${(result.data.summary.success / result.data.summary.total) * 100}%` }}
                 />
