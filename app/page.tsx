@@ -30,6 +30,16 @@ const categories = [
   { value: 'SHOP', label: 'Boutiques', icon: ShoppingBag, color: 'from-pink-500 to-rose-500' },
 ];
 
+// Couleurs distinctes pour les boutons catégories
+const categoryColors: Record<string, string> = {
+  'RESTAURANT': 'from-orange-500 to-red-600',
+  'HOTEL': 'from-blue-500 to-cyan-600',
+  'CAFE': 'from-amber-500 to-yellow-600',
+  'SITES': 'from-green-500 to-emerald-600',
+  'EVENTS': 'from-purple-500 to-pink-600',
+  'SHOP': 'from-pink-500 to-rose-600',
+};
+
 export default function Home() {
   const { user, isAuthenticated, logout } = useAuth();
   const t = useTranslations();
@@ -70,7 +80,7 @@ export default function Home() {
           const averageRating = reviews.length > 0
             ? reviews.reduce((sum: number, r: { rating: number }) => sum + r.rating, 0) / reviews.length
             : 0;
-          
+
           return {
             ...est,
             averageRating,
@@ -159,7 +169,7 @@ export default function Home() {
     setSelectedCategory(category);
     setCurrentPage(1);
     setShowSites(false); // Reset sites view
-    
+
     if (category === '') {
       setFilteredEstablishments(establishments);
     } else {
@@ -178,7 +188,7 @@ export default function Home() {
     setSelectedCategory('');
     setCurrentPage(1);
     setIsLoading(true);
-    
+
     try {
       const response = await apiClient.get('/sites');
       if (response.data.success) {
@@ -397,7 +407,7 @@ export default function Home() {
             <motion.div
               key={image}
               initial={{ opacity: 0 }}
-              animate={{ 
+              animate={{
                 opacity: currentSlide === index ? 1 : 0,
                 scale: currentSlide === index ? 1 : 1.1,
               }}
@@ -407,26 +417,25 @@ export default function Home() {
             />
           ))}
         </div>
-        
+
         {/* Dark Overlay for Better Text Readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70 z-[1]"></div>
-        
+
         {/* Slide Indicators */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-30">
           {heroImages.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`transition-all duration-300 rounded-full ${
-                currentSlide === index 
-                  ? 'bg-white w-12 h-3' 
+              className={`transition-all duration-300 rounded-full ${currentSlide === index
+                  ? 'bg-white w-12 h-3'
                   : 'bg-white/50 w-3 h-3 hover:bg-white/75'
-              }`}
+                }`}
               aria-label={`Aller à la diapositive ${index + 1}`}
             />
           ))}
         </div>
-        
+
         <div className="relative max-w-7xl mx-auto text-center z-20 px-4 sm:px-6 lg:px-8 mt-8 sm:mt-0">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -481,6 +490,7 @@ export default function Home() {
               { value: 'SHOP', key: 'shops', icon: ShoppingBag, type: 'category' },
             ].map((cat) => {
               const Icon = cat.icon;
+              const gradientColor = categoryColors[cat.value] || 'from-blue-600 to-purple-600';
               return (
                 <motion.button
                   key={cat.value}
@@ -495,7 +505,7 @@ export default function Home() {
                       handleCategoryChange(cat.value);
                     }
                   }}
-                  className="flex flex-col items-center justify-center w-28 h-28 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg transition-all duration-300"
+                  className={`flex flex-col items-center justify-center w-28 h-28 bg-gradient-to-br ${gradientColor} hover:shadow-xl text-white rounded-xl shadow-lg transition-all duration-300`}
                 >
                   <Icon className="w-10 h-10 mb-2" />
                   <span className="text-sm font-semibold text-center">{t(`categories.${cat.key}`)}</span>
@@ -534,7 +544,7 @@ export default function Home() {
               Pourquoi découvrir <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Haïti</span> ?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              La Perle des Antilles vous réserve des expériences uniques, entre histoire fascinante, 
+              La Perle des Antilles vous réserve des expériences uniques, entre histoire fascinante,
               paysages à couper le souffle et une culture vibrante.
             </p>
           </motion.div>
@@ -633,7 +643,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 h-[400px]"
             >
-              <div 
+              <div
                 className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
                 style={{
                   backgroundImage: `url('https://dancingpandas.com/wp-content/uploads/2024/01/Notre-Dame-Cathedral-Haiti.png')`,
@@ -655,7 +665,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 h-[400px]"
             >
-              <div 
+              <div
                 className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
                 style={{
                   backgroundImage: `url('https://visithaiti.com/wp-content/uploads/2025/03/ile-a-vache-island-anton-lau_hero.jpg')`,
@@ -677,7 +687,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 h-[400px]"
             >
-              <div 
+              <div
                 className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
                 style={{
                   backgroundImage: `url('https://visithaiti.com/wp-content/uploads/2018/07/city-center-jacmel-anton-lau.jpg')`,
@@ -844,7 +854,7 @@ export default function Home() {
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
-                  
+
                   <div className="flex gap-2">
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
                       // Afficher les 5 premières pages, puis la dernière
@@ -855,10 +865,9 @@ export default function Home() {
                             onClick={() => goToPage(page)}
                             className={`
                               min-w-[40px] h-10 rounded-lg font-semibold transition-all duration-300
-                              ${
-                                currentPage === page
-                                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-110'
-                                  : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'
+                              ${currentPage === page
+                                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-110'
+                                : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'
                               }
                             `}
                           >
@@ -1152,9 +1161,9 @@ export default function Home() {
 
           {/* Logo Ministère du Tourisme */}
           <div className="mt-8 pt-8 border-t border-gray-800 flex flex-col items-center">
-            <img 
-              src="/images-mt.png" 
-              alt="Ministère du Tourisme d'Haïti" 
+            <img
+              src="/images-mt.png"
+              alt="Ministère du Tourisme d'Haïti"
               className="h-24 w-auto mb-4"
             />
             <p className="text-gray-400">&copy; 2025 Discover Haiti. {t('footer.copyright')}</p>
