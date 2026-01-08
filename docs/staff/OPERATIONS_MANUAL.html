@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Manuel Opérationnel</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Manuel Opérationnel</h1>
+</header>
+<h1 id="manuel-opérationnel">📖 Manuel Opérationnel</h1>
+<h2 id="système-de-tourisme---ministère-du-tourisme-dhaïti">Système de
+Tourisme - Ministère du Tourisme d’Haïti</h2>
+<p><strong>Version:</strong> 1.0<br />
+<strong>Date:</strong> Janvier 2026</p>
+<hr />
+<h2 id="table-des-matières">📋 Table des Matières</h2>
+<ol type="1">
+<li><a href="#1-connexion-au-système">Connexion au Système</a></li>
+<li><a href="#2-tableau-de-bord-admin">Tableau de Bord Admin</a></li>
+<li><a href="#3-gestion-quotidienne">Gestion Quotidienne</a></li>
+<li><a href="#4-création-de-contenu">Création de Contenu</a></li>
+<li><a href="#5-validation-des-partenaires">Validation des
+Partenaires</a></li>
+<li><a href="#6-modération-des-avis">Modération des Avis</a></li>
+<li><a href="#7-promotions-et-événements">Promotions et
+Événements</a></li>
+<li><a href="#8-rapports-et-statistiques">Rapports et
+Statistiques</a></li>
+</ol>
+<hr />
+<h2 id="connexion-au-système">1. Connexion au Système</h2>
+<h3 id="accéder-au-portail-admin">Accéder au Portail Admin</h3>
+<ol type="1">
+<li>Ouvrez votre navigateur</li>
+<li>Accédez à :
+<strong>https://votre-domaine.com/admin/login</strong></li>
+<li>Entrez vos identifiants :
+<ul>
+<li><strong>Email :</strong> votre-email@ministere.ht</li>
+<li><strong>Mot de passe :</strong> votre mot de passe</li>
+</ul></li>
+</ol>
+<h3 id="menu-principal">Menu Principal</h3>
+<p>Après connexion, vous verrez le menu :</p>
+<table>
+<thead>
+<tr>
+<th>Menu</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🏠 <strong>Accueil</strong></td>
+<td>Vue d’ensemble et statistiques</td>
+</tr>
+<tr>
+<td>👥 <strong>Utilisateurs</strong></td>
+<td>Gestion des comptes utilisateurs</td>
+</tr>
+<tr>
+<td>🤝 <strong>Partenaires</strong></td>
+<td>Validation et gestion partenaires</td>
+</tr>
+<tr>
+<td>🏨 <strong>Établissements</strong></td>
+<td>Hôtels, restaurants, etc.</td>
+</tr>
+<tr>
+<td>🗺️ <strong>Sites</strong></td>
+<td>Sites touristiques</td>
+</tr>
+<tr>
+<td>📅 <strong>Événements</strong></td>
+<td>Concerts, festivals, etc.</td>
+</tr>
+<tr>
+<td>⭐ <strong>Avis</strong></td>
+<td>Modération des avis</td>
+</tr>
+<tr>
+<td>📊 <strong>Statistiques</strong></td>
+<td>Rapports et analytics</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="tableau-de-bord-admin">2. Tableau de Bord Admin</h2>
+<h3 id="vue-densemble">Vue d’ensemble</h3>
+<p>Le tableau de bord affiche :</p>
+<ul>
+<li><strong>📈 Statistiques clés</strong>
+<ul>
+<li>Nombre d’utilisateurs inscrits</li>
+<li>Nombre d’établissements actifs</li>
+<li>Nombre de sites touristiques</li>
+<li>Événements à venir</li>
+</ul></li>
+<li><strong>🔔 Alertes</strong>
+<ul>
+<li>Partenaires en attente de validation</li>
+<li>Avis en attente de modération</li>
+<li>Nouvelles inscriptions</li>
+</ul></li>
+<li><strong>📊 Graphiques</strong>
+<ul>
+<li>Inscriptions par mois</li>
+<li>Consultations par catégorie</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="gestion-quotidienne">3. Gestion Quotidienne</h2>
+<h3 id="tâches-quotidiennes-recommandées">Tâches Quotidiennes
+Recommandées</h3>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 28%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr>
+<th>Priorité</th>
+<th>Tâche</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🔴 Haute</td>
+<td>Modérer les avis</td>
+<td>Administration → Avis</td>
+</tr>
+<tr>
+<td>🔴 Haute</td>
+<td>Valider les partenaires</td>
+<td>Administration → Partenaires</td>
+</tr>
+<tr>
+<td>🟡 Moyenne</td>
+<td>Vérifier les statistiques</td>
+<td>Administration → Statistiques</td>
+</tr>
+<tr>
+<td>🟢 Basse</td>
+<td>Mettre à jour les événements</td>
+<td>Administration → Événements</td>
+</tr>
+</tbody>
+</table>
+<h3 id="workflow-type">Workflow Type</h3>
+<pre><code>09h00 - Connexion et consultation des alertes
+09h30 - Modération des nouveaux avis
+10h00 - Validation des demandes partenaires
+11h00 - Mise à jour des établissements/événements
+16h00 - Consultation des statistiques du jour</code></pre>
+<hr />
+<h2 id="création-de-contenu">4. Création de Contenu</h2>
+<h3 id="ajouter-un-établissement">Ajouter un Établissement</h3>
+<ol type="1">
+<li><p><strong>Administration → Établissements → +
+Nouveau</strong></p></li>
+<li><p><strong>Informations de base</strong> (obligatoires) :</p>
+<ul>
+<li>Nom de l’établissement</li>
+<li>Type (Hôtel, Restaurant, etc.)</li>
+<li>Adresse complète</li>
+<li>Ville et Département</li>
+</ul></li>
+<li><p><strong>Informations complémentaires</strong> :</p>
+<ul>
+<li>Description détaillée</li>
+<li>Prix indicatif</li>
+<li>Téléphone et email</li>
+<li>Site web</li>
+</ul></li>
+<li><p><strong>Images</strong> :</p>
+<ul>
+<li>Cliquez sur “Ajouter des images”</li>
+<li>Sélectionnez jusqu’à 10 images</li>
+<li>L’image principale sera affichée en premier</li>
+</ul></li>
+<li><p><strong>Localisation</strong> :</p>
+<ul>
+<li>Entrez les coordonnées GPS</li>
+<li>Ou cliquez sur la carte pour positionner</li>
+</ul></li>
+<li><p><strong>Cliquez sur “Enregistrer”</strong></p></li>
+</ol>
+<h3 id="ajouter-un-site-touristique">Ajouter un Site Touristique</h3>
+<ol type="1">
+<li><p><strong>Administration → Sites → + Nouveau</strong></p></li>
+<li><p>Remplissez :</p>
+<ul>
+<li>Nom du site</li>
+<li>Catégorie (Monument, Plage, Parc, etc.)</li>
+<li>Description</li>
+<li><strong>Coordonnées GPS</strong> (obligatoires)</li>
+<li>Prix d’entrée (si applicable)</li>
+<li>Horaires d’ouverture</li>
+</ul></li>
+<li><p><strong>Enregistrer</strong></p></li>
+</ol>
+<hr />
+<h2 id="validation-des-partenaires">5. Validation des Partenaires</h2>
+<h3 id="processus-de-validation">Processus de Validation</h3>
+<ol type="1">
+<li><strong>Administration → Partenaires</strong></li>
+<li>Filtrez par <strong>“En attente”</strong></li>
+<li>Cliquez sur le nom du partenaire</li>
+</ol>
+<h3 id="vérifications-à-effectuer">Vérifications à effectuer</h3>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Vérification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Identité</strong></td>
+<td>Le nom correspond à une entreprise réelle</td>
+</tr>
+<tr>
+<td><strong>Email</strong></td>
+<td>Email professionnel valide</td>
+</tr>
+<tr>
+<td><strong>Téléphone</strong></td>
+<td>Numéro haïtien valide</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Description cohérente de l’activité</td>
+</tr>
+</tbody>
+</table>
+<h3 id="actions">Actions</h3>
+<ul>
+<li>✅ <strong>Approuver</strong> - Le partenaire peut maintenant
+ajouter ses établissements</li>
+<li>❌ <strong>Rejeter</strong> - Ajoutez une raison du rejet</li>
+<li>⏸️ <strong>Suspendre</strong> - Bloquer temporairement un partenaire
+approuvé</li>
+</ul>
+<hr />
+<h2 id="modération-des-avis">6. Modération des Avis</h2>
+<h3 id="consulter-les-avis-en-attente">Consulter les Avis en
+Attente</h3>
+<ol type="1">
+<li><strong>Administration → Avis</strong></li>
+<li>Sélectionnez le filtre <strong>“En attente”</strong></li>
+</ol>
+<h3 id="critères-dapprobation">Critères d’Approbation</h3>
+<table>
+<thead>
+<tr>
+<th>✅ Approuver si</th>
+<th>❌ Rejeter si</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Commentaire constructif</td>
+<td>Langage offensant</td>
+</tr>
+<tr>
+<td>Note justifiée</td>
+<td>Spam ou publicité</td>
+</tr>
+<tr>
+<td>Contenu original</td>
+<td>Fausses informations</td>
+</tr>
+<tr>
+<td>Concerne l’établissement</td>
+<td>Hors sujet</td>
+</tr>
+</tbody>
+</table>
+<h3 id="procédure-de-modération">Procédure de Modération</h3>
+<ol type="1">
+<li>Lisez le commentaire complet</li>
+<li>Vérifiez la note (1-5 étoiles)</li>
+<li>Décidez :
+<ul>
+<li><strong>Approuver</strong> → L’avis sera visible</li>
+<li><strong>Rejeter</strong> → Ajoutez une note explicative</li>
+</ul></li>
+</ol>
+<blockquote>
+<p>⚠️ <strong>Important :</strong> Ne rejetez pas un avis négatif
+simplement parce qu’il est négatif. Les critiques constructives sont
+acceptables.</p>
+</blockquote>
+<hr />
+<h2 id="promotions-et-événements">7. Promotions et Événements</h2>
+<h3 id="créer-une-promotion">Créer une Promotion</h3>
+<ol type="1">
+<li><strong>Administration → Établissements →
+[Sélectionner]</strong></li>
+<li>Onglet <strong>“Promotions”</strong></li>
+<li><strong>+ Nouvelle Promotion</strong></li>
+<li>Remplissez :
+<ul>
+<li>Titre de la promotion</li>
+<li>Description</li>
+<li>Pourcentage de réduction</li>
+<li>Date de début et fin</li>
+</ul></li>
+</ol>
+<h3 id="créer-un-événement">Créer un Événement</h3>
+<ol type="1">
+<li><strong>Administration → Événements → + Nouveau</strong></li>
+<li>Informations requises :
+<ul>
+<li><strong>Titre</strong> : Nom de l’événement</li>
+<li><strong>Dates</strong> : Début et fin</li>
+<li><strong>Lieu</strong> : Adresse ou nom du lieu</li>
+<li><strong>Catégorie</strong> : Concert, Festival, etc.</li>
+</ul></li>
+<li>Informations optionnelles :
+<ul>
+<li>Capacité maximale</li>
+<li>Prix d’entrée</li>
+<li>Images et affiches</li>
+</ul></li>
+<li><strong>Enregistrer</strong></li>
+</ol>
+<h3 id="événements-récurrents-carnaval-etc.">Événements Récurrents
+(Carnaval, etc.)</h3>
+<p>Pour les événements annuels : 1. Créez l’événement chaque année 2.
+Mettez à jour les dates 3. Conservez la même description de base</p>
+<hr />
+<h2 id="rapports-et-statistiques">8. Rapports et Statistiques</h2>
+<h3 id="accéder-aux-statistiques">Accéder aux Statistiques</h3>
+<p><strong>Administration → Statistiques</strong></p>
+<h3 id="rapports-disponibles">Rapports Disponibles</h3>
+<table>
+<thead>
+<tr>
+<th>Rapport</th>
+<th>Contenu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Affluence</strong></td>
+<td>Visiteurs par jour/semaine/mois</td>
+</tr>
+<tr>
+<td><strong>Géographie</strong></td>
+<td>Origine des visiteurs</td>
+</tr>
+<tr>
+<td><strong>Popularité</strong></td>
+<td>Établissements les plus consultés</td>
+</tr>
+<tr>
+<td><strong>Avis</strong></td>
+<td>Évolution des notes moyennes</td>
+</tr>
+<tr>
+<td><strong>Partenaires</strong></td>
+<td>Activité des partenaires</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exporter-les-données">Exporter les Données</h3>
+<ol type="1">
+<li>Sélectionnez le rapport souhaité</li>
+<li>Choisissez la période</li>
+<li>Cliquez sur <strong>“Exporter”</strong></li>
+<li>Format : CSV ou PDF</li>
+</ol>
+<h3 id="indicateurs-clés-à-surveiller">Indicateurs Clés à
+Surveiller</h3>
+<table>
+<thead>
+<tr>
+<th>Indicateur</th>
+<th>Objectif</th>
+<th>Alerte si</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Visiteurs/jour</td>
+<td>&gt; 100</td>
+<td>&lt; 50</td>
+</tr>
+<tr>
+<td>Note moyenne</td>
+<td>&gt; 4.0</td>
+<td>&lt; 3.5</td>
+</tr>
+<tr>
+<td>Temps de validation</td>
+<td>&lt; 24h</td>
+<td>&gt; 48h</td>
+</tr>
+<tr>
+<td>Avis modérés/jour</td>
+<td>100%</td>
+<td>&lt; 80%</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="support">📞 Support</h2>
+<p><strong>Questions opérationnelles :</strong> - Consultez ce manuel -
+Contactez le superviseur</p>
+<p><strong>Problèmes techniques :</strong> - Consultez
+TROUBLESHOOTING.md - Contactez l’équipe IT</p>
+<hr />
+<p><em>Document généré le 8 janvier 2026</em></p>
+</body>
+</html>

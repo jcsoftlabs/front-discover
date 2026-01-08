@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Guide Administration</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Guide Administration</h1>
+</header>
+<h1 id="guide-dadministration-système">🔧 Guide d’Administration
+Système</h1>
+<h2 id="système-de-tourisme---ministère-du-tourisme-dhaïti">Système de
+Tourisme - Ministère du Tourisme d’Haïti</h2>
+<p><strong>Version:</strong> 1.0<br />
+<strong>Date:</strong> Janvier 2026</p>
+<hr />
+<h2 id="table-des-matières">📋 Table des Matières</h2>
+<ol type="1">
+<li><a href="#1-vue-densemble-du-système">Vue d’ensemble du
+Système</a></li>
+<li><a href="#2-démarrage-des-services">Démarrage des Services</a></li>
+<li><a href="#3-gestion-des-utilisateurs">Gestion des
+Utilisateurs</a></li>
+<li><a href="#4-gestion-des-partenaires">Gestion des
+Partenaires</a></li>
+<li><a href="#5-gestion-des-établissements">Gestion des
+Établissements</a></li>
+<li><a href="#6-gestion-des-sites-touristiques">Gestion des Sites
+Touristiques</a></li>
+<li><a href="#7-gestion-des-événements">Gestion des Événements</a></li>
+<li><a href="#8-modération-des-avis">Modération des Avis</a></li>
+<li><a href="#9-tableau-de-bord-télémétrie">Tableau de Bord
+Télémétrie</a></li>
+<li><a href="#10-sauvegardes">Sauvegardes</a></li>
+</ol>
+<hr />
+<h2 id="vue-densemble-du-système">1. Vue d’ensemble du Système</h2>
+<p>Le système se compose de <strong>3 applications</strong> :</p>
+<table>
+<colgroup>
+<col style="width: 54%" />
+<col style="width: 25%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Application</th>
+<th>Rôle</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>listing-backend</strong></td>
+<td>API REST centrale</td>
+<td><code>https://votre-domaine.railway.app</code></td>
+</tr>
+<tr>
+<td><strong>front-discover</strong></td>
+<td>Portail web</td>
+<td><code>https://votre-domaine.vercel.app</code></td>
+</tr>
+<tr>
+<td><strong>touris-mobile</strong></td>
+<td>Application mobile</td>
+<td>App Store / Play Store</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rôles-utilisateurs">Rôles Utilisateurs</h3>
+<table>
+<thead>
+<tr>
+<th>Rôle</th>
+<th>Permissions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>USER</strong></td>
+<td>Consulter, ajouter favoris, laisser avis</td>
+</tr>
+<tr>
+<td><strong>PARTNER</strong></td>
+<td>Gérer ses établissements et événements</td>
+</tr>
+<tr>
+<td><strong>ADMIN</strong></td>
+<td>Accès complet à toutes les fonctionnalités</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="démarrage-des-services">2. Démarrage des Services</h2>
+<h3 id="backend-listing-backend">Backend (listing-backend)</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Se positionner dans le dossier</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> listing-backend</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mode développement</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Mode production</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> start</span></code></pre></div>
+<p><strong>Vérification :</strong> Accéder à
+<code>http://localhost:3000</code> - Doit afficher “Touris API est en
+ligne”</p>
+<h3 id="frontend-front-discover">Frontend (front-discover)</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Se positionner dans le dossier</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> front-discover</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mode développement</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Build production</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build <span class="kw">&amp;&amp;</span> <span class="ex">npm</span> start</span></code></pre></div>
+<p><strong>Vérification :</strong> Accéder à
+<code>http://localhost:3001</code></p>
+<h3 id="application-mobile">Application Mobile</h3>
+<p>L’application mobile se connecte automatiquement à l’API backend
+configurée.</p>
+<hr />
+<h2 id="gestion-des-utilisateurs">3. Gestion des Utilisateurs</h2>
+<h3 id="accéder-à-la-gestion">Accéder à la gestion</h3>
+<ol type="1">
+<li>Connectez-vous au portail web en tant qu’<strong>Admin</strong></li>
+<li>Cliquez sur <strong>“Administration”</strong> dans le menu</li>
+<li>Sélectionnez <strong>“Utilisateurs”</strong></li>
+</ol>
+<h3 id="actions-disponibles">Actions disponibles</h3>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Voir la liste</strong></td>
+<td>Affiche tous les utilisateurs inscrits</td>
+</tr>
+<tr>
+<td><strong>Modifier le rôle</strong></td>
+<td>Changer USER → PARTNER ou ADMIN</td>
+</tr>
+<tr>
+<td><strong>Désactiver</strong></td>
+<td>Bloquer l’accès d’un utilisateur</td>
+</tr>
+<tr>
+<td><strong>Supprimer</strong></td>
+<td>Supprimer définitivement le compte</td>
+</tr>
+</tbody>
+</table>
+<h3 id="créer-un-nouvel-admin">Créer un nouvel Admin</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Via l&#39;API (remplacer les valeurs)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://api.example.com/api/auth/register <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;firstName&quot;: &quot;Prénom&quot;,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;lastName&quot;: &quot;Nom&quot;,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;email&quot;: &quot;admin@example.com&quot;,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;password&quot;: &quot;MotDePasse123!&quot;,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;role&quot;: &quot;ADMIN&quot;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">  }&#39;</span></span></code></pre></div>
+<hr />
+<h2 id="gestion-des-partenaires">4. Gestion des Partenaires</h2>
+<h3 id="workflow-de-validation">Workflow de validation</h3>
+<pre><code>Inscription → PENDING → Validation Admin → APPROVED
+                      → Rejet → REJECTED</code></pre>
+<h3 id="valider-un-partenaire">Valider un partenaire</h3>
+<ol type="1">
+<li>Accédez à <strong>Administration → Partenaires</strong></li>
+<li>Cliquez sur un partenaire avec statut <strong>“En
+attente”</strong></li>
+<li>Vérifiez les informations</li>
+<li>Cliquez sur <strong>“Approuver”</strong> ou
+<strong>“Rejeter”</strong></li>
+</ol>
+<h3 id="statuts-des-partenaires">Statuts des partenaires</h3>
+<table>
+<thead>
+<tr>
+<th>Statut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PENDING</strong></td>
+<td>En attente de validation</td>
+</tr>
+<tr>
+<td><strong>APPROVED</strong></td>
+<td>Validé, peut gérer ses établissements</td>
+</tr>
+<tr>
+<td><strong>REJECTED</strong></td>
+<td>Demande refusée</td>
+</tr>
+<tr>
+<td><strong>SUSPENDED</strong></td>
+<td>Compte suspendu temporairement</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="gestion-des-établissements">5. Gestion des Établissements</h2>
+<h3 id="types-détablissements">Types d’établissements</h3>
+<ul>
+<li>🏨 <strong>HOTEL</strong> - Hôtels et hébergements</li>
+<li>🍽️ <strong>RESTAURANT</strong> - Restaurants</li>
+<li>🍸 <strong>BAR</strong> - Bars et pubs</li>
+<li>☕ <strong>CAFE</strong> - Cafés</li>
+<li>🎢 <strong>ATTRACTION</strong> - Attractions touristiques</li>
+<li>🛍️ <strong>SHOP</strong> - Boutiques</li>
+<li>🛠️ <strong>SERVICE</strong> - Services divers</li>
+</ul>
+<h3 id="créer-un-établissement">Créer un établissement</h3>
+<ol type="1">
+<li><strong>Administration → Établissements → Nouveau</strong></li>
+<li>Remplir les champs obligatoires :
+<ul>
+<li>Nom</li>
+<li>Type</li>
+<li>Adresse</li>
+<li>Ville / Département</li>
+</ul></li>
+<li>Ajouter les informations optionnelles :
+<ul>
+<li>Description</li>
+<li>Prix</li>
+<li>Images (via Cloudinary)</li>
+<li>Coordonnées GPS</li>
+<li>Équipements</li>
+</ul></li>
+<li><strong>Sauvegarder</strong></li>
+</ol>
+<h3 id="modifier-supprimer">Modifier / Supprimer</h3>
+<ul>
+<li>Cliquez sur l’établissement dans la liste</li>
+<li>Utilisez les boutons <strong>“Modifier”</strong> ou
+<strong>“Supprimer”</strong></li>
+</ul>
+<hr />
+<h2 id="gestion-des-sites-touristiques">6. Gestion des Sites
+Touristiques</h2>
+<h3 id="catégories-de-sites">Catégories de sites</h3>
+<table>
+<thead>
+<tr>
+<th>Catégorie</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MONUMENT</strong></td>
+<td>Citadelle Laferrière</td>
+</tr>
+<tr>
+<td><strong>MUSEUM</strong></td>
+<td>Musée du Panthéon National</td>
+</tr>
+<tr>
+<td><strong>PARK</strong></td>
+<td>Parc National La Visite</td>
+</tr>
+<tr>
+<td><strong>BEACH</strong></td>
+<td>Plage de Labadee</td>
+</tr>
+<tr>
+<td><strong>MOUNTAIN</strong></td>
+<td>Pic la Selle</td>
+</tr>
+<tr>
+<td><strong>CULTURAL</strong></td>
+<td>Sites culturels</td>
+</tr>
+<tr>
+<td><strong>RELIGIOUS</strong></td>
+<td>Églises, temples</td>
+</tr>
+<tr>
+<td><strong>NATURAL</strong></td>
+<td>Cascades, grottes</td>
+</tr>
+<tr>
+<td><strong>HISTORICAL</strong></td>
+<td>Sites historiques</td>
+</tr>
+<tr>
+<td><strong>ENTERTAINMENT</strong></td>
+<td>Parcs d’attractions</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ajouter-un-site">Ajouter un site</h3>
+<ol type="1">
+<li><strong>Administration → Sites → Nouveau</strong></li>
+<li>Remplir les informations</li>
+<li><strong>Important :</strong> Les coordonnées GPS sont requises pour
+l’affichage sur la carte</li>
+</ol>
+<hr />
+<h2 id="gestion-des-événements">7. Gestion des Événements</h2>
+<h3 id="types-dévénements">Types d’événements</h3>
+<ul>
+<li>🎵 <strong>CONCERT</strong> - Concerts et spectacles musicaux</li>
+<li>🎉 <strong>FESTIVAL</strong> - Festivals</li>
+<li>🎤 <strong>CONFERENCE</strong> - Conférences</li>
+<li>⚽ <strong>SPORT</strong> - Événements sportifs</li>
+<li>🎨 <strong>EXHIBITION</strong> - Expositions</li>
+<li>🎭 <strong>CULTURAL</strong> - Événements culturels</li>
+<li>⛪ <strong>RELIGIOUS</strong> - Événements religieux</li>
+<li>🎊 <strong>CARNIVAL</strong> - Carnaval</li>
+</ul>
+<h3 id="créer-un-événement">Créer un événement</h3>
+<ol type="1">
+<li><strong>Administration → Événements → Nouveau</strong></li>
+<li>Informations requises :
+<ul>
+<li>Titre</li>
+<li>Date de début et fin</li>
+<li>Lieu</li>
+<li>Catégorie</li>
+</ul></li>
+<li>Informations optionnelles :
+<ul>
+<li>Capacité maximale</li>
+<li>Prix d’entrée</li>
+<li>Images</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="modération-des-avis">8. Modération des Avis</h2>
+<h3 id="statuts-des-avis">Statuts des avis</h3>
+<table>
+<thead>
+<tr>
+<th>Statut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PENDING</strong></td>
+<td>En attente de modération</td>
+</tr>
+<tr>
+<td><strong>APPROVED</strong></td>
+<td>Approuvé et visible</td>
+</tr>
+<tr>
+<td><strong>REJECTED</strong></td>
+<td>Rejeté (contenu inapproprié)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="processus-de-modération">Processus de modération</h3>
+<ol type="1">
+<li><strong>Administration → Avis</strong></li>
+<li>Filtrez par <strong>“En attente”</strong></li>
+<li>Lisez le contenu de l’avis</li>
+<li>Actions :
+<ul>
+<li><strong>Approuver</strong> - L’avis sera visible publiquement</li>
+<li><strong>Rejeter</strong> - L’avis ne sera pas affiché (ajoutez une
+note de modération)</li>
+</ul></li>
+</ol>
+<h3 id="critères-de-rejet">Critères de rejet</h3>
+<ul>
+<li>Langage offensant ou inapproprié</li>
+<li>Spam ou publicité</li>
+<li>Contenu sans rapport avec l’établissement</li>
+<li>Fausses informations</li>
+</ul>
+<hr />
+<h2 id="tableau-de-bord-télémétrie">9. Tableau de Bord Télémétrie</h2>
+<h3 id="accéder-aux-statistiques">Accéder aux statistiques</h3>
+<ol type="1">
+<li><strong>Administration → Statistiques</strong></li>
+<li>Sélectionnez la période souhaitée</li>
+</ol>
+<h3 id="métriques-disponibles">Métriques disponibles</h3>
+<table>
+<thead>
+<tr>
+<th>Métrique</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sessions</strong></td>
+<td>Nombre de sessions utilisateur</td>
+</tr>
+<tr>
+<td><strong>Pages vues</strong></td>
+<td>Nombre de pages consultées</td>
+</tr>
+<tr>
+<td><strong>Temps moyen</strong></td>
+<td>Durée moyenne des sessions</td>
+</tr>
+<tr>
+<td><strong>Géographie</strong></td>
+<td>Répartition par pays/ville</td>
+</tr>
+<tr>
+<td><strong>Appareils</strong></td>
+<td>Mobile vs Desktop</td>
+</tr>
+<tr>
+<td><strong>Erreurs</strong></td>
+<td>Erreurs API et frontend</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sauvegardes">10. Sauvegardes</h2>
+<h3 id="base-de-données">Base de données</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exporter la base de données</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> listing-backend</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> prisma db pull</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Ou via MySQL dump</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">mysqldump</span> <span class="at">-u</span> root <span class="at">-p</span> listing_app <span class="op">&gt;</span> backup_<span class="va">$(</span><span class="fu">date</span> +%Y%m%d<span class="va">)</span>.sql</span></code></pre></div>
+<h3 id="images-cloudinary">Images (Cloudinary)</h3>
+<p>Les images sont stockées sur Cloudinary et sauvegardées
+automatiquement.</p>
+<h3 id="recommandations">Recommandations</h3>
+<ul>
+<li>✅ Sauvegarde quotidienne de la base de données</li>
+<li>✅ Conserver les 7 dernières sauvegardes</li>
+<li>✅ Tester la restauration mensuellement</li>
+</ul>
+<hr />
+<h2 id="support-technique">📞 Support Technique</h2>
+<p>En cas de problème technique :</p>
+<ol type="1">
+<li>Consultez le <strong>Guide de Dépannage</strong>
+(TROUBLESHOOTING.md)</li>
+<li>Vérifiez les logs du serveur</li>
+<li>Contactez l’équipe de développement</li>
+</ol>
+<hr />
+<p><em>Document généré le 8 janvier 2026</em></p>
+</body>
+</html>

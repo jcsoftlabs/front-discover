@@ -222,47 +222,69 @@ export default function EstablishmentDetailPage() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="relative h-64 sm:h-80 md:h-96 lg:h-[450px] rounded-2xl overflow-hidden shadow-2xl mb-8"
+            className="mb-8"
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-black/20 z-10" />
-            <img
-              src={images[currentImageIndex]}
-              alt={establishment.name}
-              className="w-full h-full object-cover"
-              crossOrigin="anonymous"
-            />
+            {/* Main Image */}
+            <div className="relative h-64 sm:h-80 md:h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl mb-4 group">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/30 z-10" />
+              <motion.img
+                key={currentImageIndex}
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                src={images[currentImageIndex]}
+                alt={establishment.name}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                crossOrigin="anonymous"
+              />
 
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 p-4 bg-white/95 backdrop-blur-sm rounded-full hover:bg-white hover:scale-110 transition-all shadow-xl z-20 group/btn"
+                  >
+                    <ChevronLeft className="w-6 h-6 text-gray-800 group-hover/btn:text-blue-600" />
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-4 bg-white/95 backdrop-blur-sm rounded-full hover:bg-white hover:scale-110 transition-all shadow-xl z-20 group/btn"
+                  >
+                    <ChevronRight className="w-6 h-6 text-gray-800 group-hover/btn:text-blue-600" />
+                  </button>
+
+                  {/* Image counter */}
+                  <div className="absolute top-6 right-6 px-4 py-2 bg-black/70 backdrop-blur-md text-white text-sm font-semibold rounded-full z-20 shadow-lg">
+                    {currentImageIndex + 1} / {images.length}
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Thumbnails */}
             {images.length > 1 && (
-              <>
-                <button
-                  onClick={prevImage}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white hover:scale-110 transition-all shadow-lg z-20"
-                >
-                  <ChevronLeft className="w-5 h-5 text-gray-800" />
-                </button>
-                <button
-                  onClick={nextImage}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white hover:scale-110 transition-all shadow-lg z-20"
-                >
-                  <ChevronRight className="w-5 h-5 text-gray-800" />
-                </button>
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-                  {images.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={`h-1.5 rounded-full transition-all ${index === currentImageIndex
-                        ? 'bg-white w-8 shadow-lg'
-                        : 'bg-white/60 w-1.5 hover:bg-white/80'
-                        }`}
+              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                {images.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`relative flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden transition-all ${index === currentImageIndex
+                      ? 'ring-4 ring-blue-500 scale-105 shadow-lg'
+                      : 'ring-2 ring-gray-200 hover:ring-blue-300 opacity-70 hover:opacity-100'
+                      }`}
+                  >
+                    <img
+                      src={image}
+                      alt={`${establishment.name} - ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      crossOrigin="anonymous"
                     />
-                  ))}
-                </div>
-                {/* Image counter */}
-                <div className="absolute top-4 right-4 px-3 py-1.5 bg-black/60 backdrop-blur-sm text-white text-sm font-medium rounded-full z-20">
-                  {currentImageIndex + 1} / {images.length}
-                </div>
-              </>
+                    {index === currentImageIndex && (
+                      <div className="absolute inset-0 bg-blue-500/20" />
+                    )}
+                  </button>
+                ))}
+              </div>
             )}
           </motion.div>
         )}
@@ -276,18 +298,24 @@ export default function EstablishmentDetailPage() {
               animate={{ opacity: 1, y: 0 }}
               className="bg-white rounded-2xl shadow-lg p-8"
             >
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold mb-3">
-                    {typeLabels[establishment.type] || establishment.type}
-                  </span>
-                  <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex-1">
+                  {/* Type Badge with Gradient */}
+                  <div className="inline-block px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full text-sm font-bold mb-4 shadow-lg">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="w-4 h-4" />
+                      {typeLabels[establishment.type] || establishment.type}
+                    </div>
+                  </div>
+
+                  <h1 className="text-4xl font-bold text-gray-900 mb-3 leading-tight">
                     {establishment.name}
                   </h1>
+
                   {(establishment.address || establishment.ville || establishment.departement) && (
                     <div className="flex items-center gap-2 text-gray-600 mb-4">
-                      <MapPin className="w-5 h-5" />
-                      <span>
+                      <MapPin className="w-5 h-5 text-blue-600" />
+                      <span className="text-lg">
                         {establishment.address}
                         {establishment.ville && (
                           <>{establishment.address ? ', ' : ''}{establishment.ville}</>
@@ -299,26 +327,45 @@ export default function EstablishmentDetailPage() {
                     </div>
                   )}
                 </div>
+
+                {/* Price Badge */}
                 {establishment.type === 'HOTEL' && establishment.price > 0 && (
-                  <div className="text-right">
-                    <p className="text-sm text-gray-600">À partir de</p>
-                    <p className="text-3xl font-bold text-gray-900">
+                  <div className="text-right bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-2xl border-2 border-green-200 shadow-md">
+                    <p className="text-sm text-green-700 font-semibold mb-1">À partir de</p>
+                    <p className="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                       ${establishment.price}
-                      <span className="text-lg font-normal text-gray-600">/nuit</span>
                     </p>
+                    <p className="text-sm text-green-600 font-medium">par nuit</p>
                   </div>
                 )}
               </div>
 
-              {/* Rating */}
-              <div className="flex items-center gap-4 pb-6 border-b border-gray-200">
-                <RatingStars rating={establishment.averageRating || 0} size="lg" />
-                <span className="text-2xl font-bold text-gray-900">
-                  {(establishment.averageRating || 0).toFixed(1)}
-                </span>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <MessageCircle className="w-5 h-5" />
-                  <span>({establishment.reviewCount || 0} avis)</span>
+              {/* Rating Section - Enhanced */}
+              <div className="flex items-center gap-6 pb-6 border-b border-gray-200">
+                <div className="flex items-center gap-3 bg-gradient-to-r from-amber-50 to-yellow-50 px-6 py-4 rounded-2xl border-2 border-amber-200 shadow-sm">
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-6 h-6 ${i < Math.floor(establishment.averageRating || 0)
+                            ? 'text-amber-500 fill-amber-500'
+                            : 'text-gray-300'
+                          }`}
+                      />
+                    ))}
+                  </div>
+                  <div className="border-l-2 border-amber-300 pl-4">
+                    <p className="text-3xl font-bold text-gray-900">
+                      {(establishment.averageRating || 0).toFixed(1)}
+                    </p>
+                    <p className="text-xs text-gray-600 font-medium">sur 5</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 text-gray-700">
+                  <MessageCircle className="w-5 h-5 text-blue-600" />
+                  <span className="text-lg font-semibold">{establishment.reviewCount || 0}</span>
+                  <span className="text-gray-600">avis</span>
                 </div>
               </div>
 

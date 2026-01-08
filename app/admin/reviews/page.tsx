@@ -35,7 +35,7 @@ interface PaginatedResponse {
 
 export default function ReviewsPage() {
   usePageTitle('Modération des Avis');
-  
+
   const [reviews, setReviews] = useState<ReviewWithDetails[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -61,7 +61,7 @@ export default function ReviewsPage() {
       console.log('Fetching reviews:', `/admin/reviews/moderate?${params}`);
       const response = await apiClient.get<PaginatedResponse>(`/admin/reviews/moderate?${params}`);
       console.log('Reviews response:', response.data);
-      
+
       if (response.data.success) {
         setReviews(response.data.data || []);
         setTotalPages(response.data.pagination?.totalPages || 1);
@@ -81,9 +81,9 @@ export default function ReviewsPage() {
 
   const handleModerate = async (reviewId: string, status: string, note?: string) => {
     try {
-      await apiClient.put(`/admin/reviews/${reviewId}/moderate`, { 
-        status, 
-        moderationNote: note 
+      await apiClient.put(`/admin/reviews/${reviewId}/moderate`, {
+        status,
+        moderationNote: note
       });
       alert(`Avis ${status === 'APPROVED' ? 'approuvé' : 'rejeté'} avec succès`);
       fetchReviews();
@@ -128,7 +128,7 @@ export default function ReviewsPage() {
               setStatusFilter(e.target.value);
               setCurrentPage(1);
             }}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white"
           >
             <option value="PENDING">En attente</option>
             <option value="APPROVED">Approuvés</option>
@@ -220,19 +220,18 @@ export default function ReviewsPage() {
                   </div>
                   <div>
                     <span
-                      className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        review.status === 'PENDING'
+                      className={`px-3 py-1 rounded-full text-xs font-medium ${review.status === 'PENDING'
                           ? 'bg-yellow-100 text-yellow-800'
                           : review.status === 'APPROVED'
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-red-100 text-red-800'
-                      }`}
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-red-100 text-red-800'
+                        }`}
                     >
                       {review.status === 'PENDING'
                         ? 'En attente'
                         : review.status === 'APPROVED'
-                        ? 'Approuvé'
-                        : 'Rejeté'}
+                          ? 'Approuvé'
+                          : 'Rejeté'}
                     </span>
                   </div>
                 </div>
