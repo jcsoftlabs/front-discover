@@ -51,7 +51,7 @@ export default function ListingCard({
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -8 }}
       transition={{ duration: 0.3 }}
-      className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
+      className="group relative bg-white rounded-2xl overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.04),0_4px_16px_rgba(0,0,0,0.08),0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12),0_16px_48px_rgba(0,0,0,0.16)] transition-all duration-500 cursor-pointer"
       onClick={handleClick}
     >
       {/* Image */}
@@ -146,8 +146,8 @@ export default function ListingCard({
 
   // Wrap with Link if no custom onClick is provided
   if (!onClick) {
-    const href = establishment.isSite 
-      ? `/sites/${establishment.id}` 
+    const href = establishment.isSite
+      ? `/sites/${establishment.id}`
       : `/establishments/${establishment.id}`;
     return (
       <Link href={href} className="block">

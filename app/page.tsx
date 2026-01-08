@@ -12,6 +12,7 @@ import ListingCard from '@/components/ui/ListingCard';
 import AuthModal from '@/components/modals/AuthModal';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 import LocationPermissionModal from '@/components/modals/LocationPermissionModal';
+import AnimatedCounter from '@/components/ui/AnimatedCounter';
 import { useTranslations } from 'next-intl';
 
 const heroImages = [
@@ -239,7 +240,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-red-50">
       {/* Header / Navbar */}
       <header className="absolute top-0 left-0 right-0 z-50 bg-transparent">
         <div className="bg-gradient-to-b from-black/30 to-transparent">
@@ -531,7 +532,7 @@ export default function Home() {
       </section>
 
       {/* Why Haiti Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-white to-red-50">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -557,8 +558,13 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6">
-                <Globe className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 relative mb-6">
+                {/* Shadow layer for 3D effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl blur-xl opacity-50" />
+                {/* Icon container with inset shadow */}
+                <div className="relative w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-[inset_0_2px_8px_rgba(255,255,255,0.3)]">
+                  <Globe className="w-8 h-8 text-white drop-shadow-lg" />
+                </div>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Histoire Vivante</h3>
               <p className="text-gray-600">
@@ -573,8 +579,13 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-6">
-                <Mountain className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 relative mb-6">
+                {/* Shadow layer for 3D effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-green-600 to-emerald-600 rounded-2xl blur-xl opacity-50" />
+                {/* Icon container with inset shadow */}
+                <div className="relative w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-[inset_0_2px_8px_rgba(255,255,255,0.3)]">
+                  <Mountain className="w-8 h-8 text-white drop-shadow-lg" />
+                </div>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Paysages Spectaculaires</h3>
               <p className="text-gray-600">
@@ -589,8 +600,13 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mb-6">
-                <UtensilsCrossed className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 relative mb-6">
+                {/* Shadow layer for 3D effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-600 to-red-600 rounded-2xl blur-xl opacity-50" />
+                {/* Icon container with inset shadow */}
+                <div className="relative w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center shadow-[inset_0_2px_8px_rgba(255,255,255,0.3)]">
+                  <UtensilsCrossed className="w-8 h-8 text-white drop-shadow-lg" />
+                </div>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Gastronomie Créole</h3>
               <p className="text-gray-600">
@@ -605,8 +621,13 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6">
-                <Users className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 relative mb-6">
+                {/* Shadow layer for 3D effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl blur-xl opacity-50" />
+                {/* Icon container with inset shadow */}
+                <div className="relative w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-[inset_0_2px_8px_rgba(255,255,255,0.3)]">
+                  <Users className="w-8 h-8 text-white drop-shadow-lg" />
+                </div>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Hospitalité Légendaire</h3>
               <p className="text-gray-600">
@@ -707,15 +728,18 @@ export default function Home() {
 
       {/* Stats Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Background Image */}
+        {/* Background Image with Blur */}
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center scale-110 blur-lg"
           style={{
             backgroundImage: `url('https://visithaiti.com/wp-content/uploads/2023/03/beach-Ile-a-Rat-Amiga-Island-cap-haitien-jean-oscar-augustin_hero.jpg')`
           }}
         />
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-purple-600/90 to-pink-600/90" />
+        {/* Gradient Overlay - Darker for better contrast */}
+        {/* Gradient Overlay - Haiti flag colors */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0038A8]/95 via-blue-500/95 to-[#D21034]/95" />
+        {/* Translucent Veil for better text readability */}
+        <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
 
         <div className="relative max-w-7xl mx-auto z-10">
           <motion.div
@@ -744,7 +768,9 @@ export default function Home() {
               <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-md rounded-2xl mb-4">
                 <Hotel className="w-10 h-10 text-white" />
               </div>
-              <p className="text-5xl font-bold text-white mb-2">{establishments.length}+</p>
+              <p className="text-5xl font-bold text-white mb-2">
+                <AnimatedCounter target={establishments.length} />
+              </p>
               <p className="text-white/90 font-medium">Établissements</p>
             </motion.div>
 
@@ -758,7 +784,9 @@ export default function Home() {
               <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-md rounded-2xl mb-4">
                 <MapPinned className="w-10 h-10 text-white" />
               </div>
-              <p className="text-5xl font-bold text-white mb-2">10+</p>
+              <p className="text-5xl font-bold text-white mb-2">
+                <AnimatedCounter target={10} />
+              </p>
               <p className="text-white/90 font-medium">Départements</p>
             </motion.div>
 
@@ -786,7 +814,9 @@ export default function Home() {
               <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-md rounded-2xl mb-4">
                 <TrendingUp className="w-10 h-10 text-white" />
               </div>
-              <p className="text-5xl font-bold text-white mb-2">1804</p>
+              <p className="text-5xl font-bold text-white mb-2">
+                <AnimatedCounter target={1804} suffix="" />
+              </p>
               <p className="text-white/90 font-medium">Indépendance</p>
             </motion.div>
           </div>
