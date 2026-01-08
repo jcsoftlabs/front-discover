@@ -428,8 +428,8 @@ export default function Home() {
               key={index}
               onClick={() => setCurrentSlide(index)}
               className={`transition-all duration-300 rounded-full ${currentSlide === index
-                  ? 'bg-white w-12 h-3'
-                  : 'bg-white/50 w-3 h-3 hover:bg-white/75'
+                ? 'bg-white w-12 h-3'
+                : 'bg-white/50 w-3 h-3 hover:bg-white/75'
                 }`}
               aria-label={`Aller à la diapositive ${index + 1}`}
             />
@@ -706,8 +706,18 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600">
-        <div className="max-w-7xl mx-auto">
+      <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url('https://visithaiti.com/wp-content/uploads/2023/03/beach-Ile-a-Rat-Amiga-Island-cap-haitien-jean-oscar-augustin_hero.jpg')`
+          }}
+        />
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-purple-600/90 to-pink-600/90" />
+
+        <div className="relative max-w-7xl mx-auto z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
