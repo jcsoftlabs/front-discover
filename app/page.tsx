@@ -31,13 +31,13 @@ const categories = [
   { value: 'SHOP', label: 'Boutiques', icon: ShoppingBag, color: 'from-pink-500 to-rose-500' },
 ];
 
-// Couleurs distinctes pour les boutons catégories
+// Couleurs distinctes pour les boutons catégories - Haiti flag colors
 const categoryColors: Record<string, string> = {
   'RESTAURANT': 'from-orange-500 to-red-600',
-  'HOTEL': 'from-blue-500 to-cyan-600',
+  'HOTEL': 'from-[#0038A8] to-blue-500',
   'CAFE': 'from-amber-500 to-yellow-600',
   'SITES': 'from-green-500 to-emerald-600',
-  'EVENTS': 'from-purple-500 to-pink-600',
+  'EVENTS': 'from-purple-500 to-[#D21034]',
   'SHOP': 'from-pink-500 to-rose-600',
 };
 
@@ -454,7 +454,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-2xl leading-tight"
           >
-            {t('hero.title')} <span className="bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">{t('hero.titleHighlight')}</span>
+            {t('hero.title')} <span className="bg-gradient-to-r from-blue-400 to-[#D21034] bg-clip-text text-transparent">{t('hero.titleHighlight')}</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: -20 }}
@@ -735,11 +735,8 @@ export default function Home() {
             backgroundImage: `url('https://visithaiti.com/wp-content/uploads/2023/03/beach-Ile-a-Rat-Amiga-Island-cap-haitien-jean-oscar-augustin_hero.jpg')`
           }}
         />
-        {/* Gradient Overlay - Darker for better contrast */}
-        {/* Gradient Overlay - Haiti flag colors */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0038A8]/95 via-blue-500/95 to-[#D21034]/95" />
-        {/* Translucent Veil for better text readability */}
-        <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
+        {/* Gradient Overlay - Haiti flag colors (reduced opacity for visible background) */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0038A8]/85 via-blue-500/85 to-[#D21034]/85" />
 
         <div className="relative max-w-7xl mx-auto z-10">
           <motion.div
