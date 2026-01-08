@@ -31,13 +31,13 @@ const categories = [
   { value: 'SHOP', label: 'Boutiques', icon: ShoppingBag, color: 'from-pink-500 to-rose-500' },
 ];
 
-// Couleurs distinctes pour les boutons catégories - Haiti flag colors
+// Couleurs distinctes pour les boutons catégories
 const categoryColors: Record<string, string> = {
   'RESTAURANT': 'from-orange-500 to-red-600',
-  'HOTEL': 'from-[#0038A8] to-blue-500',
+  'HOTEL': 'from-blue-500 to-cyan-600',
   'CAFE': 'from-amber-500 to-yellow-600',
   'SITES': 'from-green-500 to-emerald-600',
-  'EVENTS': 'from-purple-500 to-[#D21034]',
+  'EVENTS': 'from-purple-500 to-pink-600',
   'SHOP': 'from-pink-500 to-rose-600',
 };
 
